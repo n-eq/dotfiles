@@ -1,0 +1,11 @@
+[user]
+	name = Nabil Elqatib
+	email = nabilelqatib@gmail.com
+[editor]
+	editor=vim
+[diff]
+	renames = true
+[color]
+	ui = auto
+[push]
+	default = current

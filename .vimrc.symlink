@@ -1,0 +1,145 @@
+let mapleader=','
+filetype plugin on
+filetype indent on
+
+" enable file detection
+filetype on 
+
+syntax on 
+
+" matching (, [, { /* ... etc
+set showmatch 
+set mat=1 " how many tens of second to blink 
+
+" show the current filename and path in the term title
+set title
+
+" string to put at the start of lines that have been wrapped
+set showbreak=↪
+set wrap " Wrapline
+
+" show the current filename and path in the term title
+set title
+
+" searching starts as soon as you start typing the first letter of the word
+set incsearch
+
+syntax enable
+set background=dark
+
+" when indenting w/ ">"
+set shiftwidth=8
+"4 espaces = tab
+set tabstop=8
+" set expandtab=4
+
+set ai " Autoindent
+set si " Smartindent
+
+" display line numbers
+set number
+
+" Commenting/Uncommenting blocks of code for different file types
+" w/ <Leader>cc and <Leader>cu
+" souce: http://stackoverflow.com/questions/1676632/whats-a-quick-way-to-comment-uncomment-lines-in-vim#comment27973419_1676672
+autocmd FileType c,cpp,java,scala 	let b:comment_leader = '// '
+autocmd FileType sh,ruby,python   	let b:comment_leader = '# '
+autocmd FileType conf,fstab       	let b:comment_leader = '# '
+autocmd FileType tex              	let b:comment_leader = '% '
+autocmd FileType mail             	let b:comment_leader = '> '
+autocmd FileType vim              	let b:comment_leader = '" '
+autocmd FileType sql			let b:comment_leader = '-- '
+noremap <silent> ,cc :<C-B>silent <C-E>s/^/<C-R>=escape(b:comment_leader,'\/')<CR>/<CR>:nohlsearch<CR>
+noremap <silent> ,cu :<C-B>silent <C-E>s/^\V<C-R>=escape(b:comment_leader,'\/')<CR>//e<CR>:nohlsearch<CR>
+
+" Save a file as root (,W)
+noremap <leader>W :w !sudo tee % > /dev/null<CR>
+
+" ignores these extensions when file-completing 
+set wildignore=*.o,*.obj,*.tar.gz,*.tgz,*.zip,*.pdf,*.sl,*.so,*.r,.git,*.png,*.jpg,*.svg,*.doc,*.gif,*.class
+
+" '\s' to paste a simple cpp header
+" 'F5' to compile the actual cpp file, vsplit the window and output the errors
+" 'F10' to close
+" source: goo.gl/6BJUhU
+" nmap \s i#include<iostream><Esc>ousing namespace std;<Esc>o
+" nmap <F5> :w<CR>:silent !g++ % 2> ~/errors<CR>:redraw!<CR>:rightbelow vsplit ~/errors<CR><C-w>k
+" nmap <F10> :bdelete ~/errors<CR>
+
+"  rot13 encoding when pressing F3, again to decrypt
+map <F3> ggvGg?
+
+nmap <F5> :w<CR>:silent !python % 2> ~/errors<CR>:redraw!<CR>:rightbelow vsplit ~/errors<CR><C-w>k
+nmap <F10> :bdelete ~/errors<CR>
+
+" automaticly closing { brace
+inoremap {<CR> {<CR>}<C-o>O
+		  
+" map nivgation between windows to Alt + <ArrowKey>
+" source: vim.wikia.com/wiki/Switch_between_Vim_window_splits_easily
+nmap <silent> <A-Up> :wincmd k<CR>
+nmap <silent> <A-Down> :wincmd j<CR>
+nmap <silent> <A-Left> :wincmd h<CR>
+nmap <silent> <A-Right> :wincmd l<CR>
+
+:map <C-X> :w !wc<CR>
+:map <C-Z> <ESC>u
+
+colorscheme default
+" map jgs mawv/ <CR>"ty/ <CR>wvwh"ny/getters<CR>$a<CR><CR><Esc>xxapublic<Esc>"tpa<Esc>"npbiget<Esc>l~ea()<CR>{<CR><Tab>return<Esc>"npa;<CR>}<Esc>=<CR><Esc>/setters<CR>$a<CR><CR><Esc>xxapublic void<Esc>"npbiset<Esc>l~ea(<Esc>"tpa <Esc>"npa)<CR>{<CR><Tab>this.<Esc>"npa=<Esc>"npa;<CR>}<Esc>=<CR>`ak
+
+" default the statusline to green when entering Vim
+hi statusline guibg=DarkGrey ctermfg=8 guifg=White ctermbg=15
+
+set statusline=%F                           " file name
+" set statusline+=\ \ [%{strlen(&fenc)?&fenc,:''} "file encoding
+set statusline+=\ \ [%{&ff}] "file format
+set statusline+=%y      "filetype
+set statusline+=%h      "help file flag
+set statusline+=%m      "modified flag
+set statusline+=%r      "read only flag
+set statusline+=\ %=                        " align left
+set statusline+=Line:%l/%L[%p%%]            " line X of Y [percent of file]
+set statusline+=\ Col:%c                    " current column
+set statusline+=\ [0x%B]\               " ASCII and byte code under cursor
+set laststatus=2
+
+" auto correct frequent typos
+iabbrev dispaly display
+iabbrev adn and
+iabbrev nad and
+iabbrev teh the
+iabbrev het the
+iabbrev ehty they
+iabbrev hety they
+iabbrev tehn then
+iabbrev waht what
+iabbrev THen Then
+iabbrev THe The
+iabbrev ANd And
+iabbrev WHen When
+iabbrev HOw How
+iabbrev WHy Why
+iabbrev THis This
+iabbrev thsi this
+iabbrev Thsi This
+iabbrev THere There
+iabbrev THey They
+iabbrev RIce Rice
+iabbrev countires countries
+iabbrev governmetn government
+iabbrev minumum minimum
+iabbrev dependece dependence
+iabbrev smae same
+iabbrev THus Thus
+iabbrev SLECT SELECT
+iabbrev SELCT SELECT
+
+" google the word under the cursor
+nmap <leader>g :call Google()<CR>
+fun! Google()
+	let keyword = expand("<cword>")
+	let url = "http://www.google.com/search?q=" . keyword
+	let path = "/usr/bin/google-chrome"
+	exec "silent !" . path . ' ' . url
+endfun
