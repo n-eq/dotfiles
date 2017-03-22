@@ -30,7 +30,7 @@ install(){
 			skip_all=false
 
 			if [ "$overwrite_all" == "false" ] && [ "$backup_all" == "false" ] && [ "$skip_all" == "false" ]; then
-				echo "File already exists: $(basename "$symlink_file"), do you want to?"
+				printf "File \033[00;34m$(basename "$symlink_file")\033[0m already exists, do you want to?"
 				echo "[s]kip, [S]kip all, [o]verwrite, [O]verwrite all, [b]ackup, [B]ackup all?"
 
 				read -rn 1 action
