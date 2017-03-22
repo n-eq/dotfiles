@@ -2,6 +2,9 @@ let mapleader=','
 filetype plugin on
 filetype indent on
 
+" Ignore these extensions when file-completing 
+set wildignore=*.o,*.obj,*.tar.gz,*.tgz,*.zip,*.pdf,*.sl,*.so,*.r,.git,*.png,*.jpg,*.svg,*.doc,*.gif,*.class
+
 " enable file detection
 filetype on 
 
@@ -54,9 +57,6 @@ noremap <silent> ,cu :<C-B>silent <C-E>s/^\V<C-R>=escape(b:comment_leader,'\/')<
 
 " Save a file as root (,W)
 noremap <leader>W :w !sudo tee % > /dev/null<CR>
-
-" ignores these extensions when file-completing 
-set wildignore=*.o,*.obj,*.tar.gz,*.tgz,*.zip,*.pdf,*.sl,*.so,*.r,.git,*.png,*.jpg,*.svg,*.doc,*.gif,*.class
 
 " '\s' to paste a simple cpp header
 " 'F5' to compile the actual cpp file, vsplit the window and output the errors
