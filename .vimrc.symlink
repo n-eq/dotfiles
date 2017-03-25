@@ -17,6 +17,10 @@ set mat=1 " how many tens of second to blink
 " show the current filename and path in the term title
 set title
 
+" Write the contents of the file, if it has been modified, on each
+" :next, :rewind, :last, :first, :previous, :stop, :suspend, :!, :make .. etc
+:set autowrite
+
 " string to put at the start of lines that have been wrapped
 set showbreak=↪
 set wrap " Wrapline
@@ -82,15 +86,10 @@ nmap <silent> <A-Down> :wincmd j<CR>
 nmap <silent> <A-Left> :wincmd h<CR>
 nmap <silent> <A-Right> :wincmd l<CR>
 
-:map <C-X> :w !wc<CR>
-:map <C-Z> <ESC>u
-
 colorscheme default
-" map jgs mawv/ <CR>"ty/ <CR>wvwh"ny/getters<CR>$a<CR><CR><Esc>xxapublic<Esc>"tpa<Esc>"npbiget<Esc>l~ea()<CR>{<CR><Tab>return<Esc>"npa;<CR>}<Esc>=<CR><Esc>/setters<CR>$a<CR><CR><Esc>xxapublic void<Esc>"npbiset<Esc>l~ea(<Esc>"tpa <Esc>"npa)<CR>{<CR><Tab>this.<Esc>"npa=<Esc>"npa;<CR>}<Esc>=<CR>`ak
 
 " default the statusline to green when entering Vim
 hi statusline guibg=DarkGrey ctermfg=8 guifg=White ctermbg=15
-
 set statusline=%F                           " file name
 " set statusline+=\ \ [%{strlen(&fenc)?&fenc,:''} "file encoding
 set statusline+=\ \ [%{&ff}] "file format
@@ -104,37 +103,6 @@ set statusline+=\ Col:%c                    " current column
 set statusline+=\ [0x%B]\               " ASCII and byte code under cursor
 set laststatus=2
 
-" auto correct frequent typos
-iabbrev dispaly display
-iabbrev adn and
-iabbrev nad and
-iabbrev teh the
-iabbrev het the
-iabbrev ehty they
-iabbrev hety they
-iabbrev tehn then
-iabbrev waht what
-iabbrev THen Then
-iabbrev THe The
-iabbrev ANd And
-iabbrev WHen When
-iabbrev HOw How
-iabbrev WHy Why
-iabbrev THis This
-iabbrev thsi this
-iabbrev Thsi This
-iabbrev THere There
-iabbrev THey They
-iabbrev RIce Rice
-iabbrev countires countries
-iabbrev governmetn government
-iabbrev minumum minimum
-iabbrev dependece dependence
-iabbrev smae same
-iabbrev THus Thus
-iabbrev SLECT SELECT
-iabbrev SELCT SELECT
-
 " google the word under the cursor
 nmap <leader>g :call Google()<CR>
 fun! Google()
@@ -143,3 +111,7 @@ fun! Google()
 	let path = "/usr/bin/google-chrome"
 	exec "silent !" . path . ' ' . url
 endfun
+
+" indentation guides/lines
+" :set listchars=tab:\|\ 
+" :set list

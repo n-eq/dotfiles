@@ -1,7 +1,9 @@
 # temporary aliases:
 alias aod='cd ~/2A/Projets/aod'
-alias bdco='cd ~/2A/Projets/bcdo'
+alias bdco='cd ~/2A/Projets/bdco'
 
+# alias whattimesisit='echo "Its $(date +%M) past $(date +%H)"|espeak &'
+alias gitstats='python ~/github/gitstats/gitstats'
 alias upload='~/github/upload/upload.sh'
 alias capitals='~/github/capitals/capitals.sh'
 alias cdp='cd ~/2A/Projets/psys'
@@ -24,7 +26,6 @@ alias cp='cp -vi' # verbose + interactive
 alias rm='rm -i' 
 alias mv='mv -i'
 alias vim='/usr/bin/viim.sh'
-alias dotfiles='cd ~/.dotfiles'
 
 # Add an "alert" alias for long running commands.  Use like so:
 #   sleep 10; alert
