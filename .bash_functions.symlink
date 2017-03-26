@@ -1,0 +1,54 @@
+whattimeisit(){
+	m=$(date +%M)
+	h=$(date +%H)
+	if [ "$h" -eq 0 ]; then
+		hour="midnight"
+	fi
+	if [ "$m" -eq 15 ]; then
+		current_time="It's quarter past $h"
+	elif [ "$m" -eq 30 ]; then
+		current_time="It's half past $h"
+	elif [ "$m" -eq 45 ]; then
+		current_time="It's quarter to $(($h + 1))"
+	else 
+		current_time="It's $m past $h"
+	fi
+	echo "$current_time"| espeak &
+}
+
+espanol(){
+	if [ "$#" -eq 0 ]; then
+		more ~/espanol.txt
+	else 
+		# test if the word is not previously defined
+		if ! grep -q "^$1" ~/espanol.txt ; then 
+			echo "$1: ${@:2}" >> ~/espanol.txt
+		else 
+			grep "^$1" ~/espanol.txt --color=auto
+		fi
+	fi
+}
+
+# git pull in all existing repositories
+pull_all(){
+	wc=$(pwd)
+	repos=(`find ~ -name '*.git'`)
+	for repo in "${repos[@]}"; do
+		repo=$(echo "$repo"| sed -e 's/\.git//g')
+		printf "\033[00;32m$repo\033[0m ... "
+		cd && cd "$repo" && git pull 2> /dev/null|grep -v "Already up-to-date"
+		if [ "$?" -ne 0 ]; then
+			echo ""
+		fi
+	done
+	cd "$wd"
+}
+
+klit(){
+	if [ "$#" -eq 0 ]; then
+		sed '1!G;h;$!d' ~/.achkliti |more
+	else 
+		echo "[$(date| sed -e 's/ (.*//g')] $@" >> ~/.achkliti
+	fi
+}
+
