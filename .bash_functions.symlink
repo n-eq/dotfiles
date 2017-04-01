@@ -15,7 +15,7 @@ whattimeisit(){
 	else 
 		current_time="It's $m past $h"
 	fi
-	echo "$current_time"| espeak &
+	echo "$current_time"| espeak 
 }
 
 espanol(){
@@ -54,3 +54,6 @@ klit(){
 	fi
 }
 
+purge(){
+	rm -rfv "$1"
+}
