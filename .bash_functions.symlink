@@ -1,3 +1,5 @@
+# .bash_functions
+
 whattimeisit(){
 	m=$(date +%M)
 	h=$(date +%H)

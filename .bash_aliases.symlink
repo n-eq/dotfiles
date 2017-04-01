@@ -1,8 +1,8 @@
 # temporary aliases:
 alias aod='cd ~/2A/Projets/aod'
 alias bdco='cd ~/2A/Projets/bdco'
+alias chrono='cd ~/github/chronogram-editor'
 
-# alias whattimesisit='echo "Its $(date +%M) past $(date +%H)"|espeak &'
 alias gitstats='python ~/github/gitstats/gitstats'
 alias upload='~/github/upload/upload.sh'
 alias capitals='~/github/capitals/capitals.sh'
@@ -21,10 +21,10 @@ alias ensix='ssh -X elqatibn@pcserveur.ensimag.fr'
 alias depots='ssh elqatibn@depots.ensimag.fr'
 alias ls='ls -lh --color=auto '
 alias l='ls -lF --color=auto'
-alias la='ls -lA'
+alias ll='ls -lA'
 alias cp='cp -vi' # verbose + interactive
 alias rm='rm -i' 
-alias mv='mv -i'
+alias aliases='vim ~/.bash_aliases'
 alias vim='/usr/bin/viim.sh'
 
 # Add an "alert" alias for long running commands.  Use like so:

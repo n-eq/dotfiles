@@ -24,9 +24,8 @@ PROMPT_DIRTRIM=3
 # credits to: https://coderwall.com/p/fasnya/add-git-branch-name-to-bash-prompt
 parse_git_branch() {
 	git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
-	
 }
-export PS1="\u@\h:\[\033[97m\]\w\[\033[36m\]\$(parse_git_branch)\[\033[00m\]$ "
+export PS1="\u:\[\033[97m\]\w\[\033[36m\]\$(parse_git_branch)\[\033[00m\]$ "
 
 # duplicate command lines
 export HISTIGNORE=ignoreboth:erasedups
@@ -77,4 +76,5 @@ export LD_LIBRARY_PATH=/opt/oracle/instantclient_12_1/
 
 PATH=~/github/weatherspeaker:"$PATH"
 PATH=~/github/blablacar:"$PATH"
+PATH=~/github/Dropbox-Uploader:"$PATH"
 
