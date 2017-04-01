@@ -57,3 +57,12 @@ klit(){
 purge(){
 	rm -rfv "$1"
 }
+
+backitup(){
+	cd ~
+	backup_time=$(date +%d%B%y)
+	if [ -f ".backups/backup_$backup_time.tar.gz" ]; then
+		rm -f ".backups/$backup_time.tar.gz"
+	fi
+	tar -zcf ".backups/backup_$backup_time.tar.gz" $(ls ~) >>/dev/null 2>&1 && dropbox_uploader.sh upload ".backups/backup_$backup_time.tar.gz" debian_backups
+}
