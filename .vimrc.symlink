@@ -142,3 +142,4 @@ iabbrev THus Thus
 iabbrev SLECT SELECT
 iabbrev SELCT SELECT
 iabbrev pakcage package
+iabbrev retunr return
