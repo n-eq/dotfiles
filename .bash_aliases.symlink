@@ -3,6 +3,7 @@ alias aod='cd ~/2A/Projets/aod'
 alias bdco='cd ~/2A/Projets/bdco'
 alias chrono='cd ~/github/chronogram-editor'
 
+alias offers='python ~/github/letudiant-offers-scrapper/main.py'
 alias gitstats='python ~/github/gitstats/gitstats'
 alias upload='~/github/upload/upload.sh'
 alias capitals='~/github/capitals/capitals.sh'
