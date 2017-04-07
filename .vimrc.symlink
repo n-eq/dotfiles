@@ -142,3 +142,9 @@ iabbrev SELCT SELECT
 iabbrev pakcage package
 iabbrev	impotr import
 iabbrev retunr return
+
+" Source the vimrc file after saving it
+autocmd BufWritePost $MYVIMRC source $MYVIMRC
+
+" force *.md files as markdown
+autocmd BufNewFile,BufReadPost *.md set filetype=markdown
