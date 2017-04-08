@@ -148,3 +148,6 @@ autocmd BufWritePost $MYVIMRC source $MYVIMRC
 
 " force *.md files as markdown
 autocmd BufNewFile,BufReadPost *.md set filetype=markdown
+
+set undofile
+set undodir=~/.vim/undodir
