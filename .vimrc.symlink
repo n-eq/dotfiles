@@ -76,7 +76,7 @@ nmap <F10> :bdelete ~/errors<CR>
 
 " automaticly closing { brace
 inoremap {<CR> {<CR>}<C-o>O
-		  
+
 " map nivgation between windows to Alt + <ArrowKey>
 " source: vim.wikia.com/wiki/Switch_between_Vim_window_splits_easily
 nmap <silent> <A-Up> :wincmd k<CR>
@@ -147,7 +147,37 @@ iabbrev retunr return
 autocmd BufWritePost $MYVIMRC source $MYVIMRC
 
 " force *.md files as markdown
-autocmd BufNewFile,BufReadPost *.md set filetype=markdown
+autocmd BufNewFile,BufReadPost,BufRead *.md set filetype=markdown
+
 
 set undofile
 set undodir=~/.vim/undodir
+
+let g:ctags_path="~/.vim/plugin"
+let g:ctags_statusline=1
+highlight ColorColumn ctermfg=208 ctermbg=Black
+
+" Adapted from Damian Conway's vimrc file: https://github.com/thoughtstream/Damian-Conway-s-Vim-Setup/blob/master/.vimrc
+" ====[ Show when lines extend past column 80]=================================>-<=====================
+highlight ColorColumn ctermfg=208 ctermbg=Black
+
+function! MarkMargin (on)
+	if exists('b:MarkMargin')
+		try
+			call matchdelete(b:MarkMargin)
+		catch /./
+		endtry
+		unlet b:MarkMargin
+	endif
+	if a:on
+		let b:MarkMargin = matchadd('ColorColumn', '\%81v\s*\S', 100)
+	endif
+endfunction
+
+augroup MarkMargin
+	autocmd!
+	autocmd  BufEnter  *       :call MarkMargin(1)
+	autocmd  BufEnter  *.vp*   :call MarkMargin(0)
+augroup END
+"===============================>-<=====================
+
