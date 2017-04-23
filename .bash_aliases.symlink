@@ -5,7 +5,7 @@ alias chrono='cd ~/github/chronogram-editor'
 alias cdp='cd ~/2A/Projets/psys'
 alias dotfiles='cd ~/.dotfiles'
 
-alias offers='python ~/github/letudiant-offers-scrapper/main.py'
+alias offers='python ~/github/letudiant-offers-scrapper/offer-scrapper/main.py'
 alias gitstats='python ~/github/gitstats/gitstats'
 alias upload='~/github/upload/upload.sh'
 alias capitals='~/github/capitals/capitals.sh'
