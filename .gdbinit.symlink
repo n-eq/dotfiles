@@ -1,4 +1,5 @@
 set auto-load safe-path ~/2A/4MMPCSEF/src_de_base/.gdbinit
+set auto-load safe-path ~/2A/Projets/psys/kernel
 
 # use colorized output or not
 set $USECOLOR = 1
