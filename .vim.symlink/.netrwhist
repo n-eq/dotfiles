@@ -1,7 +1,2 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =5
-let g:netrw_dirhist_1='/home/marrakchino/.git-credential-cache'
-let g:netrw_dirhist_2='/home/marrakchino/2A/Projets/psys/.git'
-let g:netrw_dirhist_3='/var/log'
-let g:netrw_dirhist_4='/home/marrakchino/2A/Projets/bdco/larnys/src/core'
-let g:netrw_dirhist_5='/home/marrakchino/2A/Projets/bdco/larnys/src/domain'
+let g:netrw_dirhist_cnt =0

@@ -1,4 +1,0 @@
-0000000000000000000000000000000000000000 3b88e576c723a7a5df45da8b41212a5e44d0f71f Nabil Elqatib <nabilelqatib@gmail.com> 1489784189 +0100	clone: from http://github.com/marrakchino/dotfiles
-3b88e576c723a7a5df45da8b41212a5e44d0f71f 9321421267d7b9767de1b3f3d80388733070b0fc Nabil Elqatib <nabilelqatib@gmail.com> 1489788556 +0100	commit: created setup script to copy config files
-9321421267d7b9767de1b3f3d80388733070b0fc e8a65dab1f3cece695280518c92b0da73ce66968 Nabil Elqatib <nabilelqatib@gmail.com> 1489789432 +0100	commit: added dotfiles alias
-e8a65dab1f3cece695280518c92b0da73ce66968 0f2a91ff35e9616dfe9e5ccf993c08fed6e1e3a1 Nabil Elqatib <nabilelqatib@gmail.com> 1489789463 +0100	commit: Added info in README
