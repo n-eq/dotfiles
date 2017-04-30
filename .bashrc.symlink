@@ -72,7 +72,6 @@ PATH=$HOME/2A/Projets/Projet_GL/src/test/script:"$PATH"
 PATH=$HOME/2A/Projets/Projet_GL/src/test/script/launchers:"$PATH"
 PATH=$HOME/2A/Projets/Projet_GL/global/bin:"$PATH"
 export PATH
-export LD_LIBRARY_PATH=/opt/oracle/instantclient_12_1/
 
 PATH=~/github/weatherspeaker:"$PATH"
 PATH=~/github/blablacar:"$PATH"

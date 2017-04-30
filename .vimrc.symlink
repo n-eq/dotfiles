@@ -144,7 +144,7 @@ iabbrev	impotr import
 iabbrev retunr return
 
 " Java abreviation for System.out.println
-iabbr sysout System.out.println("
+iabbr sysout System.out.println("");<esc>2hi
 
 " Source the vimrc file after saving it
 autocmd BufWritePost $MYVIMRC source $MYVIMRC
