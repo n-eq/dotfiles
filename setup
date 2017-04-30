@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
 
 # This script was highly inspired by this repository: https://github.com/fs/dotfiles
+# It allows the user to copy the configuration files in this repository to their local
+# machine: they can choose to overwrite their local configuration files with the new ones,
+# keep them as are, or back them up.
 
 DOTFILES_PATH="~/.dotfiles"
 
