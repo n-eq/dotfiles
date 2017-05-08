@@ -66,3 +66,15 @@ backitup(){
 	fi
 	tar -zcf ".backups/backup_$backup_time.tar.gz" $(ls ~) >>/dev/null 2>&1 && dropbox_uploader.sh upload ".backups/backup_$backup_time.tar.gz" debian_backups
 }
+
+# Swap two file names: $1 and $2
+swap(){
+	mv "$1" "$1_tmp"
+	mv "$2" "$1"
+	mv "$1_tmp" "$2"
+}
+
+# $1: repository name on github
+clone_my_repo(){
+	git clone "https://github.com/marrakchino/$1"
+}
