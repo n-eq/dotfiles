@@ -78,3 +78,15 @@ swap(){
 clone_my_repo(){
 	git clone "https://github.com/marrakchino/$1"
 }
+
+# Find the max of a list of integers
+# $1, ..., $n integers
+max(){
+	for number in "$@"; do echo "$number"; done| sort -nr| head -n 1
+}
+
+# Find the min of a list of integers
+# $1, ..., $n integers
+min(){
+	for number in "$@"; do echo "$number"; done| sort -nr| tail -n 1
+}
