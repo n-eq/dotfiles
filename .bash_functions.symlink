@@ -88,5 +88,5 @@ max(){
 # Find the min of a list of integers
 # $1, ..., $n integers
 min(){
-	for number in "$@"; do echo "$number"; done| sort -nr| tail -n 1
+	for number in "$@"; do echo "$number"; done| sort -n| head -n 1
 }
