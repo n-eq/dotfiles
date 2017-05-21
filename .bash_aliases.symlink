@@ -1,8 +1,4 @@
 # temporary aliases:
-alias aod='cd ~/2A/Projets/aod'
-alias bdco='cd ~/2A/Projets/bdco'
-alias chrono='cd ~/github/chronogram-editor'
-alias cdp='cd ~/2A/Projets/psys'
 alias dotfiles='cd ~/.dotfiles'
 
 alias offers='python ~/github/letudiant-offers-scrapper/offer-scrapper/main.py'
