@@ -47,13 +47,13 @@ set number
 " Commenting/Uncommenting blocks of code for different file types
 " w/ <Leader>cc and <Leader>cu
 " souce: http://stackoverflow.com/questions/1676632/whats-a-quick-way-to-comment-uncomment-lines-in-vim#comment27973419_1676672
-autocmd FileType c,cpp,java,scala 	let b:comment_leader = '// '
-autocmd FileType sh,ruby,python   	let b:comment_leader = '# '
-autocmd FileType conf,fstab       	let b:comment_leader = '# '
-autocmd FileType tex              	let b:comment_leader = '% '
-autocmd FileType mail             	let b:comment_leader = '> '
-autocmd FileType vim               	let b:comment_leader = '" '
-autocmd FileType sql			let b:comment_leader = '-- '
+autocmd FileType c,cpp,java,scala 	          let b:comment_leader = '// '
+autocmd FileType sh,ruby,python   	          let b:comment_leader = '# '
+autocmd FileType conf,fstab,make       	          let b:comment_leader = '# '
+autocmd FileType tex              	          let b:comment_leader = '% '
+autocmd FileType mail             	          let b:comment_leader = '> '
+autocmd FileType vim               	          let b:comment_leader = '" '
+autocmd FileType sql			          let b:comment_leader = '-- '
 noremap <silent> ,cc :<C-B>silent <C-E>s/^/<C-R>=escape(b:comment_leader,'\/')<CR>/<CR>:nohlsearch<CR>
 noremap <silent> ,cu :<C-B>silent <C-E>s/^\V<C-R>=escape(b:comment_leader,'\/')<CR>//e<CR>:nohlsearch<CR>
 
@@ -144,6 +144,8 @@ iabbrev SELCT SELECT
 iabbrev pakcage package
 iabbrev	impotr import
 iabbrev retunr return
+iabbrev catiexp Centre Aquitain des Technologies de l'Information et Electroniques
+iabbrev Catiexp Centre Aquitain des Technologies de l'Information et Electroniques
 
 " Java abreviation for System.out.println
 iabbr sysout System.out.println("");<esc>2hi
@@ -165,7 +167,6 @@ highlight ColorColumn ctermfg=208 ctermbg=Black
 " Adapted from Damian Conway's vimrc file: https://github.com/thoughtstream/Damian-Conway-s-Vim-Setup/blob/master/.vimrc
 " ====[ Show when lines extend past column 80]=================================>-<=====================
 highlight ColorColumn ctermfg=208 ctermbg=Black
-
 function! MarkMargin (on)
 	if exists('b:MarkMargin')
 		try
@@ -188,3 +189,8 @@ augroup END
 
 " Load local .vimrc
 set exrc
+
+" TeX mappings
+inoremap <C-i> \emph{}<esc>i 
+inoremap <C-b> \textbf{}<esc>i
+inoremap <C-u> \underline{}<esc>i
