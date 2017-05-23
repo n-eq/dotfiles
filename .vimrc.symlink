@@ -3,7 +3,7 @@ filetype plugin on
 filetype indent on
 
 " Ignore these extensions when file-completing 
-set wildignore=*.o,*.obj,*.tar.gz,*.tgz,*.zip,*.pdf,*.sl,*.so,*.r,.git,*.png,*.jpg,*.svg,*.doc,*.gif,*.class,*.exe
+set wildignore=*.o,*.obj,*.tar.gz,*.tgz,*.zip,*.pdf,*.sl,*.so,*.r,.*git,*.png,*.jpg,*.svg,*.doc,*.gif,*.class,*.exe,*.sw?,*.pyc,*.orig,*.aux,*.toc,*.out
 
 " enable file detection
 filetype on 
@@ -160,6 +160,7 @@ autocmd BufNewFile,BufReadPost,BufRead *.md set filetype=markdown
 set undofile
 set undodir=~/.vim/undodir
 
+" ??
 let g:ctags_path="~/.vim/plugin"
 let g:ctags_statusline=1
 highlight ColorColumn ctermfg=208 ctermbg=Black
@@ -187,10 +188,13 @@ augroup MarkMargin
 augroup END
 "===============================>-<=====================
 
-" Load local .vimrc
+" Load local .vimrc, if existing
 set exrc
 
 " TeX mappings
 inoremap <C-i> \emph{}<esc>i 
 inoremap <C-b> \textbf{}<esc>i
 inoremap <C-u> \underline{}<esc>i
+
+" Custom colorscheme for LaTeX files
+autocmd BufEnter *.tex colorscheme slate
