@@ -89,19 +89,20 @@ min(){
 # automatic 'git push', requires access without password to the repository
 # When provided, $1 contains the path to the local git repository. 
 # Otherwise, assume it is the cwd.
+# TODO: factor code
 autopush(){
 	if [[ "$#" -eq 0 ]]; then
 		if [[ ! -d '.git' ]]; then
 			echo "Not a git directory." && exit
 		else
-			git commit -a -m "[autopush] $(date +%d %B %y - %H:%M)" && git push
+			git commit -a -m "[autopush] $(date "+%d %B %y - %H:%M")" && git push
 		fi
 	else
 		cd "$1"
 		if [[ ! -d '.git' ]]; then
 			echo "Not a git directory." && exit
 		else
-			git commit -a -m "[autopush] $(date +%d %B %y - %H-%M)" && git push
+			git commit -a -m "[autopush] $("date +%d %B %y - %H-%M")" && git push
 		fi
 		cd -
 	fi
