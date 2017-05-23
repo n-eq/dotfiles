@@ -146,7 +146,6 @@ iabbrev	impotr import
 iabbrev retunr return
 iabbrev catiexp Centre Aquitain des Technologies de l'Information et Electroniques
 iabbrev Catiexp Centre Aquitain des Technologies de l'Information et Electroniques
-
 " Java abreviation for System.out.println
 iabbr sysout System.out.println("");<esc>2hi
 
@@ -155,7 +154,6 @@ autocmd BufWritePost $MYVIMRC source $MYVIMRC
 
 " force *.md files as markdown
 autocmd BufNewFile,BufReadPost,BufRead *.md set filetype=markdown
-
 
 set undofile
 set undodir=~/.vim/undodir
@@ -198,3 +196,12 @@ inoremap <C-u> \underline{}<esc>i
 
 " Custom colorscheme for LaTeX files
 autocmd BufEnter *.tex colorscheme slate
+
+" Return to the same line when you re-open a file, credits to Steve Losh (to Amit, in fact)
+augroup line_return
+	au!
+	au BufReadPost *
+				\ if line("'\"") > 0 && line("'\"") <= line("$") |
+				\     execute 'normal! g`"zvzz' |
+				\ endif
+augroup END
