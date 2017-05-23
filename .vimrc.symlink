@@ -190,7 +190,7 @@ augroup END
 set exrc
 
 " TeX mappings
-inoremap <C-i> \emph{}<esc>i 
+" inoremap <C-i> \emph{}<esc>i 
 inoremap <C-b> \textbf{}<esc>i
 inoremap <C-u> \underline{}<esc>i
 

@@ -1,30 +1,32 @@
 # temporary aliases:
+
+alias cls='clear'
 alias dotfiles='cd ~/.dotfiles'
-
-alias offers='python ~/github/letudiant-offers-scrapper/offer-scrapper/main.py'
-alias gitstats='python ~/github/gitstats/gitstats'
-alias upload='~/github/upload/upload.sh'
-alias capitals='~/github/capitals/capitals.sh'
-
+alias cds='cd ~/stage-2A'
 alias ..='cd ..'
 alias ...='cd ../..'
 alias ....='cd ../../..'
-alias vrc='vim ~/.vimrc'
-alias brc='vim ~/.bashrc'
 alias tmp='cd ~/tmp'
 alias github='cd ~/github'
 alias git='LANG=en_US git'
-alias cls='clear'
+
+alias vrc='vim ~/.vimrc'
+alias brc='vim ~/.bashrc'
+alias aliases='vim ~/.bash_aliases'
+alias functions='vim ~/.bash_functions'
+
+alias miniterm='miniterm.py'
+
 alias ensi='ssh elqatibn@pcserveur.ensimag.fr'
 alias ensix='ssh -X elqatibn@pcserveur.ensimag.fr'
 alias depots='ssh elqatibn@depots.ensimag.fr'
+
 alias ls='ls -lh --color=auto '
 alias l='ls -lF --color=auto'
 alias ll='ls -lA'
 alias cp='cp -vi' # verbose + interactive
 alias rm='rm -i' 
 alias mkr='make clean && make && make run'
-alias aliases='vim ~/.bash_aliases'
 # alias vim='/usr/bin/viim.sh'
 
 # Add an "alert" alias for long running commands.  Use like so:

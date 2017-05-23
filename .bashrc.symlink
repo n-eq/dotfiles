@@ -20,8 +20,12 @@ if [ -f ~/.bash_functions ]; then
 	. ~/.bash_functions
 fi
 
-if [ -f ~/github/kacm/kacm.sh ]; then
-	ping -q -w 1 -c 1 `ip r | grep default | cut -d ' ' -f 3` > /dev/null && . ~/github/kacm/kacm.sh
+if [ -f ~/.bash_profile ]; then
+	. ~/.bash_profile
+fi
+
+if [ -f ~/Perso/kacm/kacm.sh ]; then
+	ping -q -w 1 -c 1 `ip r | grep default | cut -d ' ' -f 3` > /dev/null && . ~/Perso/kacm/kacm.sh
 fi
 
 PROMPT_DIRTRIM=3
