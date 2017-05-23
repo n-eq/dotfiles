@@ -1,3 +1,4 @@
 .vim.symlink/undodir/*
+.vim.symlink/.netrwhist
 .gitignore
 

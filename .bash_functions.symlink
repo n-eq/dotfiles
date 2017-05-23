@@ -94,14 +94,14 @@ autopush(){
 		if [[ ! -d '.git' ]]; then
 			echo "Not a git directory." && exit
 		else
-			git commit -a -m "[autopush] $(date +%d%B%y)" && git push
+			git commit -a -m "[autopush] $(date +%d %B %y)" && git push
 		fi
 	else
 		cd "$1"
 		if [[ ! -d '.git' ]]; then
 			echo "Not a git directory." && exit
 		else
-			git commit -a -m "[autopush] $(date +%d%B%y)" && git push
+			git commit -a -m "[autopush] $(date +%d %B %y)" && git push
 		fi
 		cd -
 	fi
