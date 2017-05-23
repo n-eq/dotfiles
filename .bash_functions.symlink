@@ -86,14 +86,14 @@ min(){
 	for number in "$@"; do echo "$number"; done| sort -n| head -n 1
 }
 
-# automatic 'git push', requires access without password to the repository
+# automatic 'git push', requires access without password to the repository.
 # When provided, $1 contains the path to the local git repository. 
 # Otherwise, assume it is the cwd.
 # TODO: factor code
 autopush(){
 	if [[ "$#" -eq 0 ]]; then
 		if [[ ! -d '.git' ]]; then
-			echo "Not a git directory." && exit
+			echo "$(pwd) Not a git directory." && return
 		else
 			commit_message=$(date "+%d %B %y - %H:%M")
 			git commit -a -m "[autopush] ${commit_message}" && git push
@@ -101,7 +101,7 @@ autopush(){
 	else
 		cd "$1"
 		if [[ ! -d '.git' ]]; then
-			echo "Not a git directory." && exit
+			echo "$1: Not a git directory." && cd - && return
 		else
 			commit_message=$(date "+%d %B %y - %H:%M")
 			git commit -a -m "[autopush] ${commit_message}" && git push
