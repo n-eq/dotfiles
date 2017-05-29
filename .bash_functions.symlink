@@ -99,6 +99,7 @@ autopush(){
 		commit_message=$(date "+%d %B %y - %H:%M")
 		git commit -a -m "[autopush] ${commit_message}" && git push
 	fi
+	[[ "$?" -eq 0 ]] && echo "autopush done successfully."
 	if [[ "$#" -eq 1 ]]; then
 		cd -
 	fi

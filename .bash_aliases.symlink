@@ -1,13 +1,17 @@
 # temporary aliases:
 
 alias cls='clear'
+
 alias dotfiles='cd ~/.dotfiles'
 alias cds='cd ~/stage-2A'
 alias ..='cd ..'
 alias ...='cd ../..'
 alias ....='cd ../../..'
+alias .....='cd ../../../..'
 alias tmp='cd ~/tmp'
 alias github='cd ~/github'
+alias cd96='cd ~/app-template.git/mbed-os/targets/TARGET_STM/TARGET_STM32L4/TARGET_STM32L496xG/'
+
 alias git='LANG=en_US git'
 
 alias vrc='vim ~/.vimrc'
