@@ -10,7 +10,7 @@ alias ....='cd ../../..'
 alias .....='cd ../../../..'
 alias tmp='cd ~/tmp'
 alias github='cd ~/github'
-alias cd96='cd ~/app-template.git/mbed-os/targets/TARGET_STM/TARGET_STM32L4/TARGET_STM32L496xG/'
+alias cd96='cd ~/app-template.git/mbed-os/targets/TARGET_STM/TARGET_STM32L4/TARGET_STM32L496xG/TARGET_NUCLEO_L496ZG'
 
 alias git='LANG=en_US git'
 

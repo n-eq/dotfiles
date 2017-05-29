@@ -97,7 +97,7 @@ autopush(){
 		echo "$(pwd) Not a git directory." && return
 	else
 		commit_message=$(date "+%d %B %y - %H:%M")
-		git commit -a -m --quiet "[autopush] ${commit_message}" && git push --quiet
+		git commit -a -m "[autopush] ${commit_message}" && git push --quiet
 	fi
 	[[ "$?" -eq 0 ]] && echo "autopush done successfully."
 	if [[ "$#" -eq 1 ]]; then
