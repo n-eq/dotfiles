@@ -1,7 +1,6 @@
 [user]
 	name = Nabil Elqatib
-	email = nabilelqatib@gmail.com
-	mail = n.elqatib@catie.fr
+	email = n.elqatib@catie.fr
 [editor]
 	editor=vim
 [diff]
