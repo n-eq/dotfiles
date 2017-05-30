@@ -9,3 +9,5 @@
 	ui = auto
 [push]
 	default = current
+[alias]
+	pull = pull --ff-only

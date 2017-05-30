@@ -3,7 +3,7 @@ filetype plugin on
 filetype indent on
 
 " Ignore these extensions when file-completing 
-set wildignore=*.o,*.obj,*.tar.gz,*.tgz,*.zip,*.pdf,*.sl,*.so,*.r,.*git,*.png,*.jpg,*.svg,*.doc,*.gif,*.class,*.exe,*.sw?,*.pyc,*.orig,*.aux,*.toc,*.out
+set wildignore=*.o,*.obj,*.tar.gz,*.tgz,*.zip,*.pdf,*.sl,*.so,*.r,*.git,*.png,*.jpg,*.svg,*.doc,*.gif,*.class,*.exe,*.sw?,*.py?,*.orig,*.aux,*.toc,*.out,*.aux
 
 " enable file detection
 filetype on 
@@ -167,6 +167,10 @@ highlight ColorColumn ctermfg=208 ctermbg=Black
 " ====[ Show when lines extend past column 80]=================================>-<=====================
 highlight ColorColumn ctermfg=208 ctermbg=Black
 function! MarkMargin (on)
+	" Don't put the 80 column marker for these filetypes
+	if &ft =~ 'tex\|markdown\|vim'
+		return 
+	endif
 	if exists('b:MarkMargin')
 		try
 			call matchdelete(b:MarkMargin)
@@ -195,7 +199,7 @@ inoremap <C-b> \textbf{}<esc>i
 inoremap <C-u> \underline{}<esc>i
 
 " Custom colorscheme for LaTeX files
-autocmd BufEnter *.tex colorscheme slate
+" autocmd BufEnter *.tex colorscheme slate
 
 " Return to the same line when you re-open a file, credits to Steve Losh (to Amit, in fact)
 augroup line_return
@@ -205,3 +209,6 @@ augroup line_return
 				\     execute 'normal! g`"zvzz' |
 				\ endif
 augroup END
+
+" mapping to fast-make and redraw (useful in TeX projects), credits to https://stackoverflow.com/a/11590512
+nnoremap <leader>m :silent make\|redraw!\|cc<CR>

@@ -1,11 +1,2 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =9
-let g:netrw_dirhist_1='/home/nelqatib/mbed-tests/mbed-os-example-blinky/mbed-os/targets/TARGET_STM/TARGET_STM32L4/TARGET_STM32L486xG'
-let g:netrw_dirhist_2='/home/nelqatib/mbed-tests/mbed-os-example-blinky/mbed-os/targets/TARGET_STM/TARGET_STM32L4/TARGET_STM32L486xG/device'
-let g:netrw_dirhist_3='/home/nelqatib/mbed-tests/mbed-os-example-blinky/mbed-os/targets/TARGET_STM/TARGET_STM32L4/TARGET_STM32L486xG'
-let g:netrw_dirhist_4='/home/nelqatib/app-template.git/mbed-os/targets/TARGET_STM/TARGET_STM32L4/TARGET_STM32L496xG/TARGET_NUCLEO_L496ZG'
-let g:netrw_dirhist_5='/home/nelqatib/app-template.git/mbed-os/targets/TARGET_STM/TARGET_STM32L4/TARGET_STM32L496xG'
-let g:netrw_dirhist_6='/home/nelqatib/app-template.git/mbed-os/targets/TARGET_STM/TARGET_STM32L4'
-let g:netrw_dirhist_7='/home/nelqatib/app-template.git/mbed-os/targets/TARGET_STM/TARGET_STM32L4/TARGET_STM32L496xG/device'
-let g:netrw_dirhist_8='/home/nelqatib/app-template.git/mbed-os/targets/TARGET_STM/TARGET_STM32L4/TARGET_STM32L496xG/TARGET_NUCLEO_L496ZG'
-let g:netrw_dirhist_9='/home/nelqatib/.dotfiles'
+let g:netrw_dirhist_cnt =0
