@@ -93,7 +93,7 @@ autopush(){
 	if [[ "$#" -eq 1 ]]; then
 		cd "$1"
 	fi
-	if [[ ! -d '.git' ]]; then
+	if [[ ! -d '.git' ]] && [[ ! -d '../.git' ]]; then
 		echo "$(pwd) Not a git directory." && return
 	else
 		commit_message=$(date "+%d %B %y - %H:%M")

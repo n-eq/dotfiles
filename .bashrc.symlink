@@ -4,51 +4,35 @@
 export EDITOR=vim
 
 # Source global definitions
-if [[ -f /etc/bashrc ]]; then
-	. /etc/bashrc
-fi
+[[ -f /etc/bashrc ]] && . /etc/bashrc
 
-if [[ -f ~/.bash_aliases ]]; then
-	. ~/.bash_aliases
-fi
+[[ -f ~/.bash_aliases ]] && . ~/.bash_aliases
 
-if [[ -f /etc/.bash_completion ]]; then
-	. /etc/bash_completion
-fi
+[[ -f /etc/.bash_completion ]] && . /etc/bash_completion
 
-if [[ -f ~/.bash_functions ]]; then
-	. ~/.bash_functions
-fi
+[[ -f ~/.bash_functions ]] && . ~/.bash_functions
 
-if [[ -f ~/.bash_profile ]]; then
-	. ~/.bash_profile
-fi
+[[ -f ~/.bash_profile ]] && . ~/.bash_profile
 
-if [[ -f ~/Perso/kacm/kacm.sh ]]; then
-# 	ping -q -w 1 -c 1 `ip r | grep default | cut -d ' ' -f 3` > /dev/null && . ~/Perso/kacm/kacm.sh
-	. ~/Perso/kacm/kacm.sh
-fi
+#	ping -q -w 1 -c 1 `ip r | grep default | cut -d ' ' -f 3` > /dev/null && . ~/Perso/kacm/kacm.sh
+[[ -f ~/Perso/kacm/kacm.sh ]] && . ~/Perso/kacm/kacm.sh
+
+# Automatically activate mbed-os virtualenv
+# [[ "$PWD" = *"mbed-os"* ]] && echo "workon" & export -f workon && /bin/bash -c "workon mbed-os"
 
 PROMPT_DIRTRIM=3
 # credits to: https://coderwall.com/p/fasnya/add-git-branch-name-to-bash-prompt
 parse_git_branch() {
 	git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
 }
-# export PS1="\u \[\033[97m\]\w\[\033[36m\]\$(parse_git_branch)\[\033[00m\]> "
 export PS1="\u \[\033[32m\]\w\[\033[97m\]\$(parse_git_branch)\[\033[00m\]> "
 
 # duplicate command lines
 export HISTIGNORE=ignoreboth:erasedups
 
-# don't put duplicate lines or lines starting with space in the history.
-# See bash(1) for more options
-HISTCONTROL=ignoreboth
-
 # append to the history file, don't overwrite it
 shopt -s histappend
-
-# check the window size after each command and, if necessary,
-# update the values of LINES and COLUMNS.
+# check the window size after each command and, if necessary update the values of LINES and COLUMNS.
 shopt -s checkwinsize
 
 # for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
@@ -85,7 +69,6 @@ export PATH
 PATH=~/github/weatherspeaker:"$PATH"
 PATH=~/github/blablacar:"$PATH"
 PATH=~/github/Dropbox-Uploader:"$PATH"
-
 
 # OPENOCD
 PATH=/opt/gnuarmeclispe/gnuarmeclipse/openocd/0.10.0-201705220907-dev/bin/:"$PATH"
