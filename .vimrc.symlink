@@ -101,17 +101,6 @@ set statusline+=\ Col:%c                    " current column
 set statusline+=\ [0x%B]\               " ASCII and byte code under cursor
 set laststatus=2
 
-" google the word under the cursor
-nmap <leader>g :call Google()<CR>
-fun! Google()
-	let keyword = expand("<cword>")
-	let url = "http://www.google.com/search?q=" . keyword
-	let path = "/usr/bin/firefox"
-	silent exec 
-	exec "silent !" . path . ' ' . url 
-	redraw
-endfun
-
 iabbrev dispaly display
 iabbrev adn and
 iabbrev nad and

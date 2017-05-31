@@ -97,6 +97,7 @@ autopush(){
 		echo "$(pwd) Not a git directory." && return
 	else
 		commit_message=$(date "+%d %B %y - %H:%M")
+		git config user.email "nabilelqatib@gmail.com" ; git config user.name "marrakchino" 
 		git commit -a -m "[autopush] ${commit_message}" && git push --quiet
 	fi
 	[[ "$?" -eq 0 ]] && echo "autopush done successfully."
