@@ -2,6 +2,9 @@ let mapleader=','
 filetype plugin on
 filetype indent on
 
+" highlight search by default 
+set hls
+
 " Ignore these extensions when file-completing 
 set wildignore=*.o,*.obj,*.tar.gz,*.tgz,*.zip,*.pdf,*.sl,*.so,*.r,*.git,*.png,*.jpg,*.svg,*.doc,*.gif,*.class,*.exe,*.sw?,*.py?,*.orig,*.aux,*.toc,*.out
 
