@@ -18,7 +18,7 @@ export EDITOR=vim
 [[ -f ~/Perso/kacm/kacm.sh ]] && . ~/Perso/kacm/kacm.sh
 
 # Automatically activate mbed-os virtualenv
-# [[ "$PWD" = *"mbed-os"* ]] && echo "workon" & export -f workon && /bin/bash -c "workon mbed-os"
+# [[ "$PWD" = *"dev"* ]] && echo "workon" & export -f workon && /bin/bash -c "workon mbed-os"
 
 PROMPT_DIRTRIM=3
 # credits to: https://coderwall.com/p/fasnya/add-git-branch-name-to-bash-prompt
@@ -59,17 +59,9 @@ fi
 # colored GCC warnings and errors
 export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
-# # # #  # # # # # ## PROJET_GL
-PATH=/matieres/4MMPGL/GL/global/bin:"$PATH"
-PATH=$HOME/2A/Projets/Projet_GL/src/main/bin:"$PATH"
-PATH=$HOME/2A/Projets/Projet_GL/src/test/script:"$PATH"
-PATH=$HOME/2A/Projets/Projet_GL/src/test/script/launchers:"$PATH"
-PATH=$HOME/2A/Projets/Projet_GL/global/bin:"$PATH"
-export PATH
-
-PATH=~/github/weatherspeaker:"$PATH"
-PATH=~/github/blablacar:"$PATH"
-PATH=~/github/Dropbox-Uploader:"$PATH"
+# PATH=~/github/weatherspeaker:"$PATH"
+# PATH=~/github/blablacar:"$PATH"
+# PATH=~/github/Dropbox-Uploader:"$PATH"
 
 # OPENOCD
 PATH=/opt/gnuarmeclispe/gnuarmeclipse/openocd/0.10.0-201705220907-dev/bin/:"$PATH"
