@@ -99,6 +99,7 @@ set statusline+=%h      "help file flag
 set statusline+=%m      "modified flag
 set statusline+=%r      "read only flag
 set statusline+=\ %=                        " align left
+set statusline+=
 set statusline+=Line:%l/%L[%p%%]            " line X of Y [percent of file]
 set statusline+=\ Col:%c                    " current column
 set statusline+=\ [0x%B]\               " ASCII and byte code under cursor
@@ -207,3 +208,16 @@ nnoremap <leader>m :silent make\|redraw!\|cc<CR>
 
 " map Ctrl-S to save the file in insert mode
 imap <C-S> <ESC>:wi
+
+" show current function name (useful in C/C++ programs), credits to https://stackoverflow.com/a/23259759
+" /!\ fails in the following cases:
+"  * function name in more than one line
+fun! ShowFuncName()
+	let lnum = line(".")
+	let col = col(".")
+	echohl ModeMsg
+	echo getline(search("^[^ \t#/]\\{2}.*[^:]\s*$", 'bW'))
+	echohl None
+	call search("\\%" . lnum . "l" . "\\%" . col . "c")
+endfun
+map <leader>f :call ShowFuncName() <CR>
