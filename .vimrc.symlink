@@ -204,3 +204,6 @@ augroup END
 
 " mapping to fast-make and redraw (useful in TeX projects), credits to https://stackoverflow.com/a/11590512
 nnoremap <leader>m :silent make\|redraw!\|cc<CR>
+
+" map Ctrl-S to save the file in insert mode
+imap <C-S> <ESC>:wi
