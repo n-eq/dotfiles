@@ -139,6 +139,7 @@ iabbrev	impotr import
 iabbrev retunr return
 iabbrev catiexp Centre Aquitain des Technologies de l'Information et Electroniques
 iabbrev Catiexp Centre Aquitain des Technologies de l'Information et Electroniques
+
 " Java abreviation for System.out.println
 iabbr sysout System.out.println("");<esc>2hi
 
@@ -207,7 +208,11 @@ augroup END
 nnoremap <leader>m :silent make\|redraw!\|cc<CR>
 
 " map Ctrl-S to save the file in insert mode
-imap <C-S> <ESC>:wi
+imap <C-S> <ESC>:w<CR>i
+" Consequently... (see https://vi.stackexchange.com/a/2425)
+silent !stty -ixon
+" Restore default behaviour when leaving Vim
+autocmd VimLeave * silent !ssty ixon
 
 " show current function name (useful in C/C++ programs), credits to https://stackoverflow.com/a/23259759
 " /!\ fails in the following cases:
@@ -221,3 +226,4 @@ fun! ShowFuncName()
 	call search("\\%" . lnum . "l" . "\\%" . col . "c")
 endfun
 map <leader>f :call ShowFuncName() <CR>
+

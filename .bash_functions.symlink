@@ -96,7 +96,11 @@ autopush(){
 	if [[ ! -d '.git' ]] && [[ ! -d '../.git' ]]; then
 		echo "$(pwd) Not a git directory." && return
 	else
-		commit_message=$(date "+%d %B %y - %H:%M")
+		if [[ "$#" -eq 2 ]]; then
+			commit_message="$2"
+		else
+			commit_message=$(date "+%d %B %y - %H:%M")
+		fi
 		git config user.email "nabilelqatib@gmail.com" ; git config user.name "marrakchino" 
 		git commit -a -m "[autopush] ${commit_message}" && git push --quiet
 	fi
