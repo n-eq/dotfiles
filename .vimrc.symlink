@@ -211,7 +211,7 @@ nnoremap <leader>m :silent make\|redraw!\|cc<CR>
 nnoremap <leader>sc ciw``<Esc>P
 
 " map Ctrl-S to save the file in insert mode
-imap <C-S> <ESC>:w<CR>i
+imap <C-S> <ESC>:w<CR>a
 " Consequently... (see https://vi.stackexchange.com/a/2425)
 silent !stty -ixon
 " Restore default behaviour when leaving Vim
