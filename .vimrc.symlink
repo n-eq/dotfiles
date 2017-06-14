@@ -208,7 +208,9 @@ augroup END
 nnoremap <leader>m :silent make\|redraw!\|cc<CR>
 
 " map ,sc to 'source code quote' the current word (useful in md files)
+" Known pitfalls: words containing dots
 nnoremap <leader>sc ciw``<Esc>P
+xnoremap <leader>sc c``<Esc>P
 
 " map Ctrl-S to save the file in insert mode
 imap <C-S> <ESC>:w<CR>a
