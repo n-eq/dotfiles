@@ -113,3 +113,11 @@ autopush(){
 findx(){
 	find . -name "*.$1"
 }
+
+# Which branch?
+# Check which branch a repository is in without moving to it.
+wb(){
+	cd "$1"
+	echo "$(tput bold)$(git branch 2> /dev/null | sed -e '/^[^*]/d' )$(tput sgr0)"
+	cd -
+}
