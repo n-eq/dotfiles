@@ -96,7 +96,11 @@ autopush(){
 	if [[ ! -d '.git' ]] && [[ ! -d '../.git' ]]; then
 		echo "$(pwd) Not a git directory." && return
 	else
-		commit_message=$(date "+%d %B %y - %H:%M")
+		if [[ "$#" -eq 2 ]]; then
+			commit_message="$2"
+		else
+			commit_message=$(date "+%d %B %y - %H:%M")
+		fi
 		git config user.email "nabilelqatib@gmail.com" ; git config user.name "marrakchino" 
 		git commit -a -m "[autopush] ${commit_message}" && git push --quiet
 	fi
@@ -104,4 +108,16 @@ autopush(){
 	if [[ "$#" -eq 1 ]]; then
 		cd -
 	fi
+}
+
+findx(){
+	find . -name "*.$1"
+}
+
+# Which branch?
+# Check which branch a repository is in without moving to it.
+wb(){
+	cd "$1"
+	echo "$(tput bold)$(git branch 2> /dev/null | sed -e '/^[^*]/d' )$(tput sgr0)"
+	cd -
 }

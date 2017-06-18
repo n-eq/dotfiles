@@ -3,6 +3,9 @@
 # export VISUAL=vim
 export EDITOR=vim
 
+# don't be distubed by Ctrl-S and Ctrl-Q in terminals (useful for Vim)
+stty -ixon
+
 # Source global definitions
 [[ -f /etc/bashrc ]] && . /etc/bashrc
 

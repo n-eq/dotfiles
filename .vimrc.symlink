@@ -2,6 +2,9 @@ let mapleader=','
 filetype plugin on
 filetype indent on
 
+" highlight search by default 
+set hls
+
 " Ignore these extensions when file-completing 
 set wildignore=*.o,*.obj,*.tar.gz,*.tgz,*.zip,*.pdf,*.sl,*.so,*.r,*.git,*.png,*.jpg,*.svg,*.doc,*.gif,*.class,*.exe,*.sw?,*.py?,*.orig,*.aux,*.toc,*.out
 
@@ -96,6 +99,7 @@ set statusline+=%h      "help file flag
 set statusline+=%m      "modified flag
 set statusline+=%r      "read only flag
 set statusline+=\ %=                        " align left
+set statusline+=
 set statusline+=Line:%l/%L[%p%%]            " line X of Y [percent of file]
 set statusline+=\ Col:%c                    " current column
 set statusline+=\ [0x%B]\               " ASCII and byte code under cursor
@@ -135,6 +139,7 @@ iabbrev	impotr import
 iabbrev retunr return
 iabbrev catiexp Centre Aquitain des Technologies de l'Information et Electroniques
 iabbrev Catiexp Centre Aquitain des Technologies de l'Information et Electroniques
+
 " Java abreviation for System.out.println
 iabbr sysout System.out.println("");<esc>2hi
 
@@ -201,3 +206,29 @@ augroup END
 
 " mapping to fast-make and redraw (useful in TeX projects), credits to https://stackoverflow.com/a/11590512
 nnoremap <leader>m :silent make\|redraw!\|cc<CR>
+
+" map ,sc to 'source code quote' the current word (useful in md files)
+" Known pitfalls: words containing dots
+nnoremap <leader>sc ciw``<Esc>P
+xnoremap <leader>sc c``<Esc>P
+
+" map Ctrl-S to save the file in insert mode
+imap <C-S> <ESC>:w<CR>a
+" Consequently... (see https://vi.stackexchange.com/a/2425)
+silent !stty -ixon
+" Restore default behaviour when leaving Vim
+autocmd VimLeave * silent !ssty ixon
+
+" show current function name (useful in C/C++ programs), credits to https://stackoverflow.com/a/23259759
+" /!\ fails in the following cases:
+"  * function name in more than one line
+fun! ShowFuncName()
+	let lnum = line(".")
+	let col = col(".")
+	echohl ModeMsg
+	echo getline(search("^[^ \t#/]\\{2}.*[^:]\s*$", 'bW'))
+	echohl None
+	call search("\\%" . lnum . "l" . "\\%" . col . "c")
+endfun
+map <leader>f :call ShowFuncName() <CR>
+
