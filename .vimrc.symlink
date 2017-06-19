@@ -48,11 +48,10 @@ set si " Smartindent
 set number
 
 " Commenting/Uncommenting blocks of code for different file types
-" w/ <Leader>cc and <Leader>cu
 " souce: http://stackoverflow.com/questions/1676632/whats-a-quick-way-to-comment-uncomment-lines-in-vim#comment27973419_1676672
 autocmd FileType c,cpp,java,scala 	          let b:comment_leader = '// '
 autocmd FileType sh,ruby,python   	          let b:comment_leader = '# '
-autocmd FileType conf,fstab,make       	          let b:comment_leader = '# '
+autocmd FileType conf,fstab,make,cfg       	          let b:comment_leader = '# '
 autocmd FileType tex              	          let b:comment_leader = '% '
 autocmd FileType mail             	          let b:comment_leader = '> '
 autocmd FileType vim               	          let b:comment_leader = '" '
@@ -173,7 +172,7 @@ function! MarkMargin (on)
 		unlet b:MarkMargin
 	endif
 	if a:on
-		let b:MarkMargin = matchadd('ColorColumn', '\%81v\s*\S', 100)
+		let b:MarkMargin = matchadd('ColorColumn', '\%80v\s*\S', 100)
 	endif
 endfunction
 
