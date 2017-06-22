@@ -9,7 +9,7 @@ stty -ixon
 # Source global definitions
 [[ -f /etc/bashrc ]] && . /etc/bashrc
 
-[[ -f ~/.bash_aliases ]] && . ~/.bash_aliases
+[[ -f ~/.bash_aliases.sh ]] && . ~/.bash_aliases.sh
 
 [[ -f /etc/.bash_completion ]] && . /etc/bash_completion
 
@@ -17,8 +17,9 @@ stty -ixon
 
 [[ -f ~/.bash_profile ]] && . ~/.bash_profile
 
+# Temporarily disabled (Season is over)
 #	ping -q -w 1 -c 1 `ip r | grep default | cut -d ' ' -f 3` > /dev/null && . ~/Perso/kacm/kacm.sh
-[[ -f ~/Perso/kacm/kacm.sh ]] && . ~/Perso/kacm/kacm.sh
+# [[ -f ~/Perso/kacm/kacm.sh ]] && . ~/Perso/kacm/kacm.sh
 
 # Automatically activate mbed-os virtualenv
 # [[ "$PWD" = *"mbed-os"* ]] && echo "workon" & export -f workon && /bin/bash -c "workon mbed-os"
