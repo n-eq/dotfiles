@@ -90,24 +90,30 @@ min(){
 # When provided, $1 contains the path to the local git repository. 
 # Otherwise, assume it is the cwd.
 autopush(){
-	if [[ "$#" -eq 1 ]]; then
-		cd "$1"
-	fi
+	[[ "$#" -eq 1 ]] && cd "$1"
 	if [[ ! -d '.git' ]] && [[ ! -d '../.git' ]]; then
 		echo "$(pwd) Not a git directory." && return
-	else
-		if [[ "$#" -eq 2 ]]; then
-			commit_message="$2"
-		else
-			commit_message=$(date "+%d %B %y - %H:%M")
-		fi
+	else # maybe useless because of the return?
+
+		[[ "$#" -eq 2 ]] && commit_message="$2" ||\
+		commit_message=$(date "+%d %B %y - %H:%M")
 		git config user.email "nabilelqatib@gmail.com" ; git config user.name "marrakchino" 
 		git commit -a -m "[autopush] ${commit_message}" && git push --quiet
 	fi
 	[[ "$?" -eq 0 ]] && echo "autopush done successfully."
-	if [[ "$#" -eq 1 ]]; then
-		cd -
+	[[ "$#" -eq 1 ]] && cd -
+}
+
+# automatic remote pull
+autopull(){
+	[[ "$#" -eq 1 ]] && cd "$1"
+	if [[ ! -d '.git' ]] && [[ ! -d '../.git' ]]; then
+		echo "$(pwd) Not a git directory." && return
+	else
+		git pull
 	fi
+	[[ "$?" -eq 0 ]] && echo "autopull done successfully."
+	[[ "$#" -eq 1 ]] && cd -
 }
 
 findx(){
