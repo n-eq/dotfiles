@@ -160,7 +160,7 @@ highlight ColorColumn ctermfg=208 ctermbg=Black
 " ====[ Show when lines extend past column 80]=================================>-<=====================
 highlight ColorColumn ctermfg=208 ctermbg=Black
 function! MarkMargin (on)
-	" Don't put the 80 column marker for these filetypes
+	" Black list: Don't put the 80 column marker for these filetypes
 	if &ft =~ 'tex\|markdown\|vim'
 		return 
 	endif
@@ -204,7 +204,7 @@ augroup line_return
 augroup END
 
 " mapping to fast-make and redraw (useful in TeX projects), credits to https://stackoverflow.com/a/11590512
-nnoremap <leader>m :silent make\|redraw!\|cc<CR>
+nnoremap <leader>mm :silent make\|redraw!\|cc <CR>
 
 " map ,sc to 'source code quote' the current word (useful in md files)
 " Known pitfalls: words containing dots
@@ -231,3 +231,5 @@ fun! ShowFuncName()
 endfun
 map <leader>f :call ShowFuncName() <CR>
 
+" map ,mb to 'mbed compile' the current project
+nnoremap <leader>mb :!mbed compile -c <CR>

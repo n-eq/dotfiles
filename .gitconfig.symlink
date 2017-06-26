@@ -11,3 +11,4 @@
 	default = current
 [alias]
 	pull = pull --ff-only
+	last = log -1 HEAD
