@@ -11,7 +11,7 @@ stty -ixon
 
 [[ -f ~/.bash_aliases.sh ]] && . ~/.bash_aliases.sh
 
-[[ -f /etc/.bash_completion ]] && . /etc/bash_completion
+[[ -f /etc/.bash_completion ]] && . /etc/.bash_completion
 
 [[ -f ~/.bash_functions ]] && . ~/.bash_functions
 
