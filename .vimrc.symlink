@@ -146,7 +146,7 @@ iabbr sysout System.out.println("");<esc>2hi
 autocmd BufWritePost $MYVIMRC source $MYVIMRC
 
 " force *.md files as markdown
-autocmd BufNewFile,BufReadPost,BufRead *.md set filetype=markdown
+autocmd BufNewFile,BufReadPost,BufRead *.md,*.markdown set filetype=markdown
 
 set undofile
 set undodir=~/.vim/undodir
@@ -191,6 +191,7 @@ endfunction
 
 " map F8 to toggle margin
 nmap <silent> <F8> :call ToggleMargin()<CR>
+imap <silent> <F8> :call ToggleMargin()<CR>
 "===============================>-<=====================
 
 " Load local .vimrc, if existing
@@ -216,10 +217,10 @@ augroup END
 " mapping to fast-make and redraw (useful in TeX projects), credits to https://stackoverflow.com/a/11590512
 nnoremap <leader>mm :silent make\|redraw!\|cc <CR>
 
-" map ,sc to 'source code quote' the current word (useful in md files)
+" map ,sc to 'source code quote' the current word/expression
 " Known pitfalls: words containing dots
-nnoremap <leader>sc ciw``<Esc>P
-xnoremap <leader>sc c``<Esc>P
+autocmd FileType markdown nnoremap <leader>sc ciw``<Esc>P
+autocmd FileType markdown xnoremap <leader>sc c``<Esc>P
 
 " map Ctrl-S to save the file in insert mode
 imap <C-S> <ESC>:w<CR>a
