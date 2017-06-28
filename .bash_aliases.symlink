@@ -1,6 +1,7 @@
 # temporary aliases:
 
 alias cls='clear'
+alias so='source'
 
 alias dotfiles='cd ~/.dotfiles'
 alias cds='cd ~/stage-2A'
@@ -13,11 +14,12 @@ alias github='cd ~/github'
 alias cd96='cd ~/app-template.git/mbed-os/targets/TARGET_STM/TARGET_STM32L4/TARGET_STM32L496xG/TARGET_NUCLEO_L496ZG'
 
 alias git='LANG=en_US git'
+alias grip='grip --browser'
 
-alias vrc='vim ~/.vimrc'
-alias brc='vim ~/.bashrc'
-alias aliases='vim ~/.bash_aliases'
-alias functions='vim ~/.bash_functions'
+alias vrc='vi ~/.vimrc'
+alias brc='vi ~/.bashrc'
+alias aliases='[[ -f ~/.bash_aliases.sh ]] && vi ~/.bash_aliases.sh || vi ~/.bash_aliases'
+alias functions='vi ~/.bash_functions'
 
 alias miniterm='miniterm.py'
 
