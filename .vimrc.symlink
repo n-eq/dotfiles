@@ -146,7 +146,7 @@ iabbr sysout System.out.println("");<esc>2hi
 autocmd BufWritePost $MYVIMRC source $MYVIMRC
 
 " force *.md files as markdown
-autocmd BufNewFile,BufReadPost,BufRead *.md set filetype=markdown
+autocmd BufNewFile,BufReadPost,BufRead *.md,*.markdown set filetype=markdown
 
 set undofile
 set undodir=~/.vim/undodir
@@ -154,16 +154,16 @@ set undodir=~/.vim/undodir
 " ??
 let g:ctags_path="~/.vim/plugin"
 let g:ctags_statusline=1
-highlight ColorColumn ctermfg=208 ctermbg=Black
 
 " Adapted from Damian Conway's vimrc file: https://github.com/thoughtstream/Damian-Conway-s-Vim-Setup/blob/master/.vimrc
 " ====[ Show when lines extend past column 80]=================================>-<=====================
 highlight ColorColumn ctermfg=208 ctermbg=Black
 function! MarkMargin (on)
-	" Don't put the 80 column marker for these filetypes
-	if &ft =~ 'tex\|markdown\|vim'
-		return 
-	endif
+	" Black list: Don't put the 80 column marker for these filetypes, 
+	" no more used, manually toggled when needed ;)
+	" if &ft =~ 'tex\|markdown\|vim'
+	" 	return 
+	" endif
 	if exists('b:MarkMargin')
 		try
 			call matchdelete(b:MarkMargin)
@@ -175,12 +175,23 @@ function! MarkMargin (on)
 		let b:MarkMargin = matchadd('ColorColumn', '\%80v\s*\S', 100)
 	endif
 endfunction
+" augroup MarkMargin
+" 	autocmd!
+" 	autocmd  BufEnter  *       :call MarkMargin(1)
+" 	autocmd  BufEnter  *.vp*   :call MarkMargin(0)
+" augroup END
 
-augroup MarkMargin
-	autocmd!
-	autocmd  BufEnter  *       :call MarkMargin(1)
-	autocmd  BufEnter  *.vp*   :call MarkMargin(0)
-augroup END
+" manually toggle margin for the current script
+let s:mode = 0
+function! ToggleMargin()
+	let s:mode = s:mode > 0 ? 0 : 1
+	call MarkMargin(s:mode)
+ 	echo s:mode > 0 ? "Margin on" : "Margin off"
+endfunction
+
+" map F8 to toggle margin
+nmap <silent> <F8> :call ToggleMargin()<CR>
+imap <silent> <F8> :call ToggleMargin()<CR>
 "===============================>-<=====================
 
 " Load local .vimrc, if existing
@@ -204,12 +215,12 @@ augroup line_return
 augroup END
 
 " mapping to fast-make and redraw (useful in TeX projects), credits to https://stackoverflow.com/a/11590512
-nnoremap <leader>m :silent make\|redraw!\|cc<CR>
+nnoremap <leader>mm :silent make\|redraw!\|cc <CR>
 
-" map ,sc to 'source code quote' the current word (useful in md files)
+" map ,sc to 'source code quote' the current word/expression
 " Known pitfalls: words containing dots
-nnoremap <leader>sc ciw``<Esc>P
-xnoremap <leader>sc c``<Esc>P
+autocmd FileType markdown nnoremap <leader>sc ciw``<Esc>P
+autocmd FileType markdown xnoremap <leader>sc c``<Esc>P
 
 " map Ctrl-S to save the file in insert mode
 imap <C-S> <ESC>:w<CR>a
@@ -231,3 +242,5 @@ fun! ShowFuncName()
 endfun
 map <leader>f :call ShowFuncName() <CR>
 
+" map ,mb to 'mbed compile' the current project
+nnoremap <leader>mb :!mbed compile -c <CR>

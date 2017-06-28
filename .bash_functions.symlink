@@ -92,14 +92,13 @@ min(){
 autopush(){
 	[[ "$#" -eq 1 ]] && cd "$1"
 	if [[ ! -d '.git' ]] && [[ ! -d '../.git' ]]; then
-		echo "$(pwd) Not a git directory." && return
-	else # maybe useless because of the return?
-
-		[[ "$#" -eq 2 ]] && commit_message="$2" ||\
-		commit_message=$(date "+%d %B %y - %H:%M")
-		git config user.email "nabilelqatib@gmail.com" ; git config user.name "marrakchino" 
-		git commit -a -m "[autopush] ${commit_message}" && git push --quiet
+		echo "$(tput bold)$(pwd)$(tput sgr0) is not a git directory." && return 1
 	fi
+
+	[[ "$#" -eq 2 ]] && commit_message="$2" ||\
+	commit_message=$(date "+%d %B %y - %H:%M")
+	git config user.email "nabilelqatib@gmail.com" ; git config user.name "marrakchino" 
+	git commit -a -m "[autopush] ${commit_message}" && git push --quiet
 	[[ "$?" -eq 0 ]] && echo "autopush done successfully."
 	[[ "$#" -eq 1 ]] && cd -
 }
@@ -108,10 +107,10 @@ autopush(){
 autopull(){
 	[[ "$#" -eq 1 ]] && cd "$1"
 	if [[ ! -d '.git' ]] && [[ ! -d '../.git' ]]; then
-		echo "$(pwd) Not a git directory." && return
-	else
-		git pull
+		echo "$(tput bold)$(pwd)$(tput sgr0) is not a git directory." && return 1
 	fi
+
+	git pull
 	[[ "$?" -eq 0 ]] && echo "autopull done successfully."
 	[[ "$#" -eq 1 ]] && cd -
 }

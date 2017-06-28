@@ -1,0 +1,11 @@
+# .bash_prompt
+
+# Don't show more than 3 levels in cwd path
+PROMPT_DIRTRIM=3
+
+# credits to: https://coderwall.com/p/fasnya/add-git-branch-name-to-bash-prompt
+parse_git_branch() {
+	git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
+}
+
+export PS1="\u \[\033[32m\]\w\[\033[97m\]\$(parse_git_branch)\[\033[00m\]> "

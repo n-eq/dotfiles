@@ -1,20 +1,23 @@
 # .bashrc
 
-# export VISUAL=vim
+export VISUAL=vim
 export EDITOR=vim
 
-# don't be distubed by Ctrl-S and Ctrl-Q in terminals (useful for Vim)
+# don't be distubed by Ctrl-S and Ctrl-Q in terminals (useful for Vi)
 stty -ixon
 
 # Source global definitions
 [[ -f /etc/bashrc ]] && . /etc/bashrc
 [[ -f ~/.bash_aliases.sh ]] && . ~/.bash_aliases.sh || [[ -f ~/.bash_aliases ]] && . ~/.bash_aliases
+[[ -f /etc/.bash_completion ]] && . /etc/.bash_completion
 [[ -f ~/.bash_functions ]] && . ~/.bash_functions
 [[ -f ~/.bash_profile ]] && . ~/.bash_profile
+[[ -f ~/.bash_prompt ]] && . ~/.bash_prompt
 
-# Source completion files
-[[ -f /etc/.bash_completion ]] && . /etc/bash_completion
+# Source bash completion files
 . /etc/bash_completion.d/git-completion.bash
+=======
+>>>>>>> 40f65aa1d3291278d9021e9c976c9bc588b866c0
 
 # Temporarily disabled (Season is over)
 #	ping -q -w 1 -c 1 `ip r | grep default | cut -d ' ' -f 3` > /dev/null && . ~/Perso/kacm/kacm.sh
@@ -22,13 +25,6 @@ stty -ixon
 
 # Automatically activate mbed-os virtualenv
 # [[ "$PWD" = *"mbed-os"* ]] && echo "workon" & export -f workon && /bin/bash -c "workon mbed-os"
-
-PROMPT_DIRTRIM=3
-# credits to: https://coderwall.com/p/fasnya/add-git-branch-name-to-bash-prompt
-parse_git_branch() {
-	git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
-}
-export PS1="\u \[\033[32m\]\w\[\033[97m\]\$(parse_git_branch)\[\033[00m\]$ "
 
 # duplicate command lines
 export HISTIGNORE=ignoreboth:erasedups
