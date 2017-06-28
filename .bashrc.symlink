@@ -8,14 +8,13 @@ stty -ixon
 
 # Source global definitions
 [[ -f /etc/bashrc ]] && . /etc/bashrc
-
-[[ -f ~/.bash_aliases.sh ]] && . ~/.bash_aliases.sh
-
-[[ -f /etc/.bash_completion ]] && . /etc/bash_completion
-
+[[ -f ~/.bash_aliases.sh ]] && . ~/.bash_aliases.sh || [[ -f ~/.bash_aliases ]] && . ~/.bash_aliases
 [[ -f ~/.bash_functions ]] && . ~/.bash_functions
-
 [[ -f ~/.bash_profile ]] && . ~/.bash_profile
+
+# Source completion files
+[[ -f /etc/.bash_completion ]] && . /etc/bash_completion
+. /etc/bash_completion.d/git-completion.bash
 
 # Temporarily disabled (Season is over)
 #	ping -q -w 1 -c 1 `ip r | grep default | cut -d ' ' -f 3` > /dev/null && . ~/Perso/kacm/kacm.sh
