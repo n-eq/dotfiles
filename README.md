@@ -28,5 +28,3 @@ Corrections and typo fixes are encouraged.
 * [bash_functions] Create a function to extract a compressed archive whatever compression is used, see https://github.com/techgaun/dotfiles/blob/master/.functions/extract for inspiration
 
 * [bash_functions] Create a function to change directory to the first match from the current directory
-
-* [bashrc] Move bash prompt to a new file: ~/.bash_prompt

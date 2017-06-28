@@ -1,9 +1,9 @@
 # .bashrc
 
-# export VISUAL=vim
+export VISUAL=vim
 export EDITOR=vim
 
-# don't be distubed by Ctrl-S and Ctrl-Q in terminals (useful for Vim)
+# don't be distubed by Ctrl-S and Ctrl-Q in terminals (useful for Vi)
 stty -ixon
 
 # Source global definitions
@@ -17,19 +17,14 @@ stty -ixon
 
 [[ -f ~/.bash_profile ]] && . ~/.bash_profile
 
+[[ -f ~/.bash_prompt ]] && . ~/.bash_prompt
+
 # Temporarily disabled (Season is over)
 #	ping -q -w 1 -c 1 `ip r | grep default | cut -d ' ' -f 3` > /dev/null && . ~/Perso/kacm/kacm.sh
 # [[ -f ~/Perso/kacm/kacm.sh ]] && . ~/Perso/kacm/kacm.sh
 
 # Automatically activate mbed-os virtualenv
 # [[ "$PWD" = *"mbed-os"* ]] && echo "workon" & export -f workon && /bin/bash -c "workon mbed-os"
-
-PROMPT_DIRTRIM=3
-# credits to: https://coderwall.com/p/fasnya/add-git-branch-name-to-bash-prompt
-parse_git_branch() {
-	git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
-}
-export PS1="\u \[\033[32m\]\w\[\033[97m\]\$(parse_git_branch)\[\033[00m\]# "
 
 # duplicate command lines
 export HISTIGNORE=ignoreboth:erasedups
