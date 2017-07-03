@@ -31,7 +31,7 @@ espanol(){
 	fi
 }
 
-# git pull in all existing repositories
+# git pull in all existing (found) repositories
 pull_all(){
 	wc=$(pwd)
 	repos=(`find ~ -name '*.git'`)
@@ -86,9 +86,10 @@ min(){
 	for number in "$@"; do echo "$number"; done| sort -n| head -n 1
 }
 
-# automatic 'git push', requires access without password to the repository.
-# When provided, $1 contains the path to the local git repository. 
-# Otherwise, assume it is the cwd.
+# automatic 'git push'
+# Requires access without password to the repository.
+# When provided, $1 contains the path to the local git repository.
+# Otherwise, cwd is used.
 autopush(){
 	[[ "$#" -eq 1 ]] && cd "$1"
 	if [[ ! -d '.git' ]] && [[ ! -d '../.git' ]]; then
@@ -96,9 +97,9 @@ autopush(){
 	fi
 
 	[[ "$#" -eq 2 ]] && commit_message="$2" ||\
-	commit_message=$(date "+%d %B %y - %H:%M")
+	commit_message="[autopush] $(date "+%d %B %y - %H:%M")"
 	git config user.email "nabilelqatib@gmail.com" ; git config user.name "marrakchino" 
-	git commit -a -m "[autopush] ${commit_message}" && git push --quiet
+	git commit -a -m "${commit_message}" && git push --quiet
 	[[ "$?" -eq 0 ]] && echo "autopush done successfully."
 	[[ "$#" -eq 1 ]] && cd -
 }
@@ -125,4 +126,8 @@ wb(){
 	cd "$1"
 	echo "$(tput bold)$(git branch 2> /dev/null | sed -e '/^[^*]/d' )$(tput sgr0)"
 	cd -
+}
+
+goto(){
+	cd $(find . -iname "${1}" -type d |head -n 1)
 }
