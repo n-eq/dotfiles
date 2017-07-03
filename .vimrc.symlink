@@ -51,13 +51,16 @@ set number
 " souce: http://stackoverflow.com/questions/1676632/whats-a-quick-way-to-comment-uncomment-lines-in-vim#comment27973419_1676672
 autocmd FileType c,cpp,java,scala 	          let b:comment_leader = '// '
 autocmd FileType sh,ruby,python   	          let b:comment_leader = '# '
-autocmd FileType conf,fstab,make,cfg       	          let b:comment_leader = '# '
+autocmd FileType conf,fstab,make,cfg       	  let b:comment_leader = '# '
 autocmd FileType tex              	          let b:comment_leader = '% '
 autocmd FileType mail             	          let b:comment_leader = '> '
 autocmd FileType vim               	          let b:comment_leader = '" '
 autocmd FileType sql			          let b:comment_leader = '-- '
-noremap <silent> ,cc :<C-B>silent <C-E>s/^/<C-R>=escape(b:comment_leader,'\/')<CR>/<CR>:nohlsearch<CR>
-noremap <silent> ,cu :<C-B>silent <C-E>s/^\V<C-R>=escape(b:comment_leader,'\/')<CR>//e<CR>:nohlsearch<CR>
+noremap <silent> <leader>cc :<C-B>silent <C-E>s/^/<C-R>=escape(b:comment_leader,'\/')<CR>/<CR>:nohlsearch<CR>
+noremap <silent> <leader>cu :<C-B>silent <C-E>s/^\V<C-R>=escape(b:comment_leader,'\/')<CR>//e<CR>:nohlsearch<CR>
+
+" Map <F6> to swap a comment and the following uncommented line, and vice versa
+map <expr> <F6> (getline('.') =~ b:comment_leader . "*")? ',cuj,cck' : ',ccj,cuk'
 
 " Save a file as root (,W)
 noremap <leader>W :w !sudo tee % > /dev/null<CR>
@@ -148,6 +151,9 @@ autocmd BufWritePost $MYVIMRC source $MYVIMRC
 " force *.md files as markdown
 autocmd BufNewFile,BufReadPost,BufRead *.md,*.markdown set filetype=markdown
 
+" force bash_* config files as shell
+autocmd BufNewFile,BufReadPost,BufRead .bash_* set filetype=sh
+
 set undofile
 set undodir=~/.vim/undodir
 
@@ -175,11 +181,11 @@ function! MarkMargin (on)
 		let b:MarkMargin = matchadd('ColorColumn', '\%80v\s*\S', 100)
 	endif
 endfunction
-" augroup MarkMargin
-" 	autocmd!
-" 	autocmd  BufEnter  *       :call MarkMargin(1)
-" 	autocmd  BufEnter  *.vp*   :call MarkMargin(0)
-" augroup END
+augroup MarkMargin
+	autocmd!
+	autocmd  BufEnter  *       :call MarkMargin(1)
+	autocmd  BufEnter  *.vp*   :call MarkMargin(0)
+augroup END
 
 " manually toggle margin for the current script
 let s:mode = 0
@@ -191,7 +197,7 @@ endfunction
 
 " map F8 to toggle margin
 nmap <silent> <F8> :call ToggleMargin()<CR>
-imap <silent> <F8> :call ToggleMargin()<CR>
+imap <silent> <F8> <ESC>:call ToggleMargin()<CR>a
 "===============================>-<=====================
 
 " Load local .vimrc, if existing
@@ -240,7 +246,7 @@ fun! ShowFuncName()
 	echohl None
 	call search("\\%" . lnum . "l" . "\\%" . col . "c")
 endfun
-map <leader>f :call ShowFuncName() <CR>
+autocmd FileType c,cpp nnoremap <leader>f :call ShowFuncName() <CR>
 
 " map ,mb to 'mbed compile' the current project
 nnoremap <leader>mb :!mbed compile -c <CR>
