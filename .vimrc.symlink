@@ -35,11 +35,11 @@ set incsearch
 syntax enable
 " set background=default
 
-" when indenting w/ ">"
-set shiftwidth=8
-"4 espaces = tab
-set tabstop=8
-" set expandtab=4
+" Indentation configuration
+" 4 spaces, no tab, spaces
+set tabstop=4 shiftwidth=4 expandtab
+" 8 spaces, no tab, spaces
+" set tabstop=8 shiftwidth=8 expandtab
 
 set ai " Autoindent
 set si " Smartindent
