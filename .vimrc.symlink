@@ -250,3 +250,5 @@ autocmd FileType c,cpp nnoremap <leader>f :call ShowFuncName() <CR>
 
 " map ,mb to 'mbed compile' the current project
 nnoremap <leader>mb :!mbed compile -c <CR>
+
+nnoremap <F7> :noh<CR>
