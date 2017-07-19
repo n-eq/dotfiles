@@ -247,7 +247,6 @@ nnoremap <leader>mb :w<CR>:!mbed compile -c <CR>
 
 nnoremap <F7> :noh<CR>
 
-
 " 'F5' to compile the actual mbed program, vsplit the window and output the errors
 " 'F10' to close. adapted from: goo.gl/6BJUhU
 nmap <F5> :w<CR>:silent !mbed compile -c 2> ~/.errors<CR>:redraw!<CR>:rightbelow vsplit ~/.errors<CR><C-w>k:vertical resize -40<CR>
