@@ -16,8 +16,6 @@ stty -ixon
 
 # Source bash completion files
 . /etc/bash_completion.d/git-completion.bash
-=======
->>>>>>> 40f65aa1d3291278d9021e9c976c9bc588b866c0
 
 # Temporarily disabled (Season is over)
 #	ping -q -w 1 -c 1 `ip r | grep default | cut -d ' ' -f 3` > /dev/null && . ~/Perso/kacm/kacm.sh
