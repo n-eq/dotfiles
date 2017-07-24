@@ -52,7 +52,7 @@ set number
 autocmd FileType c,cpp,java,scala 	          let b:comment_leader = '// '
 autocmd FileType sh,ruby,python   	          let b:comment_leader = '# '
 autocmd FileType conf,fstab,make,cfg       	  let b:comment_leader = '# '
-autocmd FileType tex              	          let b:comment_leader = '% '
+autocmd FileType tex,plaintex     	          let b:comment_leader = '% '
 autocmd FileType mail             	          let b:comment_leader = '> '
 autocmd FileType vim               	          let b:comment_leader = '" '
 autocmd FileType sql			          let b:comment_leader = '-- '
@@ -99,43 +99,8 @@ set statusline+=\ Col:%c                    " current column
 set statusline+=\ [0x%B]\               " ASCII and byte code under cursor
 set laststatus=2
 
-iabbrev dispaly display
-iabbrev adn and
-iabbrev nad and
-iabbrev teh the
-iabbrev het the
-iabbrev ehty they
-iabbrev hety they
-iabbrev tehn then
-iabbrev waht what
-iabbrev THen Then
-iabbrev THe The
-iabbrev ANd And
-iabbrev WHen When
-iabbrev HOw How
-iabbrev WHy Why
-iabbrev THis This
-iabbrev thsi this
-iabbrev Thsi This
-iabbrev THere There
-iabbrev THey They
-iabbrev RIce Rice
-iabbrev countires countries
-iabbrev governmetn government
-iabbrev minumum minimum
-iabbrev dependece dependence
-iabbrev smae same
-iabbrev THus Thus
-iabbrev SLECT SELECT
-iabbrev SELCT SELECT
-iabbrev pakcage package
-iabbrev	impotr import
-iabbrev retunr return
-iabbrev catiexp Centre Aquitain des Technologies de l'Information et Electroniques
-iabbrev Catiexp Centre Aquitain des Technologies de l'Information et Electroniques
-
-" Java abreviation for System.out.println
-iabbr sysout System.out.println("");<esc>2hi
+" abbreviation for Java's System.out.println
+autocmd FileType java iabbr sysout System.out.println("");<esc>2hi
 
 " Source the vimrc file after saving it
 autocmd BufWritePost $MYVIMRC source $MYVIMRC
@@ -199,11 +164,11 @@ nmap S :%s//g<LEFT><LEFT>
 set exrc
 
 " TeX quick mappings
+autocmd FileType tex inoremap <C-i> \emph{}<esc>i
 autocmd FileType tex inoremap <C-b> \textbf{}<esc>i
-autocmd FileType tex inoremap <C-u> \underline{}<esc>i
 
 " Custom colorscheme for LaTeX files
-" autocmd BufEnter *.tex colorscheme slate
+autocmd BufEnter *.tex colorscheme slate
 
 " Return to the same line when you re-open a file, credits to Steve Losh (to Amit, in fact)
 augroup line_return
@@ -243,12 +208,16 @@ endfun
 autocmd FileType c,cpp nnoremap <leader>f :call ShowFuncName() <CR>
 
 " map ,mb to 'mbed compile' the current project
-nnoremap <leader>mb :w<CR>:!mbed compile -c <CR>
+nnoremap <leader>mb :wa<CR>:!mbed compile <CR>
+" variant: ,mbc to 'mbed compile -c' (takes more time)
+nnoremap <leader>mbc :wa<CR>:!mbed compile -c <CR>
 
 nnoremap <F7> :noh<CR>
-
 
 " 'F5' to compile the actual mbed program, vsplit the window and output the errors
 " 'F10' to close. adapted from: goo.gl/6BJUhU
 nmap <F5> :w<CR>:silent !mbed compile -c 2> ~/.errors<CR>:redraw!<CR>:rightbelow vsplit ~/.errors<CR><C-w>k:vertical resize -40<CR>
 nmap <F9> :bdelete ~/.errors<CR>
+
+set tags=./tags,tags,./.git/tags
+
