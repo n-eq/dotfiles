@@ -128,6 +128,32 @@ wb(){
 	cd -
 }
 
+# Find and go to directory (or parent directory if argument is not a directory)
+# $1: name of the directory/file to go to
 goto(){
-	cd $(find . -iname "${1}" -type d |head -n 1)
+    results=( $(find . -iname "${1}" ) )
+    # only one result found
+    if [[ ${#results[@]} -eq 1 ]]; then
+        # cd to parent directory if it's not a directory
+        if [[ -d "${results[0]}" ]]; then
+            cd "${results[0]}"
+        else 
+            cd $(dirname "${results[0]}")
+        fi
+    elif [[ "${#results[@]}" -ne 0 ]]; then
+        for i in $(seq 0 $((${#results[@]} - 1))); do
+            echo "${i}: ${results[${i}]}"
+        done
+        read  -p "Your choice: " choice
+        if [[ "$choice" -lt ${#results[@]} ]] && [[ "$choice" -ge 0 ]]; then
+            # cd to parent directory if it's not a directory
+            if [[ -d "${results[${choice}]}" ]]; then
+                cd "${results[${choice}]}"
+            else 
+                cd $(dirname "${results[${choice}]}")
+            fi
+        else
+            echo "Invalid choice."
+        fi
+    fi
 }
