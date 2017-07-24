@@ -128,18 +128,25 @@ wb(){
 	cd -
 }
 
-# Find and go to directory (or parent directory if argument is not a directory)
-# $1: name of the directory/file to go to
+# Find and go to (or parent directory if argument is not a directory) 
+# $1: name of the directory/file to go to 
 goto(){
-    results=( $(find . -iname "${1}" ) )
+    # use find to get results, excluce hidden files/directories
+    results=( $(find . -iname "${1}" -not -path '*/\.*' ) )
+
+    # cd to parent directory if it's not a directory
+    change_directory(){
+        if [[ -d "${$1}" ]]; then
+            cd "${1}"
+        else 
+            cd $(dirname "${1}")
+        fi
+    }
+
     # only one result found
     if [[ ${#results[@]} -eq 1 ]]; then
-        # cd to parent directory if it's not a directory
-        if [[ -d "${results[0]}" ]]; then
-            cd "${results[0]}"
-        else 
-            cd $(dirname "${results[0]}")
-        fi
+        change_directory "${results[0]}"
+
     elif [[ "${#results[@]}" -ne 0 ]]; then
         for i in $(seq 0 $((${#results[@]} - 1))); do
             echo "${i}: ${results[${i}]}"
@@ -147,13 +154,11 @@ goto(){
         read  -p "Your choice: " choice
         if [[ "$choice" -lt ${#results[@]} ]] && [[ "$choice" -ge 0 ]]; then
             # cd to parent directory if it's not a directory
-            if [[ -d "${results[${choice}]}" ]]; then
-                cd "${results[${choice}]}"
-            else 
-                cd $(dirname "${results[${choice}]}")
-            fi
+            change_directory "${results[${choice}]}"
         else
             echo "Invalid choice."
         fi
+    else
+        echo "No directory/file found."
     fi
 }
