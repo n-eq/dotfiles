@@ -21,7 +21,6 @@ stty -ixon
 #	ping -q -w 1 -c 1 `ip r | grep default | cut -d ' ' -f 3` > /dev/null && . ~/Perso/kacm/kacm.sh
 # [[ -f ~/Perso/kacm/kacm.sh ]] && . ~/Perso/kacm/kacm.sh
 
-/bin/bash: :x : commande introuvable
 export HISTIGNORE=ignoreboth:erasedups
 HISTCONTROL=ignoreboth
 
