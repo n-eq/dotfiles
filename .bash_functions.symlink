@@ -136,7 +136,7 @@ goto(){
 
     # cd to parent directory if it's not a directory
     change_directory(){
-        if [[ -d "${$1}" ]]; then
+        if [[ -d "${1}" ]]; then
             cd "${1}"
         else 
             cd $(dirname "${1}")
@@ -145,9 +145,11 @@ goto(){
 
     # only one result found
     if [[ ${#results[@]} -eq 1 ]]; then
+        echo "one"
         change_directory "${results[0]}"
 
     elif [[ "${#results[@]}" -ne 0 ]]; then
+        echo "more"
         for i in $(seq 0 $((${#results[@]} - 1))); do
             echo "${i}: ${results[${i}]}"
         done
@@ -159,6 +161,7 @@ goto(){
             echo "Invalid choice."
         fi
     else
+        echo "none"
         echo "No directory/file found."
     fi
 }
