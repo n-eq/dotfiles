@@ -21,10 +21,7 @@ stty -ixon
 #	ping -q -w 1 -c 1 `ip r | grep default | cut -d ' ' -f 3` > /dev/null && . ~/Perso/kacm/kacm.sh
 # [[ -f ~/Perso/kacm/kacm.sh ]] && . ~/Perso/kacm/kacm.sh
 
-# Automatically activate mbed-os virtualenv
-# [[ "$PWD" = *"mbed-os"* ]] && echo "workon" & export -f workon && /bin/bash -c "workon mbed-os"
-
-# duplicate command lines
+/bin/bash: :x : commande introuvable
 export HISTIGNORE=ignoreboth:erasedups
 HISTCONTROL=ignoreboth
 
