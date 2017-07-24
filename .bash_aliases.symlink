@@ -21,7 +21,8 @@ alias brc='vi ~/.bashrc'
 alias aliases='[[ -f ~/.bash_aliases.sh ]] && vi ~/.bash_aliases.sh || vi ~/.bash_aliases'
 alias functions='vi ~/.bash_functions'
 
-alias miniterm='miniterm.py'
+alias gerp='grep'
+alias miniterm='miniterm.py -f colorize' # enable color filter by default
 
 alias ensi='ssh elqatibn@pcserveur.ensimag.fr'
 alias ensix='ssh -X elqatibn@pcserveur.ensimag.fr'
@@ -30,7 +31,7 @@ alias depots='ssh elqatibn@depots.ensimag.fr'
 alias ls='ls -lh --color=auto '
 alias l='ls -lF --color=auto'
 alias ll='ls -lA'
-alias cp='cp -vi' # verbose + interactive
+alias cp='cp -v' # verbose + interactive
 alias rm='rm -i' 
 alias mkr='make clean && make && make run'
 # alias vim='/usr/bin/viim.sh'
