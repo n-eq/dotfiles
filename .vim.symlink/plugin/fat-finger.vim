@@ -1250,10 +1250,11 @@ iabbrev diety deity
 iabbrev diferent different
 iabbrev diferrent different
 iabbrev differant different
-iabbrev differentiatiations differentiations
+iabbrev dufferent different
 iabbrev differnt different
-iabbrev difficulity difficulty
 iabbrev diffrent different
+iabbrev difficulity difficulty
+iabbrev differentiatiations differentiations
 iabbrev dificulties difficulties
 iabbrev dificulty difficulty
 iabbrev dimenions dimensions
