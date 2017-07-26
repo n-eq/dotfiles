@@ -131,6 +131,8 @@ wb(){
 # Find and go to (or parent directory if argument is not a directory) 
 # $1: name of the directory/file to go to 
 goto(){
+    # TODO: use excluded dirs to skip special directories
+#     excluded_dirs=("BUILD" "obj" "bin") 
     # use find to get results, excluce hidden files/directories
     results=( $(find . -iname "${1}" -not -path '*/\.*' ) )
 

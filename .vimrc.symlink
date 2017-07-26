@@ -208,9 +208,9 @@ endfun
 autocmd FileType c,cpp nnoremap <leader>f :call ShowFuncName() <CR>
 
 " map ,mb to 'mbed compile' the current project
-nnoremap <leader>mb :wa<CR>:!mbed compile <CR>
+" nnoremap <leader>mb :wa<CR>:!mbed compile <CR>
 " variant: ,mbc to 'mbed compile -c' (takes more time)
-nnoremap <leader>mbc :wa<CR>:!mbed compile -c <CR>
+" nnoremap <leader>mbc :wa<CR>:!mbed compile -c <CR>
 
 nnoremap <F7> :noh<CR>
 

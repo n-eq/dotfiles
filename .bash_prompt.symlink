@@ -1,7 +1,7 @@
 # .bash_prompt
 
-# Don't show more than 3 levels in cwd path
-PROMPT_DIRTRIM=3
+# Don't show more than 2 levels in cwd path
+PROMPT_DIRTRIM=2
 
 # credits to: https://coderwall.com/p/fasnya/add-git-branch-name-to-bash-prompt
 parse_git_branch() {

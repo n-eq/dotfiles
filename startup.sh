@@ -5,10 +5,9 @@
 # This file should be executed with root privileges.
 
 # list of packages to install
-packages=("git" "ssh" "texlive")
+packages=("git" "ssh" "texlive" "openjdk-7-jdk")
 
 for pack in "${packages[@]}"; do
-    echo "%================================================%"
     echo "[startup.sh] Installing ${pack}"
     apt install "${pack}"
 done
