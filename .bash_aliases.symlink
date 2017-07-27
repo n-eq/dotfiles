@@ -1,7 +1,13 @@
 # temporary aliases:
-alias flash='target_name=$(mbed target 2>/dev/null| sed "s/\[mbed\] //g"); wd=${PWD##*/}; ./dist/program.py BUILD/${target_name}/GCC_ARM/${wd}.elf'
-alias mosq='mosquitto_sub -h localhost -t mbed-sample'
-alias quran='cd ~/Musique/yasin; while true; do mplayer $(printf "%03d.mp3" $(((RANDOM % 114) + 1))); done'
+if [[ "$(hostname)" == *"sonu"* ]]; then
+    alias flash='target_name=$(mbed target 2>/dev/null| sed "s/\[mbed\] //g"); wd=${PWD##*/}; ./dist/program.py BUILD/${target_name}/GCC_ARM/${wd}.elf'
+    alias mosq='mosquitto_sub -h localhost -t mbed-sample'
+    alias quran='cd ~/Musique/yasin; while true; do mplayer $(printf "%03d.mp3" $(((RANDOM % 114) + 1))); done'
+    alias cdd='cd ~/dev'
+    # enable color filter by default and reprompt if port error
+    alias miniterm='miniterm.py -f colorize --ask' 
+    alias grip='grip --browser'
+fi
 
 alias cls='clear'
 alias so='source'
@@ -14,10 +20,8 @@ alias ....='cd ../../..'
 alias .....='cd ../../../..'
 alias tmp='cd ~/tmp'
 alias github='cd ~/github'
-alias cdd='cd ~/dev'
 
 alias git='LANG=en_US git'
-alias grip='grip --browser'
 
 alias vrc='vi ~/.vimrc'
 alias brc='vi ~/.bashrc'
@@ -25,8 +29,6 @@ alias aliases='[[ -f ~/.bash_aliases.sh ]] && vi ~/.bash_aliases.sh || vi ~/.bas
 alias functions='vi ~/.bash_functions'
 
 alias gerp='grep'
-# enable color filter by default and reprompt if port error
-alias miniterm='miniterm.py -f colorize --ask' 
 
 alias ensi='ssh elqatibn@pcserveur.ensimag.fr'
 alias ensix='ssh -X elqatibn@pcserveur.ensimag.fr'
