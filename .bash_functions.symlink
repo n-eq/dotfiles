@@ -116,6 +116,7 @@ autopull(){
 	[[ "$#" -eq 1 ]] && cd -
 }
 
+# find extension
 findx(){
 	find . -name "*.$1"
 }
