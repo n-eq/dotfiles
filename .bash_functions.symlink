@@ -174,8 +174,13 @@ gitlab-init-repo(){
     if [[ "$#" -eq 2 ]]; then
         token="${2}"
     else
-        token="" # XXX
+        if [[ -f ~/.gitlab-init-repo_token ]]; then
+            token=$(cat ~/.gitlab-init-repo_token) # XXX
+        else
+            echo "No token found."
+            return
+        fi
     fi
     test -z "${repo}" && echo "Repo name required." 1>&2 && exit 1
-    curl -H "Content-Type:application/json" https://gitlab.com/api/v3/projects?private_token=$token -d "{ \"name\": \"$repo\" , \"approvals_before_merge\": \"1\" }"
+    curl -H "Content-Type:application/json" https://gitlab.com/api/v3/projects?private_token=$token -d "{ \"name\": \"$repo\" , \"approvals_before_merge\": \"1\" }" |jq
 }
