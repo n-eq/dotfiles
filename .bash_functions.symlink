@@ -164,3 +164,10 @@ goto(){
         echo "No directory/file found."
     fi
 }
+
+gitlab-init-repo(){
+    repo="${1}"
+    token="" # XXX
+    test -z "${repo}" && echo "Repo name required." 1>&2 && exit 1
+    curl -H "Content-Type:application/json" https://gitlab.com/api/v3/projects?private_token=$token -d "{ \"name\": \"$repo\" , \"approvals_before_merge\": \"1\" }"
+}
