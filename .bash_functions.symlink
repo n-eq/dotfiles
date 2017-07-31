@@ -166,9 +166,16 @@ goto(){
     fi
 }
 
+# Create a Gitlab repository
+# $1: name of the repo
+# $2 (optional): access token
 gitlab-init-repo(){
     repo="${1}"
-    token="" # XXX
+    if [[ "$#" -eq 2 ]]; then
+        token="${2}"
+    else
+        token="" # XXX
+    fi
     test -z "${repo}" && echo "Repo name required." 1>&2 && exit 1
     curl -H "Content-Type:application/json" https://gitlab.com/api/v3/projects?private_token=$token -d "{ \"name\": \"$repo\" , \"approvals_before_merge\": \"1\" }"
 }
