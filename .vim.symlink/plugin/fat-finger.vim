@@ -2669,7 +2669,6 @@ iabbrev oftenly often
 iabbrev oging going
 iabbrev oging ogling
 iabbrev ohter other
-iabbrev ok OK
 iabbrev omision omission
 iabbrev omited omitted
 iabbrev omiting omitting

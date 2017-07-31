@@ -52,14 +52,6 @@ fi
 # colored GCC warnings and errors
 export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
-# # # #  # # # # # ## PROJET_GL
-PATH=/matieres/4MMPGL/GL/global/bin:"$PATH"
-PATH=$HOME/2A/Projets/Projet_GL/src/main/bin:"$PATH"
-PATH=$HOME/2A/Projets/Projet_GL/src/test/script:"$PATH"
-PATH=$HOME/2A/Projets/Projet_GL/src/test/script/launchers:"$PATH"
-PATH=$HOME/2A/Projets/Projet_GL/global/bin:"$PATH"
-export PATH
-
 PATH=~/github/weatherspeaker:"$PATH"
 PATH=~/github/blablacar:"$PATH"
 PATH=~/github/Dropbox-Uploader:"$PATH"

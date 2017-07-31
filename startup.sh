@@ -5,11 +5,12 @@
 # This file should be executed with root privileges.
 
 # list of packages to install
-packages=("git" "ssh" "texlive" "openjdk-7-jdk")
+packages=("git" "ssh" "texlive" "openjdk-7-jdk" "gcc" "curl" "libcurl3" "python"\
+    "python-pip")
 
 for pack in "${packages[@]}"; do
     echo "[startup.sh] Installing ${pack}"
-    apt install "${pack}"
+    apt install "${pack}" --assume-yes
 done
 
 apt update 
