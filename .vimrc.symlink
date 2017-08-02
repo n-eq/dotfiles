@@ -207,6 +207,19 @@ fun! ShowFuncName()
 endfun
 autocmd FileType c,cpp nnoremap <leader>f :call ShowFuncName() <CR>
 
+" insert Doxygen function documentation stub
+function! DoxyStub()
+    let l:current_line = line(".")
+    call append(l:current_line, "/*!")
+    let l:current_line += 1
+    call append(l:current_line, " *")
+    let l:current_line += 1
+    call append(l:current_line, " * TODO")
+    let l:current_line += 1
+    call append(l:current_line, " */")
+endfunction
+autocmd Filetype c,cpp nnoremap <leader>dx :call DoxyStub()<CR>
+
 " map ,mb to 'mbed compile' the current project
 " nnoremap <leader>mb :wa<CR>:!mbed compile <CR>
 " variant: ,mbc to 'mbed compile -c' (takes more time)
@@ -221,3 +234,5 @@ nmap <F9> :bdelete ~/.errors<CR>
 
 set tags=./tags,tags,./.git/tags
 
+" map ,] to open tag in new tab
+nnoremap <silent><leader>] <C-w><C-]><C-w>T
