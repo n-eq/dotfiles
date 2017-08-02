@@ -5,12 +5,6 @@
 # machine: they can choose to overwrite their local configuration files with the new ones,
 # keep them as are, or back them up.
 
-DOTFILES_PATH="~/.dotfiles"
-
-cd(){
-	cd "$DOTFILES_PATH"
-}
-
 do_link(){
 	ln -s "$1" "$2"
 	echo "[SETUP] linking \"$1\" to \"$2\"..."
@@ -80,4 +74,13 @@ install(){
 
 set -e
 echo ''
-install
+# TODO FIXME
+if [[ "$#" -eq 1 ]]; then
+    # link one file ($1), can be useful to link a new file
+    real_file="$1"
+    rename -n 's/\.symlink//g' "${real_file}" # real file path may still contain .symlink TODO: this rename doesn't seem to be working...
+    echo "symlinking $1 to $real_file"
+#     do_link "$1" "$real_file"
+else 
+    install
+fi
