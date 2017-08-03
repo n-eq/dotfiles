@@ -123,10 +123,23 @@ findx(){
 
 # Which branch?
 # Check which branch a repository is in without moving to it.
+# If $1: print $1 branch
+# If no $1, loop over subdirectories
 wb(){
-	cd "$1" || return 1
-	echo "$(tput bold)$(git branch 2> /dev/null | sed -e '/^[^*]/d' )$(tput sgr0)"
-	cd -
+    cd_and_print_branch(){
+        cd "$1" || return 1
+        echo "$(tput bold)$(git branch 2> /dev/null | sed -e '/^[^*]/d' )$(tput sgr0)"
+        cd -
+    }
+    if [[ "$#" -eq 0 ]]; then
+        dirs=( $(find . -maxdepth 1 -type d ) )
+        for dir in "${dirs[@]}"; do
+            echo "${dir}: "
+            cd_and_print_branch "${dir}"
+        done
+    elif [[ "$#" -eq 1 ]]; then
+        cd_and_print_branch "${1}"
+    fi
 }
 
 # Find and go to (or parent directory if argument is not a directory) 
@@ -183,4 +196,22 @@ gitlab-init-repo(){
     fi
     test -z "${repo}" && echo "Repo name required." 1>&2 && exit 1
     curl -H "Content-Type:application/json" https://gitlab.com/api/v3/projects?private_token=$token -d "{ \"name\": \"$repo\" , \"approvals_before_merge\": \"1\" }" |jq
+}
+
+# List todos found in files under a maximum depth (default 1) starting from current wd
+# TODO: add arg to specify path
+list-todos(){
+   print_todos_in_file(){
+       grep -ni "todo" "${1}"
+   }
+   if [[ "$#" -eq 1 ]]; then
+       files=( $(find . -maxdepth "${1}" -type f) )
+       for file in "${files[@]}"; do
+           print_todos_in_file "${file}"
+       done
+   else
+       for file in *; do
+           [[ -f "${file}" ]] && print_todos_in_file "${file}"
+       done
+   fi
 }
