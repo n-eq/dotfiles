@@ -41,6 +41,9 @@ set tabstop=4 shiftwidth=4 expandtab
 " 8 spaces, no tab, spaces
 " set tabstop=8 shiftwidth=8 expandtab
 
+" Indentation configuration for vim files
+autocmd FileType vim set tabstop=2 shiftwidth=2 expandtab
+
 set ai " Autoindent
 set si " Smartindent
 
@@ -67,9 +70,6 @@ noremap <leader>W :w !sudo tee % > /dev/null<CR>
 
 "  rot13 encoding when pressing F3, again to decrypt
 map <F3> ggvGg?
-
-nmap <F5> :w<CR>:silent !python % 2> ~/errors<CR>:redraw!<CR>:rightbelow vsplit ~/errors<CR><C-w>k
-nmap <F10> :bdelete ~/errors<CR>
 
 " automaticly closing { brace
 inoremap {<CR> {<CR>}<C-o>O
@@ -220,17 +220,7 @@ function! DoxyStub()
 endfunction
 autocmd Filetype c,cpp nnoremap <leader>dx :call DoxyStub()<CR>
 
-" map ,mb to 'mbed compile' the current project
-" nnoremap <leader>mb :wa<CR>:!mbed compile <CR>
-" variant: ,mbc to 'mbed compile -c' (takes more time)
-" nnoremap <leader>mbc :wa<CR>:!mbed compile -c <CR>
-
 nnoremap <F7> :noh<CR>
-
-" 'F5' to compile the actual mbed program, vsplit the window and output the errors
-" 'F10' to close. adapted from: goo.gl/6BJUhU
-nmap <F5> :w<CR>:silent !mbed compile -c 2> ~/.errors<CR>:redraw!<CR>:rightbelow vsplit ~/.errors<CR><C-w>k:vertical resize -40<CR>
-nmap <F9> :bdelete ~/.errors<CR>
 
 set tags=./tags,tags,./.git/tags
 
