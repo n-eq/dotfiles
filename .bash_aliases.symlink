@@ -12,6 +12,7 @@ if [[ "$(hostname)" == *"sonu"* ]]; then
     # enable color filter by default and reprompt if port error
     alias miniterm='miniterm.py -f colorize --ask' 
     alias grip='grip --browser'
+    alias cos='cd ~/dev/mbed-os'
 fi
 
 alias cls='clear'
@@ -34,6 +35,7 @@ alias aliases='[[ -f ~/.bash_aliases.sh ]] && vi ~/.bash_aliases.sh || vi ~/.bas
 alias functions='vi ~/.bash_functions'
 
 alias gerp='grep'
+alias VI='vi'
 
 alias ensi='ssh elqatibn@pcserveur.ensimag.fr'
 alias ensix='ssh -X elqatibn@pcserveur.ensimag.fr'
