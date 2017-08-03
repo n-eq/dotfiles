@@ -56,5 +56,7 @@ PATH=~/github/weatherspeaker:"$PATH"
 PATH=~/github/blablacar:"$PATH"
 PATH=~/github/Dropbox-Uploader:"$PATH"
 
-# OPENOCD
-PATH=/opt/gnuarmeclispe/gnuarmeclipse/openocd/0.10.0-201705220907-dev/bin/:"$PATH"
+if [[ "$(hostname)" == "*sonu*" ]]; then
+    # OPENOCD
+    PATH=/opt/gnuarmeclispe/gnuarmeclipse/openocd/0.10.0-201705220907-dev/bin/:"$PATH"
+fi
