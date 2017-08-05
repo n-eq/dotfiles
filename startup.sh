@@ -4,6 +4,9 @@
 # quickly set up. It performs basic packages installation (git, ssh, pdflatex...).
 # This file should be executed with root privileges.
 
+
+# TODO: install pip packages (grip.. )
+
 # list of packages to install
 packages=("git" "ssh" "texlive" "openjdk-7-jdk" "gcc" "curl" "libcurl3" "python" "python-pip")
 
