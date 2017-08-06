@@ -8,7 +8,7 @@
 # TODO: install pip packages (grip.. )
 
 # list of packages to install
-packages=("git" "ssh" "texlive" "openjdk-7-jdk" "gcc" "curl" "libcurl3" "python" "python-pip")
+packages=("git" "ssh" "texlive" "openjdk-7-jdk" "gcc" "curl" "libcurl3" "python" "python-pip" "ruby")
 
 for pack in "${packages[@]}"; do
     echo "[startup.sh] Installing ${pack}"
