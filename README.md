@@ -23,6 +23,4 @@ Corrections and typo fixes are encouraged.
 
 # TODO 
 
-* Add a `-A` option to `setup` in order to quickly overwrite all config files without ever being prompted 
-
 * [bash_functions] Create a function to extract a compressed archive whatever compression is used, see https://github.com/techgaun/dotfiles/blob/master/.functions/extract for inspiration
