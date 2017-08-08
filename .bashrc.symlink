@@ -17,6 +17,11 @@ stty -ixon
 # Source bash completion files
 . /etc/bash_completion.d/git-completion.bash
 
+# enable bicon if not launched in the current session
+if ! [[ "$(ps -p $(ps -p $(echo $$) -o ppid=) -o comm=)" =~ 'bicon'* ]]; then
+    bicon.bin
+fi
+
 # Temporarily disabled (Season is over)
 #	ping -q -w 1 -c 1 `ip r | grep default | cut -d ' ' -f 3` > /dev/null && . ~/Perso/kacm/kacm.sh
 # [[ -f ~/Perso/kacm/kacm.sh ]] && . ~/Perso/kacm/kacm.sh
