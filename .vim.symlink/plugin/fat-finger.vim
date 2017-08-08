@@ -4336,3 +4336,4 @@ iabbrev SELCT SELECT
 iabbrev pakcage package
 iabbrev	impotr import
 iabbrev retunr return
+iabbrev biref brief 

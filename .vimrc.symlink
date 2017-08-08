@@ -32,6 +32,8 @@ set title
 " searching starts as soon as you start typing the first letter of the word
 set incsearch
 
+colorscheme onedark
+
 syntax enable
 " set background=default
 
@@ -81,8 +83,6 @@ nmap <silent> <A-Down> :wincmd j<CR>
 nmap <silent> <A-Left> :wincmd h<CR>
 nmap <silent> <A-Right> :wincmd l<CR>
 
-colorscheme default
-
 " default the statusline to green when entering Vim
 hi statusline guibg=DarkGrey ctermfg=8 guifg=White ctermbg=15
 set statusline=%F                           " file name
@@ -92,6 +92,7 @@ set statusline+=%y      "filetype
 set statusline+=%h      "help file flag
 set statusline+=%m      "modified flag
 set statusline+=%r      "read only flag
+set statusline+=%{GitBranchInfoString()}
 set statusline+=\ %=                        " align left
 set statusline+=
 set statusline+=Line:%l/%L[%p%%]            " line X of Y [percent of file]
@@ -180,7 +181,7 @@ augroup line_return
 augroup END
 
 " mapping to fast-make and redraw (useful in TeX projects), credits to https://stackoverflow.com/a/11590512
-nnoremap <leader>mm :silent make\|redraw!\|cc <CR>
+autocmd FileType tex nnoremap <leader>m :silent make > /dev/null\|redraw!\|cc <CR>
 
 " map ,sc to 'source code quote' the current word/expression
 " Known pitfalls: words containing dots

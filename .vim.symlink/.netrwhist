@@ -1,4 +1,0 @@
-let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =2
-let g:netrw_dirhist_1='/home/nelqatib/dev/Zest_IMU/bosch-sensortec-bme280/bme280'
-let g:netrw_dirhist_2='/home/marrakchino/depots-stage/aws-iot-client/src/json'
