@@ -10,10 +10,11 @@
 " <leader>c:  Compile the current application
 " <leader>cv: Compile the current application in verbose mode
 " <leader>cV: Compile the current application in very verbose mode
-" <leader>cc: Clean the build directory and compile the current application
+" <leader>C:  Clean the build directory and compile the current application
 " <leader>cf: Compile and flash the built firmware onto a connected target
 " <leader>n:  Create a new mbed program or library
 " <leader>s:  Synchronize all library and dependency references
+" <leader>t:  Find, build and run tests
 " <F9>:       Close the error buffer (when open)
 " <F11>:      Set the current application's target and toolchain
 "
@@ -28,27 +29,35 @@ if !exists( "g:mbed_toolchain" )
   let g:mbed_toolchain = ""
 endif
 
+" TODO: test
 function! MbedGetTargetandToolchain( force )
-  if g:mbed_target == "" || a:force != 0
-    " if has("win32") " TODO
-    let l:target = system('mbed target')
-    " no target set
-    if l:target == "" 
-      " XXX: no need for a second argument??
-      let g:mbed_target = input( "Please enter your mbed target name: ", l:target) 
-    else
-      let g:mbed_target = l:target
+  let l:mbed_tools_exist = system("which mbed")
+  if l:mbed_tools_exist == ""
+    echoe "Couldn't find mbed CLI tools."
+  else
+    if g:mbed_target == "" || a:force != 0
+      " if has("win32") " TODO
+      let l:target = system('mbed target')
+      " no target set
+      if l:target == "" 
+        let g:mbed_target = input("Please enter your mbed target name: ") 
+      elseif match(l:target, "ERROR") != -1
+        return
+      else
+        let g:mbed_target = l:target
+      endif
     endif
-  endif
 
-  if g:mbed_toolchain == "" || a:force != 0
-    " if has("win32") " TODO
-    let l:toolchain = system('mbed toolchain')
-    if l:toolchain == "" " no toolchain set
-      " XXX: no need for the second argument ??
-      let g:mbed_toolchain = input( "Please choose a toolchain (ARM, GCC_ARM, IAR): ", l:toolchain) 
-    else
-      let g:mbed_toolchain = l:toolchain
+    if g:mbed_toolchain == "" || a:force != 0
+      " if has("win32") " TODO
+      let l:toolchain = system('mbed toolchain')
+      if l:toolchain == "" " no toolchain set
+        let g:mbed_toolchain = input("Please choose a toolchain (ARM, GCC_ARM, IAR): ") 
+      elseif match(l:toolchain, "ERROR") != -1
+        return
+      else
+        let g:mbed_toolchain = l:toolchain
+      endif
     endif
   endif
 endfunction
@@ -65,33 +74,63 @@ function! MbedDeploy()
   execute "!mbed deploy"
 endfunction
 
+" TODO: refactor the buffer-related code below by creating a special function
 function! MbedCompile()
   call MbedGetTargetandToolchain ( 0 ) 
   execute 'wa'
   let @o = system("mbed compile")
+  " If the error buffer is visible (e.g. vsplit), we should simply switch to
+  " it and erase its content, then the content of the register can be freely
+  " pasted. In the case where the buffer doesn't exist (g:error_buffer_number = -1),
+  " it should be vnew'ed and the previously described process should continue.
   if !empty(@o)
-    " pattern not found
+    " <Image> pattern not found
     if match(getreg("o"), "Image") == -1
-      new 
-      let g:error_buffer_number = bufnr('%')
-      set buftype=nofile
+      if exists("g:error_buffer_number")
+        if bufexists(g:error_buffer_number)
+          " buffer exists and is visible
+          if bufwinnr(g:error_buffer_number) > 0
+            call CleanErrorBuffer()
+          else
+            execute "vert belowright sb " . g:error_buffer_number
+          endif
+        else
+          vnew
+          let g:error_buffer_number = bufnr('%')
+          set buftype=nofile
+        endif
+      else
+        vnew
+        let g:error_buffer_number = bufnr('%')
+        set buftype=nofile
+      endif
+      execute "set switchbuf+=useopen"
+      execute "sbuffer " . g:error_buffer_number
+      " paste register content to buffer
       silent put=@o
+      " delete empty lines
       execute "g/^$/d"
-      normal 1G
+      " go to last line
+      normal G
     else
       echo "Compilation ended successfully."
     endif
   endif
-  " horizontal split -> vertical split, TODO: do it more elegantly....
-  normal <C-w>t<C-w>H 
-  " TODO: find "Image: " pattern in output and don't split (compilation 100%
-  " OK) if no compilation error
+endfunction
+
+" Clear the error buffer's content
+function! CleanErrorBuffer()
+  " see  https://stackoverflow.com/questions/28392784/vim-drop-for-buffer-jump-to-window-if-buffer-is-already-open-with-tab-autoco
+  execute "set switchbuf+=useopen"
+  execute "sbuffer " . g:error_buffer_number
+  normal ggdG
 endfunction
 
 " Close compilation error buffer opened due to mbed compile call
 function! CloseErrorBuffer()
   if (exists("g:error_buffer_number"))
     execute "bdelete " . g:error_buffer_number
+    let g:error_buffer_number = -1
   endif
 endfunction
 
@@ -186,14 +225,19 @@ function! ConfigureOutputWindow()
   endif
 endfunction
 
+function! MbedTest()
+
+endfunction
+
 
 " command-mode mappings
-map <F11> :call MbedGetTargetandToolchain(1)<CR>
+map <F11>      :call MbedGetTargetandToolchain(1)<CR>
 map <leader>c  :call MbedCompile()<CR>
-map <leader>cc :call MbedCompileClean()<CR>
+map <leader>C  :call MbedCompileClean()<CR>
 map <leader>cf :call MbedCompileFlash()<CR>
 map <leader>cv :call MbedCompileVerbose()<CR>
 map <leader>cV :call MbedCompileVVerbose()<CR>
 map <leader>n  :call MbedNew()<CR>
-map <leader>n  :call MbedSync()<CR>
-map <F10> :call CloseErrorBuffer<CR>
+map <leader>s  :call MbedSync()<CR>
+map <leader>t  :call MbedTest()<CR>
+map <F9> :call CloseErrorBuffer()<CR>

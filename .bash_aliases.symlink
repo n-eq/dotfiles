@@ -13,13 +13,14 @@ if [[ "$(hostname)" == *"sonu"* ]]; then
     alias miniterm='miniterm.py -f colorize --ask' 
     alias grip='grip --browser'
     alias cos='cd ~/dev/mbed-os'
+    alias cds='cd ~/stage-2A'
+    alias sminiterm='sleep 10; miniterm'
 fi
 
 alias cls='clear'
 alias so='source'
 
 alias dotfiles='cd ~/.dotfiles'
-alias cds='cd ~/stage-2A'
 alias ..='cd ..'
 alias ...='cd ../..'
 alias ....='cd ../../..'
