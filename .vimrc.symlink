@@ -32,10 +32,13 @@ set title
 " searching starts as soon as you start typing the first letter of the word
 set incsearch
 
-colorscheme onedark
+if match(system("ls ~/.vim/colors"), "onedark") != -1
+  colorscheme onedark
+else
+  colorscheme default
+endif
 
 syntax enable
-" set background=default
 
 " Indentation configuration
 " 4 spaces, no tab, spaces
@@ -106,9 +109,6 @@ autocmd FileType java iabbr sysout System.out.println("");<esc>2hi
 " Source the vimrc file after saving it
 autocmd BufWritePost $MYVIMRC source $MYVIMRC
 
-" force *.md files as markdown
-autocmd BufNewFile,BufReadPost,BufRead *.md,*.markdown set filetype=markdown
-
 " force bash_* config files as shell
 autocmd BufNewFile,BufReadPost,BufRead .bash_* set filetype=sh
 
@@ -169,7 +169,13 @@ autocmd FileType tex inoremap <C-i> \emph{}<esc>i
 autocmd FileType tex inoremap <C-b> \textbf{}<esc>i
 
 " Custom colorscheme for LaTeX files
-autocmd BufEnter *.tex colorscheme slate
+if match(system("ls ~/.vim/colors"), "lucario") != -1
+  autocmd BufEnter *.tex colorscheme lucario
+  autocmd BufEnter *.tex syntax enable
+  autocmd BufEnter *.tex set number
+else
+  autocmd BufEnter *.tex colorscheme desert
+endif
 
 " Return to the same line when you re-open a file, credits to Steve Losh (to Amit, in fact)
 augroup line_return
@@ -187,6 +193,8 @@ autocmd FileType tex nnoremap <leader>m :silent make > /dev/null\|redraw!\|cc <C
 " Known pitfalls: words containing dots
 autocmd FileType markdown nnoremap <leader>sc ciw``<Esc>P
 autocmd FileType markdown xnoremap <leader>sc c``<Esc>P
+" force *.md files as markdown
+autocmd BufNewFile,BufReadPost,BufRead *.md,*.markdown set filetype=markdown
 
 " map Ctrl-S to save the file in insert mode
 imap <C-S> <ESC>:w<CR>a
