@@ -239,7 +239,7 @@ nnoremap <silent><leader>] <C-w><C-]><C-w>T
 
 " map '-' in normal mode to explore current dir
 " TODO: FIXME
-nnoremap - Explore<CR>
+nnoremap - :Explore<CR>
 
 command! -nargs=+ Grep execute 'silent grep! --exclude-dir=.git -RIni <args> *' | copen
 
@@ -247,6 +247,5 @@ command! -nargs=+ Grep execute 'silent grep! --exclude-dir=.git -RIni <args> *' 
 " very useful when formatting a text to respect the 80-col rule
 " credits to: http://vim.wikia.com/wiki/Insert_newline_without_entering_insert_mode
 nnoremap <C-J> ea<CR><Esc>k$
-
 
 iabbr ZC Zest\_Core
