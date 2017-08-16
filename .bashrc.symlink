@@ -18,8 +18,10 @@ stty -ixon
 . /etc/bash_completion.d/git-completion.bash
 
 # enable bicon if not launched in the current session
-if ! [[ "$(ps -p $(ps -p $(echo $$) -o ppid=) -o comm=)" =~ 'bicon'* ]]; then
-    bicon.bin
+if [[ "$(hostname)" != *"sonu"* ]]; then
+    if ! [[ "$(ps -p $(ps -p $(echo $$) -o ppid=) -o comm=)" =~ 'bicon'* ]]; then
+        bicon.bin
+    fi
 fi
 
 # Temporarily disabled (Season is over)
