@@ -228,6 +228,7 @@ function! DoxyStub()
     call append(l:current_line, " */")
 endfunction
 autocmd Filetype c,cpp nnoremap <leader>dx :call DoxyStub()<CR>
+autocmd Filetype c,cpp command! -nargs=0 DoxygenFunctionStub :call DoxyStub()
 
 nnoremap <F7> :noh<CR>
 
@@ -235,3 +236,17 @@ set tags=./tags,tags,./.git/tags
 
 " map ,] to open tag in new tab
 nnoremap <silent><leader>] <C-w><C-]><C-w>T
+
+" map '-' in normal mode to explore current dir
+" TODO: FIXME
+nnoremap - Explore<CR>
+
+command! -nargs=+ Grep execute 'silent grep! --exclude-dir=.git -RIni <args> *' | copen
+
+" map C-J to insert a new line after the current word and return back,
+" very useful when formatting a text to respect the 80-col rule
+" credits to: http://vim.wikia.com/wiki/Insert_newline_without_entering_insert_mode
+nnoremap <C-J> ea<CR><Esc>k$
+
+
+iabbr ZC Zest\_Core

@@ -3023,6 +3023,7 @@ iabbrev principaly principality
 iabbrev principial principal
 iabbrev principlaity principality
 iabbrev principly principally
+iabbrev principaly principally
 iabbrev prinicipal principal
 iabbrev privalege privilege
 iabbrev privaleges privileges
