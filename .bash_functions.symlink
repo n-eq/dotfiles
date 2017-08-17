@@ -129,6 +129,7 @@ findx(){
 wb(){
     cd_and_print_branch(){
         cd "$1" || return 1
+        # alternative: rev-parse --abbrev-ref HEAD
         echo "$(tput bold)$(git branch 2> /dev/null | sed -e '/^[^*]/d' )$(tput sgr0)"
         cd -
     }
