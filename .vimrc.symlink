@@ -229,9 +229,14 @@ function! DoxyStub()
 endfunction
 autocmd Filetype c,cpp nnoremap <leader>dx :call DoxyStub()<CR>
 
+" map <F7> to disable search highlighting
 nnoremap <F7> :noh<CR>
+inoremap <F7> <ESC>:noh<CR>
 
 set tags=./tags,tags,./.git/tags
 
 " map ,] to open tag in new tab
 nnoremap <silent><leader>] <C-w><C-]><C-w>T
+
+" insert a shebang at the top of the file
+autocmd FileType sh nnoremap <F12> ggO#!/bin/sh<CR><ESC>

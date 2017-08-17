@@ -14,7 +14,7 @@ if [[ "$(hostname)" == *"sonu"* ]]; then
     alias grip='grip --browser'
     alias cos='cd ~/dev/mbed-os'
     alias cds='cd ~/stage-2A'
-    alias sminiterm='sleep 10; miniterm'
+    alias sminiterm='sleep 15; miniterm'
 fi
 
 alias cls='clear'
