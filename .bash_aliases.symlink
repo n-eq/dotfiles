@@ -6,7 +6,7 @@ alias clone_lib='git clone git@gitlab.com:catie_6tron/mbed-os-lib-template'
 # host-specific aliases
 if [[ "$(hostname)" == *"sonu"* ]]; then
     alias flash='target_name=$(mbed target 2>/dev/null| sed "s/\[mbed\] //g"); wd=${PWD##*/}; ./dist/program.py BUILD/${target_name}/GCC_ARM/${wd}.elf'
-    alias mosq='mosquitto_sub -h localhost -t mbed-sample'
+    alias mosq='mosquitto_sub -h localhost'
     alias quran='cd ~/Musique/yasin; while true; do mplayer $(printf "%03d.mp3" $(((RANDOM % 114) + 1))); done'
     alias cdd='cd ~/dev'
     # enable color filter by default and reprompt if port error

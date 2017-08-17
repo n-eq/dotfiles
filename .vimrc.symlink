@@ -206,6 +206,7 @@ autocmd VimLeave * silent !ssty ixon
 " show current function name (useful in C/C++ programs), credits to https://stackoverflow.com/a/23259759
 " /!\ fails in the following cases:
 "  * function name in more than one line
+"  * function defined inside a class definition
 fun! ShowFuncName()
 	let lnum = line(".")
 	let col = col(".")
@@ -232,7 +233,7 @@ autocmd Filetype c,cpp command! -nargs=0 DoxygenFunctionStub :call DoxyStub()
 
 " map <F7> to disable search highlighting
 nnoremap <F7> :noh<CR>
-inoremap <F7> <ESC>:noh<CR>
+inoremap <F7> <ESC>:noh<CR>a
 
 set tags=./tags,tags,./.git/tags
 
@@ -254,3 +255,6 @@ command! -nargs=+ Grep execute 'silent grep! --exclude-dir=.git -RIni <args> *' 
 nnoremap <C-J> ea<CR><Esc>k$
 
 iabbr ZC Zest\_Core
+
+" :Vrc command to open ~/.vimrc in a split window
+command! -nargs=0 Vrc :sp ~/.vimrc
