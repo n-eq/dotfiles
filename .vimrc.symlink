@@ -167,6 +167,11 @@ set exrc
 " TeX quick mappings
 autocmd FileType tex inoremap <C-i> \emph{}<esc>i
 autocmd FileType tex inoremap <C-b> \textbf{}<esc>i
+" mapping to fast-make and redraw (useful in TeX projects), 
+" credits to https://stackoverflow.com/a/11590512
+autocmd FileType tex nmap <leader>m :silent make > /dev/null\|redraw!\|cc <CR>
+" same in insert mode, mapped to XXX??
+" autocmd FileType tex imap <F5> <ESC> :silent make > /dev/null\|redraw!\|cc <CR>
 
 " Custom colorscheme for LaTeX files
 if match(system("ls ~/.vim/colors"), "lucario") != -1
@@ -185,9 +190,6 @@ augroup line_return
 				\     execute 'normal! g`"zvzz' |
 				\ endif
 augroup END
-
-" mapping to fast-make and redraw (useful in TeX projects), credits to https://stackoverflow.com/a/11590512
-autocmd FileType tex nnoremap <leader>m :silent make > /dev/null\|redraw!\|cc <CR>
 
 " map ,sc to 'source code quote' the current word/expression
 " Known pitfalls: words containing dots
