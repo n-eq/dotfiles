@@ -240,7 +240,7 @@ inoremap <F7> <ESC>:noh<CR>a
 set tags=./tags,tags,./.git/tags
 
 " map ,] to open tag in new tab
-nnoremap <silent><leader>] <C-w><C-]><C-w>T
+nnoremap <leader>] <C-w><C-]><C-w>T
 
 " insert a shebang at the top of the file
 autocmd FileType sh nnoremap <F12> ggO#!/bin/sh<CR><ESC>
@@ -256,7 +256,7 @@ command! -nargs=+ Grep execute 'silent grep! --exclude-dir=.git -RIni <args> *' 
 " credits to: http://vim.wikia.com/wiki/Insert_newline_without_entering_insert_mode
 nnoremap <C-J> ea<CR><Esc>k$
 
-iabbr ZC Zest\_Core
+autocmd FileType tex iabbr ZC Zest\_Core
 
 " :Vrc command to open ~/.vimrc in a split window
 command! -nargs=0 Vrc :sp ~/.vimrc

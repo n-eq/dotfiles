@@ -229,3 +229,13 @@ list-todos(){
        done
    fi
 }
+
+# google(){
+#     search_query="${1}"
+#     for i in `seq 2 $(("$#" - 1 ))`; do
+#         search_query="${search_query}&${i}"
+#     done
+#     search_query="${search_query}&$#"
+#     echo "search_query: $search_query"
+#     /usr/lib/python2.7/webbrowser.py -t "http://google.com/search?q=${1}"
+# }
