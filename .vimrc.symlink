@@ -95,7 +95,7 @@ set statusline+=%y      "filetype
 set statusline+=%h      "help file flag
 set statusline+=%m      "modified flag
 set statusline+=%r      "read only flag
-set statusline+=%{GitBranchInfoString()}
+set statusline+=\ %{GitBranchInfoString()}
 set statusline+=\ %=                        " align left
 set statusline+=
 set statusline+=Line:%l/%L[%p%%]            " line X of Y [percent of file]
