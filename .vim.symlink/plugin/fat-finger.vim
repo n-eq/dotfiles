@@ -4339,3 +4339,5 @@ iabbrev	impotr import
 iabbrev retunr return
 iabbrev biref brief 
 iabbrev abnormaly abnormally
+iabbrev siez size
+

@@ -47,13 +47,29 @@
 "   is opened. You can close this buffer with <F9>. 
 "
 
-if !exists( "w:mbed_target" )
+function! ReadTargetandToolchainFromConfigFile(file)
+  if filereadable(a:file)
+    if match(readfile(a:file), "TARGET") != -1
+      let w:mbed_target = substitute(system("grep 'TARGET' " . a:file . " | cut -f2 -d="), '\n', '', 'g')
+    endif
+    if match(readfile(a:file), "TOOLCHAIN") != -1
+      let w:mbed_toolchain = substitute(system("grep 'TOOLCHAIN' " . a:file . " | cut -f2 -d="), '\n', '', 'g')
+    endif
+  endif
+endfunction
+
+if !exists("w:mbed_target")
   let w:mbed_target = ""
 endif
 
-if !exists( "w:mbed_toolchain" )
-  let w:mbed_toolchain = "GCC_ARM"
+if !exists("w:mbed_toolchain")
+  let w:mbed_toolchain = ""
 endif
+
+" read from ~/.mbed if found
+call ReadTargetandToolchainFromConfigFile(expand("~/.mbed"))
+" eventually override the global configuration with the local .mbed file content
+call ReadTargetandToolchainFromConfigFile(".mbed")
 
 function! MbedGetTargetandToolchain( force )
   call system("which mbed")
@@ -160,11 +176,12 @@ function! MbedCompile(flags)
   let @o = system("mbed compile" . " -m " . w:mbed_target . " -t " . w:mbed_toolchain . " " . a:flags)
   if !empty(@o)
     " <Image> pattern not found
-    if match(getreg("o"), "Image") == -1
-      call PasteContentToErrorBuffer()
-    else
-      echo "Compilation ended successfully."
-    endif
+"     if match(getreg("o"), "Image") == -1
+"       call PasteContentToErrorBuffer()
+"     else
+"       echo "Compilation ended successfully."
+"     endif
+  call PasteContentToErrorBuffer()
   endif
 endfunction
 
@@ -200,7 +217,6 @@ endfunction
 
 function! MbedList()
   let @o = system("mbed ls")
-  " XXX: if @o == "" ??
   if !empty(@o)
     " no output 
     new | set buftype = nofile
