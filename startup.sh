@@ -19,7 +19,7 @@ if [[ "${1}" == "--missing" ]]; then
 fi
 
 # list of packages to install
-packages=("git" "sudo" "ssh" "texlive" "gcc" "curl" "libcurl3" "python" "python-pip" "ruby" "libfribidi0" "libfribidi-dev" "nodejs" "npm" "pkg-configure" "dh-autoreconf" "gimp" "mplayer")
+packages=("git" "sudo" "ssh" "texlive" "gcc" "curl" "libcurl3" "python" "python-pip" "ruby" "libfribidi0" "libfribidi-dev" "nodejs" "npm" "pkg-configure" "dh-autoreconf" "gimp" "mplayer" "zathura")
 counter=0
 
 for pack in "${packages[@]}"; do
