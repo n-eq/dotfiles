@@ -18,15 +18,15 @@ stty -ixon
 . /etc/bash_completion.d/git-completion.bash
 
 # enable bicon if not launched in the current session
-if [[ "$(hostname)" != *"sonu"* ]]; then
+if [[ "$(hostname)" = "debian" ]]; then
     if ! [[ "$(ps -p $(ps -p $(echo $$) -o ppid=) -o comm=)" =~ 'bicon'* ]]; then
         bicon.bin
     fi
 fi
 
 # Temporarily disabled (Season is over)
-#	ping -q -w 1 -c 1 `ip r | grep default | cut -d ' ' -f 3` > /dev/null && . ~/Perso/kacm/kacm.sh
-# [[ -f ~/Perso/kacm/kacm.sh ]] && . ~/Perso/kacm/kacm.sh
+ping -q -w 1 -c 1 `ip r | grep default | cut -d ' ' -f 3` > /dev/null && . ~/github/kacm/kacm.sh
+# [[ -f ~/github/kacm/kacm.sh ]] && . ~/github/kacm/kacm.sh
 
 export HISTIGNORE=ignoreboth:erasedups
 HISTCONTROL=ignoreboth
