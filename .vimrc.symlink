@@ -39,6 +39,10 @@ else
 endif
 
 syntax enable
+" Lustre syntax highlight
+augroup filetypedetect
+   au BufWinEnter,BufRead,BufNewFile *.lus,*.ec set filetype=lus
+augroup END
 
 " Indentation configuration
 " 4 spaces, no tab, spaces
