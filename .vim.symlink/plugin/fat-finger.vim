@@ -476,7 +476,6 @@ iabbrev attemted attempted
 iabbrev attemting attempting
 iabbrev attemts attempts
 iabbrev attendence attendance
-iabbrev attendent attendant
 iabbrev attendents attendants
 iabbrev attened attended
 iabbrev attension attention
@@ -1576,7 +1575,6 @@ iabbrev exectued executed
 iabbrev exeedingly exceedingly
 iabbrev exelent excellent
 iabbrev exellent excellent
-iabbrev exemple example
 iabbrev exept except
 iabbrev exeptional exceptional
 iabbrev exerbate exacerbate
@@ -4340,4 +4338,7 @@ iabbrev retunr return
 iabbrev biref brief 
 iabbrev abnormaly abnormally
 iabbrev siez size
+iabbrev pritnf printf
+iabbrev prinft printf
+
 

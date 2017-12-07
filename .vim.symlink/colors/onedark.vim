@@ -167,7 +167,7 @@ call s:h("Debug", {}) " debugging statements
 call s:h("Underlined", { "gui": "underline", "cterm": "underline" }) " text that stands out, HTML links
 call s:h("Ignore", {}) " left blank, hidden
 call s:h("Error", { "fg": s:red }) " any erroneous construct
-call s:h("Todo", { "fg": s:purple }) " anything that needs extra attention; mostly the keywords TODO FIXME and XXX
+call s:h("Todo", { "fg": s:red }) " anything that needs extra attention; mostly the keywords TODO FIXME and XXX
 
 " }}}
 

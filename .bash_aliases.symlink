@@ -1,8 +1,3 @@
-# temporary aliases:
-alias clone_app='git clone git@gitlab.com:catie_6tron/mbed-os-app-template'
-alias clone_lib='git clone git@gitlab.com:catie_6tron/mbed-os-lib-template'
-# # # # # # # # # # # # # # # # # # # #                    
-
 # host-specific aliases
 if [[ "$(hostname)" == *"sonu"* ]]; then
     alias flash='target_name=$(mbed target 2>/dev/null| sed "s/\[mbed\] //g"); wd=${PWD##*/}; ./dist/program.py BUILD/${target_name}/GCC_ARM/${wd}.elf'
@@ -15,10 +10,11 @@ if [[ "$(hostname)" == *"sonu"* ]]; then
     alias cos='cd ~/dev/mbed-os'
     alias cds='cd ~/stage-2A'
     alias sminiterm='sleep 15; miniterm'
-else
-    alias cds='cd ~/2A/stage-2A'
 fi
 
+alias let_scrap='python ~/github/letudiant-offers-scrapper/offer-scrapper/main.py'
+
+alias cds='cd ~/2A/stage-2A'
 alias cls='clear'
 alias so='source'
 
@@ -29,6 +25,7 @@ alias ....='cd ../../..'
 alias .....='cd ../../../..'
 alias tmp='cd ~/tmp'
 alias github='cd ~/github'
+alias neos='cd ~/github/neos'
 
 alias git='LANG=en_US git'
 
@@ -50,6 +47,7 @@ alias ll='ls -lA'
 alias cp='cp -v' # verbose + interactive
 alias rm='rm -i' 
 alias mkr='make clean && make && make run'
+alias test-ping='ping www.google.com'
 # alias vim='/usr/bin/viim.sh'
 
 # Add an "alert" alias for long running commands. Use like so: sleep 10; alert
