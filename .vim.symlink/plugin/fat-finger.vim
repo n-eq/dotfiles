@@ -645,7 +645,6 @@ iabbrev cahracters characters
 iabbrev calaber caliber
 iabbrev calander calendar
 iabbrev calculater calculator
-iabbrev calculs calculus
 iabbrev calenders calendars
 iabbrev caligraphy calligraphy
 iabbrev caluclate calculate
