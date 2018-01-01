@@ -33,15 +33,15 @@
 " This will show 'text' before the branches. If not set ' Git ' (with a trailing
 " left space) will be displayed.
 "
-" let g:git_branch_status_nogit=""
 " The message when there is no Git repository on the current dir
+let g:git_branch_status_nogit=""
 "
-" let g:git_branch_status_around=""
+let g:git_branch_status_around="~~"
 " Characters to put around the branch strings. Need to be a pair or characters,
 " the first will be on the beginning of the branch string and the last on the
 " end.
 " 
-" let g:git_branch_status_ignore_remotes=1
+let g:git_branch_status_ignore_remotes=1
 " Ignore the remote branches. If you don't want information about them, this can
 " make things works faster.
 "
@@ -66,7 +66,7 @@
 "
 let s:menu_on		= 0
 let s:checking		= ""
-let s:rebase_msg	= 'Rebasing,merging,bisecting?'
+let s:rebase_msg	= '?'
 let b:gbi_git_dir	= ""
 let b:gbi_git_load_branch = ""
 
