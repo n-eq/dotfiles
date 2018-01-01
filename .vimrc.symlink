@@ -45,10 +45,13 @@ augroup filetypedetect
 augroup END
 
 " Indentation configuration
+" set ts=2 sw=2 noexpandtab
 " 4 spaces, no tab, spaces
 set tabstop=4 shiftwidth=4 expandtab
 " 8 spaces, no tab, spaces
 " set tabstop=8 shiftwidth=8 expandtab
+" 8 spaces, tab, spaces
+" set tabstop=8 shiftwidth=8 noexpandtab
 
 " Indentation configuration for vim files
 autocmd FileType vim set tabstop=2 shiftwidth=2 expandtab
@@ -61,13 +64,13 @@ set number
 
 " Commenting/Uncommenting blocks of code for different file types
 " souce: http://stackoverflow.com/questions/1676632/whats-a-quick-way-to-comment-uncomment-lines-in-vim#comment27973419_1676672
-autocmd FileType c,cpp,java,javascript,scala 	          let b:comment_leader = '// '
+autocmd FileType c,cpp,java,javascript,scala 	        let b:comment_leader = '// '
 autocmd FileType sh,ruby,python   	                    let b:comment_leader = '# '
 autocmd FileType conf,fstab,make,cfg       	            let b:comment_leader = '# '
 autocmd FileType tex,plaintex     	                    let b:comment_leader = '% '
 autocmd FileType mail             	                    let b:comment_leader = '> '
 autocmd FileType vim               	                    let b:comment_leader = '" '
-autocmd FileType sql			                              let b:comment_leader = '-- '
+autocmd FileType sql,vhdl                               let b:comment_leader = '-- '
 noremap <silent> <leader>cc :<C-B>silent <C-E>s/^/<C-R>=escape(b:comment_leader,'\/')<CR>/<CR>:nohlsearch<CR>
 noremap <silent> <leader>cu :<C-B>silent <C-E>s/^\V<C-R>=escape(b:comment_leader,'\/')<CR>//e<CR>:nohlsearch<CR>
 
@@ -80,7 +83,7 @@ noremap <leader>W :w !sudo tee % > /dev/null<CR>
 "  rot13 encoding when pressing F3, again to decrypt
 map <F3> ggvGg?
 
-" automaticly closing { brace
+" automatically closing { brace
 inoremap {<CR> {<CR>}<C-o>O
 
 " map nivgation between windows to Alt + <ArrowKey>
@@ -90,21 +93,18 @@ nmap <silent> <A-Down> :wincmd j<CR>
 nmap <silent> <A-Left> :wincmd h<CR>
 nmap <silent> <A-Right> :wincmd l<CR>
 
-" default the statusline to green when entering Vim
-hi statusline guibg=DarkGrey ctermfg=8 guifg=White ctermbg=15
-set statusline=%F                           " file name
-" set statusline+=\ \ [%{strlen(&fenc)?&fenc,:''} "file encoding
-set statusline+=\ \ [%{&ff}] "file format
-set statusline+=%y      "filetype
-set statusline+=%h      "help file flag
-set statusline+=%m      "modified flag
-set statusline+=%r      "read only flag
-set statusline+=\ %{GitBranchInfoString()}
-set statusline+=\ %=                        " align left
+hi statusline guibg=Black ctermfg=8 guifg=White ctermbg=15
+set statusline=%#Title#%F%#StatusLine#                                    " file name
+set statusline+=%#MatchParen#\ \ [%{&ff}]%#MatchParen#                    " file format
+set statusline+=%y                                                        " filetype
+set statusline+=%h                                                        " help file flag
+set statusline+=%m                                                        " modified flag
+set statusline+=%r                                                        " read only flag
+set statusline+=\ %#ErrorMsg#%{GitBranchInfoString()}%#ErrorMsg#%#Title#  " Git branch
+set statusline+=\ %=                                                      " align left
 set statusline+=
-set statusline+=Line:%l/%L[%p%%]            " line X of Y [percent of file]
-set statusline+=\ Col:%c                    " current column
-set statusline+=\ [0x%B]\               " ASCII and byte code under cursor
+set statusline+=Line:%l/%L[%p%%]                                          " line X of Y [percent of file]
+set statusline+=\ Col:%c                                                  " current column
 set laststatus=2
 
 " abbreviation for Java's System.out.println
@@ -171,6 +171,10 @@ set exrc
 " TeX quick mappings
 autocmd FileType tex inoremap <C-i> \emph{}<esc>i
 autocmd FileType tex inoremap <C-b> \textbf{}<esc>i
+autocmd FileType tex inoremap << \og
+autocmd FileType tex inoremap >> \fg{}
+autocmd FileType tex inoremap <silent> <F9> \verb??<ESC>hi
+
 " mapping to fast-make and redraw (useful in TeX projects), 
 " credits to https://stackoverflow.com/a/11590512
 autocmd FileType tex nmap <leader>m :silent make > /dev/null\|redraw!\|cc <CR>
@@ -198,6 +202,7 @@ augroup END
 " map ,sc to 'source code quote' the current word/expression
 " Known pitfalls: words containing dots
 autocmd FileType markdown nnoremap <leader>sc ciw``<Esc>P
+autocmd FileType gitcommit nnoremap <leader>sc ciw``<Esc>P 
 autocmd FileType markdown xnoremap <leader>sc c``<Esc>P
 " force *.md files as markdown
 autocmd BufNewFile,BufReadPost,BufRead *.md,*.markdown set filetype=markdown
@@ -260,7 +265,19 @@ command! -nargs=+ Grep execute 'silent grep! --exclude-dir=.git -RIni <args> *' 
 " credits to: http://vim.wikia.com/wiki/Insert_newline_without_entering_insert_mode
 nnoremap <C-J> ea<CR><Esc>k$
 
-autocmd FileType tex iabbr ZC Zest\_Core
-
 " :Vrc command to open ~/.vimrc in a split window
 command! -nargs=0 Vrc :sp ~/.vimrc
+
+let g:indentLine_enabled = 0
+autocmd FileType python let g:indentLine_enabled = 1
+
+" automatically insert "#ifndef..." in new h,hpp files
+" (http://vim.wikia.com/wiki/Automatic_insertion_of_C/C%2B%2B_header_gates)
+function! s:insert_gates()
+  let gatename = "__" . substitute(toupper(expand("%:t")), "\\.", "_", "g") . "__"
+  execute "normal! i#ifndef " . gatename
+  execute "normal! o#define " . gatename . " "
+  execute "normal! Go#endif"
+  execute "normal! ggjo" 
+endfunction
+autocmd BufNewFile *.{h,hpp} call <SID>insert_gates()
