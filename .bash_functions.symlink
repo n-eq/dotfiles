@@ -234,3 +234,9 @@ google(){
     search_query=$(echo "$@"| sed 's/ /+/g')
     [[ -f "/usr/lib/python2.7/webbrowser.py" ]] && /usr/lib/python2.7/webbrowser.py -t "http://google.com/search?q=${search_query}" || echo "Python webbrowser module not found."
 }
+
+load_bicon(){
+    if ! [[ "$(ps -p $(ps -p $(echo $$) -o ppid=) -o comm=)" =~ 'bicon'* ]]; then
+        bicon.bin
+    fi
+}
