@@ -19,19 +19,6 @@ whattimeisit(){
     type "espeak" >/dev/null 2&>1 && echo "${current_time}" | espeak || echo "${current_time}"
 }
 
-espanol(){
-	if [ "$#" -eq 0 ]; then
-		more ~/espanol.txt
-	else 
-		# test if the word is not previously defined
-		if ! grep -q "^$1" ~/espanol.txt ; then 
-			echo "$1: ${@:2}" >> ~/espanol.txt
-		else 
-			grep "^$1" ~/espanol.txt --color=auto
-		fi
-	fi
-}
-
 # git pull in all existing (found) repositories
 pull_all(){
 	wc=$(pwd)
@@ -239,4 +226,15 @@ load_bicon(){
     if ! [[ "$(ps -p $(ps -p $(echo $$) -o ppid=) -o comm=)" =~ 'bicon'* ]]; then
         bicon.bin
     fi
+}
+
+# extract function prototypes from C/C++ files
+prototypes(){
+    ctags -x --c-kinds=fp "${@}"
+}
+
+# wget on github file URL
+# no checks performed, be wise enough
+wgit(){
+    wget "$(echo "${1}"|sed -e 's/blob/raw/g')" ${@:2}
 }
