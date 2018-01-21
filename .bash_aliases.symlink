@@ -12,11 +12,12 @@ if [[ "$(hostname)" == *"sonu"* ]]; then
     alias sminiterm='sleep 15; miniterm'
 fi
 
-alias let_scrap='python ~/github/letudiant-offers-scrapper/offer-scrapper/main.py'
+alias offers='python ~/github/letudiant-offers-scrapper/offer-scrapper/main.py'
 
 alias cds='cd ~/2A/stage-2A'
 alias cls='clear'
 alias so='source'
+alias sagi='sudo apt-get install'
 
 alias dotfiles='cd ~/.dotfiles'
 alias ..='cd ..'
