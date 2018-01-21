@@ -10,7 +10,11 @@ parse_git_branch() {
 
 # check if there are local uncommitted changes
 local_changes() {
-    [[ -f .git ]] && [[ -n "$(git status -s)" ]] && echo "!" || echo ""
+    if git rev-parse --git-dir > /dev/null 2>&1; then
+        [[ -n "$(git status -s)" ]] && echo "!"
+    else
+        echo ""
+    fi
 }
 
-export PS1="\u \[\033[32m\]\w\[\033[97m\]\$(parse_git_branch)$(local_changes)\[\033[00m\]$ "
+export PS1="[\D{%R}] \u \[\033[32m\]\w\[\033[97m\]\$(parse_git_branch)$(local_changes)\[\033[00m\]$ "
