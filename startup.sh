@@ -17,7 +17,7 @@ install_bicon(){
 apt_packages=("git" "sudo" "ssh" "texlive" "gcc" "curl" "libcurl3"\
     "python" "python-pip" "ruby" "libfribidi0" "libfribidi-dev"\
     "nodejs" "npm"  "dh-autoreconf" "gimp" "zathura" "ack-grep"\
-    "build-essential" "vim" "libssl-dev" "rubber")
+    "build-essential" "vim" "libssl-dev" "rubber" "mpv")
 
 install_apt(){
     counter=0
