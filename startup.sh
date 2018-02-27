@@ -52,8 +52,7 @@ install_npm(){
     done
 }
 
-# XXX
-pip_packages=("")
+pip_packages=("pyserial")
 install_pip(){
     for pack in "${pip_packages[@]}"; do
         echo -e "${COL}[pip] Installing ${pack}...${NC}"
@@ -77,7 +76,7 @@ for arg in "${@}"; do
             shift 1; break
             ;;
         pip|--pip)
-#             install_pip
+            install_pip
             shift 1; break
             ;;
         bicon|--bicon)
