@@ -14,10 +14,10 @@ install_bicon(){
 }
 
 # list of apt_packages to install
-apt_packages=("git" "sudo" "ssh" "texlive" "gcc" "curl" "libcurl3"\
+apt_packages=("git" "ssh" "texlive" "gcc" "curl" "libcurl3"\
     "python" "python-pip" "ruby" "libfribidi0" "libfribidi-dev"\
     "nodejs" "npm"  "dh-autoreconf" "gimp" "zathura" "ack-grep"\
-    "build-essential" "vim" "libssl-dev" "rubber" "mpv")
+    "build-essential" "vim" "libssl-dev" "rubber" "mpv" "pkg-config" "tree")
 
 install_apt(){
     counter=0
@@ -26,7 +26,7 @@ install_apt(){
             pack_found=$(dpkg -s "${pack}") 
     #         pack_found=$(dpkg-query -W --showformat="${Status}\n" "${pack}") # XXX: maybe just use 'which'??
             if [[ "$?" -ne 0 ]]; then
-                echo -e "${COL}[apt] Installing missing package: ${pack}...{NC}"
+                echo -e "${COL}[apt] Installing missing package: ${pack}...${NC}"
                 apt install "${pack}" --assume-yes
                 counter=$(( counter + 1 ))
             else
