@@ -238,3 +238,24 @@ prototypes(){
 wgit(){
     wget "$(echo "${1}"|sed -e 's/blob/raw/g')" ${@:2}
 }
+
+# extract the last messages of a device from the Sigfox backend
+# $1: Device ID (optional)
+# format:
+# 	2018-02-27 16:31:30	0ba23ed00743cf2ea015d829
+#   2018-02-27 16:13:14	0ba053f007f85e2d80ad01b5
+#   2018-02-27 16:07:00	cc55643b0c9c4000
+# Possible enhacements: decode messages
+sigfox_backend(){
+    if [[ "$#" -ne 1 ]]; then
+        echo -n "Enter the device ID: "
+        read device
+    else
+        device="${1}"
+    fi
+    username=$(head -n 1 ~/sigfox_api.txt)
+    password=$(tail -n 1 ~/sigfox_api.txt)
+	curl -H 'Cache-Control: no-cache' -u "${username}:${password}" "https://backend.sigfox.com/api/devicetypes/58d3c2259058c2146a39ed3a/messages"|	
+    jq  -r -C ".data[] |select(.device=\"${device}\")|[.time, .data]| @tsv"| 
+    perl -pe 'use POSIX qw(strftime); s/^(\d+)/strftime "%F %H:%M:%S", localtime($1)/e'|less -R
+}
