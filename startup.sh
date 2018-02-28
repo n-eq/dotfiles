@@ -17,7 +17,8 @@ install_bicon(){
 apt_packages=("git" "ssh" "texlive" "gcc" "curl" "libcurl3"\
     "python" "python-pip" "ruby" "libfribidi0" "libfribidi-dev"\
     "nodejs" "npm"  "dh-autoreconf" "gimp" "zathura" "ack-grep"\
-    "build-essential" "vim" "libssl-dev" "rubber" "mpv" "pkg-config" "tree" "gitk" "exuberant-ctags")
+    "build-essential" "vim" "libssl-dev" "rubber" "mpv" "pkg-config"\
+    "tree" "gitk" "exuberant-ctags" "jq") 
 
 install_apt(){
     counter=0
@@ -60,6 +61,15 @@ install_pip(){
     done
 }
 
+install_ack(){
+    echo -e "${COL}Installing ack...${NC}"
+    apt install libfile-next-perl --assume-yes # This package is needed to install ack
+    cd /tmp && wget http://ftp.fr.debian.org/debian/pool/main/a/ack/ack_2.22-1_all.deb && dpkg -i ack_2.22-1_all.deb
+    if [[ $? -eq 0 ]]; then
+        echo -e "${COL}ack was correctly installed.${NC}"
+    fi
+}
+
 for arg in "${@}"; do
     case "${arg}" in 
         apt|--apt)
@@ -70,6 +80,10 @@ for arg in "${@}"; do
                 install_apt
                 shift 1; break
             fi
+            ;;
+        ack)
+            install_ack
+            shift 1; break
             ;;
         npm|--npm)
             install_npm
@@ -88,6 +102,7 @@ for arg in "${@}"; do
            install_npm
            install_pip
            install_bicon
+           install_ack
            break
     esac
 done
