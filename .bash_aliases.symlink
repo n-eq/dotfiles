@@ -1,20 +1,25 @@
+alias cdd='cd ~/Dev'
+
 # host-specific aliases
 if [[ "$(hostname)" == *"sonu"* ]]; then
     alias flash='target_name=$(mbed target 2>/dev/null| sed "s/\[mbed\] //g"); wd=${PWD##*/}; ./dist/program.py BUILD/${target_name}/GCC_ARM/${wd}.elf'
     alias mosq='mosquitto_sub -h localhost'
     alias quran='cd ~/Musique/yasin; while true; do mplayer $(printf "%03d.mp3" $(((RANDOM % 114) + 1))); done'
-    alias cdd='cd ~/dev'
     # enable color filter by default and reprompt if port error
     alias miniterm='miniterm.py -f colorize --ask' 
     alias grip='grip --browser'
     alias cos='cd ~/dev/mbed-os'
     alias cds='cd ~/stage-2A'
     alias sminiterm='sleep 15; miniterm'
+elif [[ "$(hostname)" == *"hiboo"* ]]; then
+    alias miniterm='sudo python ~/Perso/pyserial/serial/tools/miniterm.py'
+else
+    alias github='cd ~/github'
+    alias neos='cd ~/github/neos'
+    alias cds='cd ~/2A/stage-2A'
+    alias offers='python ~/github/letudiant-offers-scrapper/offer-scrapper/main.py'
 fi
 
-alias offers='python ~/github/letudiant-offers-scrapper/offer-scrapper/main.py'
-
-alias cds='cd ~/2A/stage-2A'
 alias cls='clear'
 alias so='source'
 alias sagi='sudo apt-get install'
@@ -25,8 +30,6 @@ alias ...='cd ../..'
 alias ....='cd ../../..'
 alias .....='cd ../../../..'
 alias tmp='cd ~/tmp'
-alias github='cd ~/github'
-alias neos='cd ~/github/neos'
 
 alias git='LANG=en_US git'
 
@@ -49,7 +52,6 @@ alias cp='cp -v' # verbose + interactive
 alias rm='rm -i' 
 alias mkr='make clean && make && make run'
 alias test-ping='ping www.google.com'
-alias zath='zathura'
 # alias vim='/usr/bin/viim.sh'
 
 # Add an "alert" alias for long running commands. Use like so: sleep 10; alert
