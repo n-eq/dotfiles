@@ -17,9 +17,6 @@ syntax on
 set showmatch 
 set mat=1 " how many tens of second to blink 
 
-" show the current filename and path in the term title
-set title
-
 " Write the contents of the file, if it has been modified, on each
 " :next, :rewind, :last, :first, :previous, :stop, :suspend, :!, :make .. etc
 set autowrite
@@ -281,3 +278,5 @@ function! s:insert_gates()
   execute "normal! ggjo" 
 endfunction
 autocmd BufNewFile *.{h,hpp} call <SID>insert_gates()
+
+nnoremap <F5> :buffers<CR>:buffer<space>
