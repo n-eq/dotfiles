@@ -17,6 +17,8 @@ stty -ixon
 # Source bash completion files
 if [[ -f /etc/bash_completion.d/git-completion.bash ]]; then
     . /etc/bash_completion.d/git-completion.bash
+elif [[ -f ~/.git-completion.bash ]]; then
+    . ~/.git-completion.bash
 else
     wget https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash -O ~/.git-completion.bash && . ~/.git-completion.bash
 fi
