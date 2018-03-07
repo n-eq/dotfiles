@@ -15,7 +15,12 @@ stty -ixon
 [[ -f ~/.bash_prompt ]] && . ~/.bash_prompt
 
 # Source bash completion files
-. /etc/bash_completion.d/git-completion.bash
+if [[ -f /etc/bash_completion.d/git-completion.bash ]]; then
+    . /etc/bash_completion.d/git-completion.bash
+else
+    wget https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash -O ~/.git-completion.bash && . ~/.git-completion.bash
+fi
+
 
 export HISTIGNORE=ignoreboth:erasedups
 HISTCONTROL=ignoreboth
@@ -51,11 +56,7 @@ export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quo
 if [[ "$(hostname)" == "*sonu*" ]]; then
     # OPENOCD
     PATH=/opt/gnuarmeclispe/gnuarmeclipse/openocd/0.10.0-201705220907-dev/bin/:"$PATH"
-else
-    PATH=~/github/weatherspeaker:"$PATH"
-    PATH=~/github/blablacar:"$PATH"
-    PATH=~/github/Dropbox-Uploader:"$PATH"
-
+elif [[ "$(hostname)" == "debian" ]]; then
     export PATH=/usr/bin/anaconda/bin:/home/marrakchino/github/Dropbox-Uploader:/home/marrakchino/github/blablacar:/home/marrakchino/github/weatherspeaker:/home/marrakchino/github/Dropbox-Uploader:/home/marrakchino/github/blablacar:/home/marrakchino/github/weatherspeaker:/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games
 
     PATH="/home/marrakchino/perl5/bin${PATH:+:${PATH}}"; export PATH;
@@ -63,11 +64,8 @@ else
     PERL_LOCAL_LIB_ROOT="/home/marrakchino/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"; export PERL_LOCAL_LIB_ROOT;
     PERL_MB_OPT="--install_base \"/home/marrakchino/perl5\""; export PERL_MB_OPT;
     PERL_MM_OPT="INSTALL_BASE=/home/marrakchino/perl5"; export PERL_MM_OPT;
+
+    # lustre 
+    export LUSTRE_INSTALL=/usr/local/lustre
+    source $LUSTRE_INSTALL/setenv.sh
 fi
-
-# lustre 
-export LUSTRE_INSTALL=/usr/local/lustre
-source $LUSTRE_INSTALL/setenv.sh
-
-# Temporarily disabled (Season is over)
-# ping -q -w 3 `ip r | grep default | cut -d ' ' -f 3` > /dev/null && . ~/github/kacm/kacm.sh
