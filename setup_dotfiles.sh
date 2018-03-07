@@ -6,7 +6,7 @@
 # keep them as are, or back them up.
 
 do_link(){
-	ln -s "$1" "$2"
+	ln -fs "$1" "$2"
 	echo "[SETUP] linking \"$1\" to \"$2\"..."
 }
 
