@@ -236,7 +236,7 @@ prototypes(){
 # wget on github file URL
 # no checks performed, be wise enough
 wgit(){
-    wget "$(echo "${1}"|sed -e 's/blob/raw/g')" ${@:2}
+    wget "$(echo "${1}"|sed -e 's/blob\///g'| sed -e 's/github\.com/raw\.githubusercontent\.com/g')" ${@:2}
 }
 
 # extract the last messages of a device from the Sigfox backend
