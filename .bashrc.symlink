@@ -15,13 +15,13 @@ stty -ixon
 [[ -f ~/.bash_prompt ]] && . ~/.bash_prompt
 
 # Source bash completion files
-if [[ -f /etc/bash_completion.d/git-completion.bash ]]; then
-    . /etc/bash_completion.d/git-completion.bash
-elif [[ -f ~/.git-completion.bash ]]; then
-    . ~/.git-completion.bash
-else
-    wget https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash -O ~/.git-completion.bash && . ~/.git-completion.bash
-fi
+# if [[ -f /etc/bash_completion.d/git-completion.bash ]]; then
+#     . /etc/bash_completion.d/git-completion.bash
+# elif [[ -f ~/.git-completion.bash ]]; then
+#     . ~/.git-completion.bash
+# else
+#     wget https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash -O ~/.git-completion.bash && . ~/.git-completion.bash
+# fi
 
 
 export HISTIGNORE=ignoreboth:erasedups
@@ -70,4 +70,9 @@ elif [[ "$(hostname)" == "debian" ]]; then
     # lustre 
     export LUSTRE_INSTALL=/usr/local/lustre
     source $LUSTRE_INSTALL/setenv.sh
+else
+    # `arm-none-eabi-*` binaries
+    PATH="$PATH:/usr/local/arm-2012.09/bin/"
+    # EnergyAware tools
+    PATH="$PATH:/usr/local/energymicro/"
 fi
