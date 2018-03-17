@@ -1,0 +1,16 @@
+#!/bin/sh
+# Git Check email hook, adapted from: http://www.raphael-brugier.com/blog/git-verify-email-hook/
+PWD=`pwd`
+if [[ ${PWD} == *"Dev"* ]]; then
+    EMAIL=$(git config user.email)
+    if [[ $EMAIL == *"hiboo"* ]]; then
+        echo "";
+    else
+        echo "email not configured to professional address";
+        echo "run:"
+        echo '   git config user.email "nabil.elqatib@hiboo.io"'
+        echo ''
+        exit 1; 
+    fi;
+fi;
+
