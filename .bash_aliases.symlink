@@ -12,7 +12,9 @@ if [[ "$(hostname)" == *"sonu"* ]]; then
     alias cds='cd ~/stage-2A'
     alias sminiterm='sleep 15; miniterm'
 elif [[ "$(hostname)" == *"hiboo"* ]]; then
-    alias miniterm='sudo python ~/Perso/pyserial/serial/tools/miniterm.py'
+#     alias miniterm='sudo python ~/Perso/pyserial/serial/tools/miniterm.py -f colorize --ask'
+    alias miniterm='sudo python /usr/local/bin/miniterm.py --ask'
+    alias flash='eACommander.sh --flash'
 else
     alias github='cd ~/github'
     alias neos='cd ~/github/neos'
