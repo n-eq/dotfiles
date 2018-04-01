@@ -1,6 +1,6 @@
 [user]
 	name = Nabil Elqatib
-	email = nabilelqatib@gmail.com
+	email = nabil.elqatib@hiboo.io
 [editor]
 	editor=vim
 [diff]
@@ -10,6 +10,8 @@
 [push]
 	default = current
 [alias]
+    amend = commit --amend
+    s = status --short --branch --ignore-submodules=untracked
 	pull = pull --ff-only
 	last = log -1 HEAD
     master = checkout master
