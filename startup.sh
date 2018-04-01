@@ -18,7 +18,7 @@ apt_packages=("git" "ssh" "texlive" "gcc" "curl" "libcurl3"\
     "python" "python-pip" "ruby" "libfribidi0" "libfribidi-dev"\
     "nodejs" "npm"  "dh-autoreconf" "gimp" "zathura" "ack-grep"\
     "build-essential" "vim" "libssl-dev" "rubber" "mpv" "pkg-config"\
-    "tree" "gitk" "exuberant-ctags" "jq" "cloc" "cmake") 
+    "tree" "gitk" "exuberant-ctags" "jq" "cloc" "cmake" "mplayer") 
 
 install_apt(){
     counter=0
@@ -97,7 +97,7 @@ for arg in "${@}"; do
             install_bicon
             shift 1; break
             ;;
-       all)
+       all|--all)
            install_apt true
            install_npm
            install_pip
