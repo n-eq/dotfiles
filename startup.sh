@@ -45,7 +45,7 @@ install_apt(){
     apt upgrade --assume-yes
 }
 
-npm_packages=("grip" "cloc")
+npm_packages=("cloc")
 install_npm(){
     for pack in "${npm_packages[@]}"; do
         echo -e "${COL}[npm] Installing ${pack}...${NC}"
@@ -53,7 +53,7 @@ install_npm(){
     done
 }
 
-pip_packages=("pyserial")
+pip_packages=("grip" "pyserial")
 install_pip(){
     for pack in "${pip_packages[@]}"; do
         echo -e "${COL}[pip] Installing ${pack}...${NC}"
