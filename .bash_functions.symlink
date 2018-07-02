@@ -259,3 +259,8 @@ sigfox_backend(){
     jq  -r -C ".data[] |select(.device=\"${device}\")|[.time, .data]| @tsv"| 
     perl -pe 'use POSIX qw(strftime); s/^(\d+)/strftime "%F %H:%M:%S", localtime($1)/e'|less -R
 }
+
+# hexa to decimal
+h2d() {
+    echo "ibase=16; ${1}"|bc 
+}
