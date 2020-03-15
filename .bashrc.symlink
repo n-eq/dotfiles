@@ -18,7 +18,7 @@ stty -ixon
 # if [[ -f /etc/bash_completion.d/git-completion.bash ]]; then
 #     . /etc/bash_completion.d/git-completion.bash
 # elif [[ -f ~/.git-completion.bash ]]; then
-#     . ~/.git-completion.bash
+. ~/.git-completion.bash
 # else
 #     wget https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash -O ~/.git-completion.bash && . ~/.git-completion.bash
 # fi
@@ -70,9 +70,59 @@ elif [[ "$(hostname)" == "debian" ]]; then
     # lustre 
     export LUSTRE_INSTALL=/usr/local/lustre
     source $LUSTRE_INSTALL/setenv.sh
-else
-    # `arm-none-eabi-*` binaries
-    PATH="$PATH:/usr/local/arm-2012.09/bin/"
-    # EnergyAware tools
-    PATH="$PATH:/usr/local/energymicro/"
 fi
+
+# makefile completion:
+complete -W "\`grep -oE '^[a-zA-Z0-9_.-]+:([^=]|$)' Makefile | sed 's/[^a-zA-Z0-9_.-]*$//'\`" make
+
+# `arm-none-eabi-*` binaries
+PATH="$PATH:/usr/local/arm-2012.09/bin/"
+# EnergyAware tools
+PATH="$PATH:/usr/local/energymicro/"
+# saleae
+PATH="$PATH:/usr/local/saleae/"
+# PC-lint
+PATH="$PATH:/usr/local/pc-lint"
+PATH="$PATH:/usr/local/pc-lint/config"
+
+# eagle
+PATH="$PATH:/usr/local/eagle-9.1.3"
+
+# Simplicity Studio
+PATH="$PATH:/usr/local/SimplicityStudio_v4/"
+
+# Go
+PATH="$PATH:/usr/local/go/bin"
+
+PATH="$PATH:/usr/local/fritzing/"
+PATH="$PATH:/home/marrakchino/Downloads/mongodb/mongodb-linux-x86_64-3.6.4/bin/"
+PATH="$PATH:/opt/android-studio/bin"
+PATH="$PATH:/opt/arduino"
+PATH="$PATH:/opt/nrfjprog"
+PATH="$PATH:/home/marrakchino/Dev/esp/esp-idf/tools"
+PATH="$PATH:/home/marrakchino/Dev/esp/esp-idf/components/esptool_py/esptool"
+PATH="$PATH:/home/marrakchino/Dev/esp/esp-idf/components/espcoredump"
+PATH="$PATH:/home/marrakchino/Dev/esp/esp-idf/components/partition_table/"
+PATH="$PATH:/opt/xtensa-esp32-elf/bin"
+export IDF_PATH="/home/marrakchino/Dev/esp/esp-idf"
+
+export JAVA_HOME="/usr/lib/jvm/java-8-openjdk-amd64/jre/"
+
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+# __conda_setup="$('/home/marrakchino/miniconda2/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
+# if [ $? -eq 0 ]; then
+#     eval "$__conda_setup"
+# else
+#     if [ -f "/home/marrakchino/miniconda2/etc/profile.d/conda.sh" ]; then
+#         . "/home/marrakchino/miniconda2/etc/profile.d/conda.sh"
+#     else
+#         export PATH="/home/marrakchino/miniconda2/bin:$PATH"
+#     fi
+# fi
+# unset __conda_setup
+# <<< conda initialize <<<
+
+# TODO : export tools
+# . /home/marrakchino/Dev/esp/esp-idf/tools/export.sh

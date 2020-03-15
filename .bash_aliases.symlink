@@ -1,5 +1,4 @@
-alias cdd='cd ~/Dev'
-
+alias vi='vim'
 # host-specific aliases
 if [[ "$(hostname)" == *"sonu"* ]]; then
     alias flash='target_name=$(mbed target 2>/dev/null| sed "s/\[mbed\] //g"); wd=${PWD##*/}; ./dist/program.py BUILD/${target_name}/GCC_ARM/${wd}.elf'
@@ -11,10 +10,15 @@ if [[ "$(hostname)" == *"sonu"* ]]; then
     alias cos='cd ~/dev/mbed-os'
     alias cds='cd ~/stage-2A'
     alias sminiterm='sleep 15; miniterm'
-elif [[ "$(hostname)" == *"hiboo"* ]]; then
-#     alias miniterm='sudo python ~/Perso/pyserial/serial/tools/miniterm.py -f colorize --ask'
-    alias miniterm='sudo python /usr/local/bin/miniterm.py --ask'
+elif [[ "$(hostname)" == *"mouka"* ]]; then
+    alias quran='while true; do mplayer $(printf "%03d.mp3" $(((RANDOM % 114) + 1))); done'
+    alias miniterm='python /usr/local/miniterm.py -f colorize --ask' 
     alias flash='eACommander.sh --flash'
+    alias cdp='cd ~/Perso/twikoukab'
+    alias cdd='cd ~/Dev'
+    alias grip='grip --browser'
+    alias hiboodb="mongo hiboo_development --eval 'db.dropDatabase()'; mongo heroku_wck514dp --eval 'db.dropDatabase()'; mongodump --uri mongodb://heroku_wck514dp:s9qgoe1pdht2qh9hgsi1rs8h84@ds123249-a0.mlab.com:23249,ds123249-a1.mlab.com:23249/heroku_wck514dp?replicaSet=rs-ds123249  --archive | mongorestore --archive; mongo --eval 'db.copyDatabase(\"heroku_wck514dp\", \"hiboo_development\")'"
+    alias android='studio.sh'
 else
     alias github='cd ~/github'
     alias neos='cd ~/github/neos'
@@ -32,6 +36,8 @@ alias ...='cd ../..'
 alias ....='cd ../../..'
 alias .....='cd ../../../..'
 alias tmp='cd ~/tmp'
+alias cdd='cd ~/Dev'
+alias datash='cd ~/Dev/datasheets'
 
 alias git='LANG=en_US git'
 
@@ -43,10 +49,6 @@ alias functions='vi ~/.bash_functions'
 alias gerp='grep'
 alias VI='vi'
 
-alias ensi='ssh elqatibn@pcserveur.ensimag.fr'
-alias ensix='ssh -X elqatibn@pcserveur.ensimag.fr'
-alias depots='ssh elqatibn@depots.ensimag.fr'
-
 alias ls='ls -lh --color=auto '
 alias l='ls -lF --color=auto'
 alias ll='ls -lA'
@@ -54,10 +56,12 @@ alias cp='cp -v' # verbose + interactive
 alias rm='rm -i' 
 alias mkr='make clean && make && make run'
 alias test-ping='ping www.google.com'
-# alias vim='/usr/bin/viim.sh'
 
 # Add an "alert" alias for long running commands. Use like so: sleep 10; alert
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
+
+# play sound now, useful for long backgroud commands
+alias psn='paplay /usr/share/sounds/freedesktop/stereo/complete.oga'
 
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then

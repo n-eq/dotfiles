@@ -262,5 +262,20 @@ sigfox_backend(){
 
 # hexa to decimal
 h2d() {
-    echo "ibase=16; ${1}"|bc 
+    for number in "$@"; do 
+        echo "ibase=16; $number"|bc;
+    done
+}
+
+testpi() {
+    pi="3.14159265358979323846264338327950288419716939937510582097494459230";
+    if [[ "$#" -eq 1 ]]; then
+        cmp -bl <(echo -n "${pi}") <(echo -n "${1}");
+    else
+        echo "`echo "$pi"|wc -c` : $pi";
+    fi
+}
+
+rappel() {
+    echo 'notify-send "${1}"' | at "${2}"
 }

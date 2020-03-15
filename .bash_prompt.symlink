@@ -18,4 +18,4 @@ local_changes() {
 }
 
 # export PS1="[\D{%R}] \u \[\033[32m\]\w\[\033[97m\]\$(parse_git_branch)$(local_changes)\[\033[00m\]$ "
-export PS1="[\D{%R}] \u \[\033[32m\]\w\[\033[97m\]\$(parse_git_branch)\[\033[00m\]$ "
+export PS1="[\D{%R}] \[\033[36m\]\w\[\033[31m\]\$(parse_git_branch)\[\033[00m\]$ "

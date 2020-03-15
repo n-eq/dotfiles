@@ -1,4 +1,5 @@
-set auto-load safe-path ~/app-template.git
+# set auto-load safe-path /Dev/esp32_wifi/.gdbinit
+
 # use colorized output or not
 set $USECOLOR = 1
 

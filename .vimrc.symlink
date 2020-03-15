@@ -29,8 +29,10 @@ set title
 " searching starts as soon as you start typing the first letter of the word
 set incsearch
 
-if match(system("ls ~/.vim/colors"), "onedark") != -1
-  colorscheme onedark
+" if match(system("ls ~/.vim/colors"), "onedark") != -1
+"   colorscheme onedark
+if match(system("ls ~/.vim/colors"), "codedark") != -1
+  colorscheme codedark
 else
   colorscheme default
 endif
@@ -280,3 +282,6 @@ endfunction
 autocmd BufNewFile *.{h,hpp} call <SID>insert_gates()
 
 nnoremap <F5> :buffers<CR>:buffer<space>
+set title titlestring=
+
+set backspace=eol,indent,start
