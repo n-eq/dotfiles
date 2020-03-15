@@ -2,18 +2,25 @@
 	name = Nabil Elqatib
 	email = nabil.elqatib@hiboo.io
 [editor]
-	editor=vim
+	editor = vim
 [diff]
 	renames = true
+	tool = bc3
 [color]
 	ui = auto
 [push]
 	default = current
 [alias]
+    unadd = reset HEAD
     amend = commit --amend
     s = status --short --branch --ignore-submodules=untracked
+    d = diff
 	pull = pull --ff-only
 	last = log -1 HEAD
     master = checkout master
 [core]
 	hooksPath = /home/marrakchino/.dotfiles/_git/hooks
+	autocrlf = input
+
+[merge]
+	tool = bc3
