@@ -18,6 +18,7 @@
 	pull = pull --ff-only
 	last = log -1 HEAD
     master = checkout master
+    d = diff
 [core]
 	hooksPath = /home/marrakchino/.dotfiles/_git/hooks
 	autocrlf = input
