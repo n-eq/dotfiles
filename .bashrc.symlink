@@ -15,13 +15,13 @@ stty -ixon
 [[ -f ~/.bash_prompt ]] && . ~/.bash_prompt
 
 # Source bash completion files
-# if [[ -f /etc/bash_completion.d/git-completion.bash ]]; then
-#     . /etc/bash_completion.d/git-completion.bash
-# elif [[ -f ~/.git-completion.bash ]]; then
+if [[ -f /etc/bash_completion.d/git-completion.bash ]]; then
+    . /etc/bash_completion.d/git-completion.bash
+elif [[ -f ~/.git-completion.bash ]]; then
 . ~/.git-completion.bash
-# else
-#     wget https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash -O ~/.git-completion.bash && . ~/.git-completion.bash
-# fi
+else
+    wget https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash -O ~/.git-completion.bash && . ~/.git-completion.bash
+fi
 
 
 export HISTIGNORE=ignoreboth:erasedups
@@ -55,23 +55,6 @@ fi
 # colored GCC warnings and errors
 export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
-if [[ "$(hostname)" == "*sonu*" ]]; then
-    # OPENOCD
-    PATH=/opt/gnuarmeclispe/gnuarmeclipse/openocd/0.10.0-201705220907-dev/bin/:"$PATH"
-elif [[ "$(hostname)" == "debian" ]]; then
-    export PATH=/usr/bin/anaconda/bin:/home/marrakchino/github/Dropbox-Uploader:/home/marrakchino/github/blablacar:/home/marrakchino/github/weatherspeaker:/home/marrakchino/github/Dropbox-Uploader:/home/marrakchino/github/blablacar:/home/marrakchino/github/weatherspeaker:/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games
-
-    PATH="/home/marrakchino/perl5/bin${PATH:+:${PATH}}"; export PATH;
-    PERL5LIB="/home/marrakchino/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5LIB;
-    PERL_LOCAL_LIB_ROOT="/home/marrakchino/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"; export PERL_LOCAL_LIB_ROOT;
-    PERL_MB_OPT="--install_base \"/home/marrakchino/perl5\""; export PERL_MB_OPT;
-    PERL_MM_OPT="INSTALL_BASE=/home/marrakchino/perl5"; export PERL_MM_OPT;
-
-    # lustre 
-    export LUSTRE_INSTALL=/usr/local/lustre
-    source $LUSTRE_INSTALL/setenv.sh
-fi
-
 # makefile completion:
 complete -W "\`grep -oE '^[a-zA-Z0-9_.-]+:([^=]|$)' Makefile | sed 's/[^a-zA-Z0-9_.-]*$//'\`" make
 
@@ -95,34 +78,9 @@ PATH="$PATH:/usr/local/SimplicityStudio_v4/"
 PATH="$PATH:/usr/local/go/bin"
 
 PATH="$PATH:/usr/local/fritzing/"
-PATH="$PATH:/home/marrakchino/Downloads/mongodb/mongodb-linux-x86_64-3.6.4/bin/"
 PATH="$PATH:/opt/android-studio/bin"
 PATH="$PATH:/opt/arduino"
 PATH="$PATH:/opt/nrfjprog"
-PATH="$PATH:/home/marrakchino/Dev/esp/esp-idf/tools"
-PATH="$PATH:/home/marrakchino/Dev/esp/esp-idf/components/esptool_py/esptool"
-PATH="$PATH:/home/marrakchino/Dev/esp/esp-idf/components/espcoredump"
-PATH="$PATH:/home/marrakchino/Dev/esp/esp-idf/components/partition_table/"
 PATH="$PATH:/opt/xtensa-esp32-elf/bin"
-export IDF_PATH="/home/marrakchino/Dev/esp/esp-idf"
 
 export JAVA_HOME="/usr/lib/jvm/java-8-openjdk-amd64/jre/"
-
-
-# >>> conda initialize >>>
-# !! Contents within this block are managed by 'conda init' !!
-# __conda_setup="$('/home/marrakchino/miniconda2/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
-# if [ $? -eq 0 ]; then
-#     eval "$__conda_setup"
-# else
-#     if [ -f "/home/marrakchino/miniconda2/etc/profile.d/conda.sh" ]; then
-#         . "/home/marrakchino/miniconda2/etc/profile.d/conda.sh"
-#     else
-#         export PATH="/home/marrakchino/miniconda2/bin:$PATH"
-#     fi
-# fi
-# unset __conda_setup
-# <<< conda initialize <<<
-
-# TODO : export tools
-# . /home/marrakchino/Dev/esp/esp-idf/tools/export.sh
