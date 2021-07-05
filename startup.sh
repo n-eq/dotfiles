@@ -14,10 +14,10 @@ install_bicon(){
 }
 
 # list of apt_packages to install
-apt_packages=("git" "ssh" "vim" "vim-runtime" "texlive" "gcc" \
-    "curl" "libcurl3" "python" "python-pip" "ruby" "libfribidi0" \
-    "libfribidi-dev" "nodejs" "npm"  "dh-autoreconf" "gimp" \
-    "zathura" "ack-grep" "build-essential" "libssl-dev" "rubber"\
+apt_packages=("git" "ssh" "vim" "vim-runtime" "gcc" \
+    "curl" "libcurl4" "python" "python-pip" "ruby" "libfribidi0" \
+    "libfribidi-dev" "nodejs" "npm"  "dh-autoreconf" \
+    "build-essential" "libssl-dev" "rubber" "ripgrep" \
     "mpv" "pkg-config" "tree" "gitk" "exuberant-ctags" "jq"\
     "cloc" "cmake" "mplayer" "python-dev") 
 
