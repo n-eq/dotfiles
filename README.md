@@ -26,6 +26,11 @@ Options are:
 $ git clone --recursive http://github.com/marrakchino/dotfiles ~/.dotfiles && sh -c ~/.dotfiles/setup_dotfiles.sh
 ```
 
+## Vim
+
+Vim plugins (vundle) are not automatically installed, make sure you run :PluginInstall after
+copying .vimrc to your local filesystem.
+
 ## Contributing
 
 Any contribution is welcome, especially concerning the `setup_dotfiles.sh` file.
