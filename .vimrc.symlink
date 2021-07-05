@@ -2,6 +2,23 @@ let mapleader=','
 filetype plugin on
 filetype indent on
 
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+" alternatively, pass a path where Vundle should install plugins
+"call vundle#begin('~/some/path/here')
+
+" let Vundle manage Vundle, required
+Plugin 'VundleVim/Vundle.vim'
+Plugin 'rust-lang/rust.vim'
+Plugin 'preservim/nerdtree'
+Plugin 'preservim/tagbar'
+Plugin 'ycm-core/YouCompleteMe'
+
+" All of your Plugins must be added before the following line
+call vundle#end()            " required
+filetype plugin indent on    " required
+
 " highlight search by default 
 set hls
 
@@ -29,10 +46,10 @@ set title
 " searching starts as soon as you start typing the first letter of the word
 set incsearch
 
-" if match(system("ls ~/.vim/colors"), "onedark") != -1
-"   colorscheme onedark
-if match(system("ls ~/.vim/colors"), "codedark") != -1
-  colorscheme codedark
+if match(system("ls ~/.vim/colors"), "onedark") != -1
+  colorscheme onedark
+" if match(system("ls ~/.vim/colors"), "codedark") != -1
+"   colorscheme codedark
 else
   colorscheme default
 endif
@@ -63,7 +80,7 @@ set number
 
 " Commenting/Uncommenting blocks of code for different file types
 " souce: http://stackoverflow.com/questions/1676632/whats-a-quick-way-to-comment-uncomment-lines-in-vim#comment27973419_1676672
-autocmd FileType c,cpp,java,javascript,scala 	        let b:comment_leader = '// '
+autocmd FileType c,cpp,java,javascript,scala,rust       let b:comment_leader = '// '
 autocmd FileType sh,ruby,python   	                    let b:comment_leader = '# '
 autocmd FileType conf,fstab,make,cfg       	            let b:comment_leader = '# '
 autocmd FileType tex,plaintex     	                    let b:comment_leader = '% '
@@ -118,7 +135,7 @@ autocmd BufNewFile,BufReadPost,BufRead .bash_* set filetype=sh
 set undofile
 set undodir=~/.vim/undodir
 
-" ??
+" autotag??
 let g:ctags_path="~/.vim/plugin"
 let g:ctags_statusline=1
 
@@ -144,8 +161,8 @@ function! MarkMargin (on)
 endfunction
 augroup MarkMargin
 	autocmd!
-	autocmd  BufEnter  *       :call MarkMargin(1)
-	autocmd  BufEnter  *.vp*   :call MarkMargin(0)
+	autocmd  BufEnter  *       :call MarkMargin(0)
+	autocmd  BufEnter  *.vp*   :call MarkMargin(1)
 augroup END
 
 " manually toggle margin for the current script
@@ -227,35 +244,24 @@ fun! ShowFuncName()
 endfun
 autocmd FileType c,cpp nnoremap <leader>f :call ShowFuncName() <CR>
 
-" insert Doxygen function documentation stub
-function! DoxyStub()
-    let l:current_line = line(".")
-    call append(l:current_line, "/*!")
-    let l:current_line += 1
-    call append(l:current_line, " *")
-    let l:current_line += 1
-    call append(l:current_line, " * TODO")
-    let l:current_line += 1
-    call append(l:current_line, " */")
-endfunction
-autocmd Filetype c,cpp nnoremap <leader>dx :call DoxyStub()<CR>
-autocmd Filetype c,cpp command! -nargs=0 DoxygenFunctionStub :call DoxyStub()
-
 " map <F7> to disable search highlighting
 nnoremap <F7> :noh<CR>
-inoremap <F7> <ESC>:noh<CR>a
+inoremap <F7> <ESC>:noh<CR>i
 
+" automatically load 'plausible' tag files
 set tags=./tags,tags,./.git/tags
-
 " map ,] to open tag in new tab
 nnoremap <leader>] <C-w><C-]><C-w>T
+" for some reason on Mac ctrl-] doesn't work, so I had to remap this binding
+" nnoremap <leader>ti <C-]>
+" nnoremap <leader>tu <C-T>
 
-" insert a shebang at the top of the file
+" insert a shebang at the top of shell files
 autocmd FileType sh nnoremap <F12> ggO#!/bin/sh<CR><ESC>
 
 " map '-' in normal mode to explore current dir
-" TODO: FIXME
-nnoremap - :Explore<CR>
+" Remapped to toggle NERDTree
+" nnoremap - :Explore<CR>
 
 command! -nargs=+ Grep execute 'silent grep! --exclude-dir=.git -RIni <args> *' | copen
 
@@ -285,3 +291,99 @@ nnoremap <F5> :buffers<CR>:buffer<space>
 set title titlestring=
 
 set backspace=eol,indent,start
+
+" rusty tags config
+" autocmd BufRead *.rs :setlocal tags=./rusty-tags.vi;/
+" autocmd BufWritePost *.rs :silent! exec "!rusty-tags vi --quiet --start-dir=" . expand('%:p:h') . "&" | redraw!
+
+
+" rust.vim plugin: apply rustmt upon file save
+let g:rustfmt_autosave = 1
+
+" NERDTree bindings
+" toggle NerdTree using ctrl-g
+nmap - :NERDTreeToggle<CR>
+" close automatically when open a file for editing
+let NERDTreeQuitOnOpen=1
+" Start NERDTree when Vim is started without file arguments.
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 0 && !exists('s:std_in') | NERDTree | endif
+" Start NERDTree when Vim starts with a directory argument.
+autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists('s:std_in') |
+    \ execute 'NERDTree' argv()[0] | wincmd p | enew | execute 'cd '.argv()[0] | endif
+" If another buffer tries to replace NERDTree, put it in the other window, and bring back NERDTree.
+autocmd BufEnter * if bufname('#') =~ 'NERD_tree_\d\+' && bufname('%') !~ 'NERD_tree_\d\+' && winnr('$') > 1 |
+    \ let buf=bufnr() | buffer# | execute "normal! \<C-W>w" | execute 'buffer'.buf | endif
+" Open the existing NERDTree on each new tab.
+autocmd BufWinEnter * silent NERDTreeMirror
+
+" Tagbar for Rust (using universable ctags variant)
+let g:rust_use_custom_ctags_defs = 1  " if using rust.vim
+let g:tagbar_type_rust = {
+  \ 'ctagsbin' : '/usr/bin/ctags',
+  \ 'ctagstype' : 'rust',
+  \ 'kinds' : [
+      \ 'n:modules',
+      \ 's:structures:1',
+      \ 'i:interfaces',
+      \ 'c:implementations',
+      \ 'f:functions:1',
+      \ 'g:enumerations:1',
+      \ 't:type aliases:1:0',
+      \ 'v:constants:1:0',
+      \ 'M:macros:1',
+      \ 'm:fields:1:0',
+      \ 'e:enum variants:1:0',
+      \ 'P:methods:1',
+  \ ],
+  \ 'sro': '::',
+  \ 'kind2scope' : {
+      \ 'n': 'module',
+      \ 's': 'struct',
+      \ 'i': 'interface',
+      \ 'c': 'implementation',
+      \ 'f': 'function',
+      \ 'g': 'enum',
+      \ 't': 'typedef',
+      \ 'v': 'variable',
+      \ 'M': 'macro',
+      \ 'm': 'field',
+      \ 'e': 'enumerator',
+      \ 'P': 'method',
+  \ },
+\ }
+
+" add a definition for Objective-C to tagbar
+let g:tagbar_type_objc = {
+    \ 'ctagstype' : 'ObjectiveC',
+    \ 'kinds'     : [
+        \ 'i:interface',
+        \ 'I:implementation',
+        \ 'p:Protocol',
+        \ 'm:Object_method',
+        \ 'c:Class_method',
+        \ 'v:Global_variable',
+        \ 'F:Object field',
+        \ 'f:function',
+        \ 'p:property',
+        \ 't:type_alias',
+        \ 's:type_structure',
+        \ 'e:enumeration',
+        \ 'M:preprocessor_macro',
+    \ ],
+    \ 'sro'        : ' ',
+    \ 'kind2scope' : {
+        \ 'i' : 'interface',
+        \ 'I' : 'implementation',
+        \ 'p' : 'Protocol',
+        \ 's' : 'type_structure',
+        \ 'e' : 'enumeration'
+    \ },
+    \ 'scope2kind' : {
+        \ 'interface'      : 'i',
+        \ 'implementation' : 'I',
+        \ 'Protocol'       : 'p',
+        \ 'type_structure' : 's',
+        \ 'enumeration'    : 'e'
+    \ }
+\ }
