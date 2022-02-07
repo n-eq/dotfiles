@@ -19,6 +19,11 @@
 	last = log -1 HEAD
     master = checkout master
     d = diff
+    trash = checkout -- .
+    cehckout = checkout
+    regexadd = "!f() { git diff -U0 \
+            | grepdiff -E $1 --output-matching=hunk \
+            | git apply --cached --unidiff-zero; }; f"
 [core]
 	hooksPath = /home/marrakchino/.dotfiles/_git/hooks
 	autocrlf = input
