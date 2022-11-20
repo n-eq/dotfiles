@@ -10,10 +10,54 @@ call vundle#begin()
 
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
-Plugin 'rust-lang/rust.vim'
 Plugin 'preservim/nerdtree'
 Plugin 'preservim/tagbar'
-Plugin 'ycm-core/YouCompleteMe'
+" Plugin 'ycm-core/YouCompleteMe'
+Plugin 'junegunn/fzf'
+Plugin 'junegunn/fzf.vim'
+Plugin 'udalov/kotlin-vim'
+Plugin 'tpope/vim-fugitive'
+
+" rust language server
+Plugin 'rust-lang/rust.vim'
+Plugin 'prabirshrestha/async.vim'
+Plugin 'prabirshrestha/vim-lsp'
+Plugin 'prabirshrestha/asyncomplete.vim'
+Plugin 'prabirshrestha/asyncomplete-lsp.vim'
+
+" coc.nvim Use <Tab> or custom key for trigger completion
+" use <tab> for trigger completion and navigate to the next complete item
+function! CheckBackspace() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+inoremap <silent><expr> <Tab>
+      \ coc#pum#visible() ? coc#pum#next(1) :
+      \ CheckBackspace() ? "\<Tab>" :
+      \ coc#refresh()
+
+" Use <Tab> and <S-Tab> to navigate the completion list:
+inoremap <expr> <Tab> coc#pum#visible() ? coc#pum#next(1) : "\<Tab>"
+inoremap <expr> <S-Tab> coc#pum#visible() ? coc#pum#prev(1) : "\<S-Tab>"
+
+if executable('rust-analyzer')
+  au User lsp_setup call lsp#register_server({
+        \   'name': 'Rust Language Server',
+        \   'cmd': {server_info->['rust-analyzer']},
+        \   'whitelist': ['rust'],
+        \   'initialization_options': {
+        \     'cargo': {
+        \       'buildScripts': {
+        \         'enable': v:true,
+        \       },
+        \     },
+        \     'procMacro': {
+        \       'enable': v:true,
+        \     },
+        \   },
+        \ })
+endif
+
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -56,9 +100,6 @@ endif
 
 syntax enable
 " Lustre syntax highlight
-augroup filetypedetect
-   au BufWinEnter,BufRead,BufNewFile *.lus,*.ec set filetype=lus
-augroup END
 
 " Indentation configuration
 " set ts=2 sw=2 noexpandtab
@@ -80,13 +121,13 @@ set number
 
 " Commenting/Uncommenting blocks of code for different file types
 " souce: http://stackoverflow.com/questions/1676632/whats-a-quick-way-to-comment-uncomment-lines-in-vim#comment27973419_1676672
-autocmd FileType c,cpp,java,javascript,scala,rust       let b:comment_leader = '// '
-autocmd FileType sh,ruby,python   	                    let b:comment_leader = '# '
-autocmd FileType conf,fstab,make,cfg       	            let b:comment_leader = '# '
-autocmd FileType tex,plaintex     	                    let b:comment_leader = '% '
-autocmd FileType mail             	                    let b:comment_leader = '> '
-autocmd FileType vim               	                    let b:comment_leader = '" '
-autocmd FileType sql,vhdl                               let b:comment_leader = '-- '
+autocmd FileType c,cpp,java,javascript,typescript,scala,rust,objc,swift let b:comment_leader = '// '
+autocmd FileType sh,ruby,python                                         let b:comment_leader = '# '
+autocmd FileType conf,fstab,cmake,make,cfg,toml                         let b:comment_leader = '# '
+autocmd FileType tex,plaintex                                           let b:comment_leader = '% '
+autocmd FileType mail                                                   let b:comment_leader = '> '
+autocmd FileType vim                                                    let b:comment_leader = '" '
+autocmd FileType sql,vhdl                                               let b:comment_leader = '-- '
 noremap <silent> <leader>cc :<C-B>silent <C-E>s/^/<C-R>=escape(b:comment_leader,'\/')<CR>/<CR>:nohlsearch<CR>
 noremap <silent> <leader>cu :<C-B>silent <C-E>s/^\V<C-R>=escape(b:comment_leader,'\/')<CR>//e<CR>:nohlsearch<CR>
 
@@ -109,6 +150,19 @@ nmap <silent> <A-Down> :wincmd j<CR>
 nmap <silent> <A-Left> :wincmd h<CR>
 nmap <silent> <A-Right> :wincmd l<CR>
 
+function! StatusDiagnostic() abort
+  let info = get(b:, 'coc_diagnostic_info', {})
+  if empty(info) | return '' | endif
+  let msgs = []
+  if get(info, 'error', 0)
+    call add(msgs, 'E' . info['error'])
+  endif
+  if get(info, 'warning', 0)
+    call add(msgs, 'W' . info['warning'])
+  endif
+  return join(msgs, ' '). ' ' . get(g:, 'coc_status', '')
+endfunction
+
 hi statusline guibg=Black ctermfg=8 guifg=White ctermbg=15
 set statusline=%#Title#%F%#StatusLine#                                    " file name
 set statusline+=%#MatchParen#\ \ [%{&ff}]%#MatchParen#                    " file format
@@ -119,6 +173,7 @@ set statusline+=%r                                                        " read
 set statusline+=\ %#ErrorMsg#%{GitBranchInfoString()}%#ErrorMsg#%#Title#  " Git branch
 set statusline+=\ %=                                                      " align left
 set statusline+=
+set statusline+=%{StatusDiagnostic()}
 set statusline+=Line:%l/%L[%p%%]                                          " line X of Y [percent of file]
 set statusline+=\ Col:%c                                                  " current column
 set laststatus=2
@@ -254,7 +309,11 @@ set tags=./tags,tags,./.git/tags
 nnoremap <leader>] <C-w><C-]><C-w>T
 " for some reason on Mac ctrl-] doesn't work, so I had to remap this binding
 " nnoremap <leader>ti <C-]>
-" nnoremap <leader>tu <C-T>
+autocmd FileType c,cpp nnoremap <leader>ti <C-]>
+nnoremap <leader>tu <C-T>
+
+autocmd FileType rust silent nmap <leader>ti <Plug>(coc-definition)
+autocmd FileType rust silent nmap <leader>tu <C-o>
 
 " insert a shebang at the top of shell files
 autocmd FileType sh nnoremap <F12> ggO#!/bin/sh<CR><ESC>
@@ -301,10 +360,10 @@ set backspace=eol,indent,start
 let g:rustfmt_autosave = 1
 
 " NERDTree bindings
-" toggle NerdTree using ctrl-g
-nmap - :NERDTreeToggle<CR>
+nmap - :NERDTreeFind<CR>
+" nmap - :NERDTreeToggle<CR>
 " close automatically when open a file for editing
-let NERDTreeQuitOnOpen=1
+" let NERDTreeQuitOnOpen=1
 " Start NERDTree when Vim is started without file arguments.
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 0 && !exists('s:std_in') | NERDTree | endif
@@ -314,8 +373,18 @@ autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists('s:std_in
 " If another buffer tries to replace NERDTree, put it in the other window, and bring back NERDTree.
 autocmd BufEnter * if bufname('#') =~ 'NERD_tree_\d\+' && bufname('%') !~ 'NERD_tree_\d\+' && winnr('$') > 1 |
     \ let buf=bufnr() | buffer# | execute "normal! \<C-W>w" | execute 'buffer'.buf | endif
-" Open the existing NERDTree on each new tab.
-autocmd BufWinEnter * silent NERDTreeMirror
+" Open the existing NERDTree on each new tab (commented, maybe we need to
+" ensure this is only applied on 'real' tabs) 
+" autocmd BufWinEnter * silent NERDTreeMirror
+
+" sync NERDTree base directory with the current open buffer, see https://superuser.com/a/195191
+" autocmd BufEnter * lcd %:p:h
+
+" Map ,, to NERDTreeToggle
+nmap <leader><leader> :NERDTreeToggle<CR>
+
+" YouCompleteMe, autoclose preview window (with function doc) after leaving insertion mode
+let g:ycm_autoclose_preview_window_after_insertion = 1
 
 " Tagbar for Rust (using universable ctags variant)
 let g:rust_use_custom_ctags_defs = 1  " if using rust.vim
@@ -387,3 +456,22 @@ let g:tagbar_type_objc = {
         \ 'enumeration'    : 'e'
     \ }
 \ }
+
+""""""""
+" fzf personal mappings
+""""""""
+" ,rg to search (rg) the word under the cursor
+nnoremap <silent> <Leader>rg :Rg <C-R><C-W><CR>
+
+" remap arrow keys to nop, force the use of hjkl
+noremap <Up> <nop>
+noremap <Down> <nop>
+noremap <Left> <nop>
+noremap <Right> <nop>
+
+inoremap <Up> <nop>
+inoremap <Down> <nop>
+inoremap <Left> <nop>
+inoremap <Right> <nop>
+
+nnoremap <leader>b :Buffers <CR>
