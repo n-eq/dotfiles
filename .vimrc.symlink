@@ -25,74 +25,6 @@ Plugin 'prabirshrestha/async.vim'
 " Plugin 'prabirshrestha/asyncomplete.vim'
 " Plugin 'prabirshrestha/asyncomplete-lsp.vim'
 
-" vim-lsp
-""
-" if executable('/opt/homebrew/bin/rust-analyzer')
-"   au User lsp_setup call lsp#register_server({
-"         \   'name': 'Rust Language Server',
-"         \   'cmd': {server_info->['rust-analyzer']},
-"         \   'whitelist': ['rust'],
-"         \   'initialization_options': {
-"         \     'cargo': {
-"         \       'buildScripts': {
-"         \         'enable': v:true,
-"         \       },
-"         \       'autoReload': {
-"         \         'enable': v:true,
-"         \       },
-"         \     },
-"         \     'diagnostics': {
-"         \       'enable': v:true,
-"         \     },
-"         \     'cachePriming': {
-"         \       'enable': v:true,
-"         \     },
-"         \     'procMacro': {
-"         \       'enable': v:true,
-"         \     },
-"         \     'completion': {
-"         \          'autoimport': {
-"         \              'enable': v:true,
-"         \          },
-"         \          'autoself': {
-"         \              'enable': v:true,
-"
-            "\          }
-"         \        }
-"         \   },
-"         \ })
-" endif
-
-" coc.nvim Use <Tab> or custom key for trigger completion
-" use <tab> for trigger completion and navigate to the next complete item
-" function! CheckBackspace() abort
-"   let col = col('.') - 1
-"   return !col || getline('.')[col - 1]  =~# '\s'
-" endfunction
-" inoremap <silent><expr> <Tab>
-"       \ coc#pum#visible() ? coc#pum#next(1) :
-"       \ CheckBackspace() ? "\<Tab>" :
-"       \ coc#refresh()
-" 
-" if executable('rust-analyzer')
-"   au User lsp_setup call lsp#register_server({
-"         \   'name': 'Rust Language Server',
-"         \   'cmd': {server_info->['rust-analyzer']},
-"         \   'whitelist': ['rust'],
-"         \   'initialization_options': {
-"         \     'cargo': {
-"         \       'buildScripts': {
-"         \         'enable': v:true,
-"         \       },
-"         \     },
-"         \     'procMacro': {
-"         \       'enable': v:true,
-"         \     },
-"         \   },
-"         \ })
-" endif
-
-
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -194,7 +126,6 @@ set statusline+=%r                                                        " read
 set statusline+=\ %#ErrorMsg#%{GitBranchInfoString()}%#ErrorMsg#%#Title#  " Git branch
 set statusline+=\ %=                                                      " align left
 set statusline+=
-" set statusline+=%{StatusDiagnostic()}
 set statusline+=Line:%l/%L[%p%%]                                          " line X of Y [percent of file]
 set statusline+=\ Col:%c                                                  " current column
 set laststatus=2
@@ -496,9 +427,8 @@ inoremap <Right> <nop>
 nnoremap <leader>b :Buffers <CR>
 
 
-" TODO: move
-let g:ycm_global_ycm_extra_conf = '~/Desktop/extra_conf.py'
-" let g:ycm_extra_conf_globlist = ['~/Dev/billeo-engine/*']
+" Load this custom config file
+let g:ycm_global_ycm_extra_conf = '~/Perso/dotfiles/.ycm_extra_conf.py'
 " Disable prompting for extra conf confirmation each time
 let g:ycm_confirm_extra_conf = 0
 
