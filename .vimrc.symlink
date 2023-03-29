@@ -12,7 +12,7 @@ call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'preservim/nerdtree'
 Plugin 'preservim/tagbar'
-" Plugin 'ycm-core/YouCompleteMe'
+Plugin 'ycm-core/YouCompleteMe'
 Plugin 'junegunn/fzf'
 Plugin 'junegunn/fzf.vim'
 Plugin 'udalov/kotlin-vim'
@@ -21,42 +21,76 @@ Plugin 'tpope/vim-fugitive'
 " rust language server
 Plugin 'rust-lang/rust.vim'
 Plugin 'prabirshrestha/async.vim'
-Plugin 'prabirshrestha/vim-lsp'
-Plugin 'prabirshrestha/asyncomplete.vim'
-Plugin 'prabirshrestha/asyncomplete-lsp.vim'
+" Plugin 'prabirshrestha/vim-lsp'
+" Plugin 'prabirshrestha/asyncomplete.vim'
+" Plugin 'prabirshrestha/asyncomplete-lsp.vim'
+
+" vim-lsp
+""
+" if executable('/opt/homebrew/bin/rust-analyzer')
+"   au User lsp_setup call lsp#register_server({
+"         \   'name': 'Rust Language Server',
+"         \   'cmd': {server_info->['rust-analyzer']},
+"         \   'whitelist': ['rust'],
+"         \   'initialization_options': {
+"         \     'cargo': {
+"         \       'buildScripts': {
+"         \         'enable': v:true,
+"         \       },
+"         \       'autoReload': {
+"         \         'enable': v:true,
+"         \       },
+"         \     },
+"         \     'diagnostics': {
+"         \       'enable': v:true,
+"         \     },
+"         \     'cachePriming': {
+"         \       'enable': v:true,
+"         \     },
+"         \     'procMacro': {
+"         \       'enable': v:true,
+"         \     },
+"         \     'completion': {
+"         \          'autoimport': {
+"         \              'enable': v:true,
+"         \          },
+"         \          'autoself': {
+"         \              'enable': v:true,
+"
+            "\          }
+"         \        }
+"         \   },
+"         \ })
+" endif
 
 " coc.nvim Use <Tab> or custom key for trigger completion
 " use <tab> for trigger completion and navigate to the next complete item
-function! CheckBackspace() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
-inoremap <silent><expr> <Tab>
-      \ coc#pum#visible() ? coc#pum#next(1) :
-      \ CheckBackspace() ? "\<Tab>" :
-      \ coc#refresh()
-
-" Use <Tab> and <S-Tab> to navigate the completion list:
-inoremap <expr> <Tab> coc#pum#visible() ? coc#pum#next(1) : "\<Tab>"
-inoremap <expr> <S-Tab> coc#pum#visible() ? coc#pum#prev(1) : "\<S-Tab>"
-
-if executable('rust-analyzer')
-  au User lsp_setup call lsp#register_server({
-        \   'name': 'Rust Language Server',
-        \   'cmd': {server_info->['rust-analyzer']},
-        \   'whitelist': ['rust'],
-        \   'initialization_options': {
-        \     'cargo': {
-        \       'buildScripts': {
-        \         'enable': v:true,
-        \       },
-        \     },
-        \     'procMacro': {
-        \       'enable': v:true,
-        \     },
-        \   },
-        \ })
-endif
+" function! CheckBackspace() abort
+"   let col = col('.') - 1
+"   return !col || getline('.')[col - 1]  =~# '\s'
+" endfunction
+" inoremap <silent><expr> <Tab>
+"       \ coc#pum#visible() ? coc#pum#next(1) :
+"       \ CheckBackspace() ? "\<Tab>" :
+"       \ coc#refresh()
+" 
+" if executable('rust-analyzer')
+"   au User lsp_setup call lsp#register_server({
+"         \   'name': 'Rust Language Server',
+"         \   'cmd': {server_info->['rust-analyzer']},
+"         \   'whitelist': ['rust'],
+"         \   'initialization_options': {
+"         \     'cargo': {
+"         \       'buildScripts': {
+"         \         'enable': v:true,
+"         \       },
+"         \     },
+"         \     'procMacro': {
+"         \       'enable': v:true,
+"         \     },
+"         \   },
+"         \ })
+" endif
 
 
 " All of your Plugins must be added before the following line
@@ -150,19 +184,6 @@ nmap <silent> <A-Down> :wincmd j<CR>
 nmap <silent> <A-Left> :wincmd h<CR>
 nmap <silent> <A-Right> :wincmd l<CR>
 
-function! StatusDiagnostic() abort
-  let info = get(b:, 'coc_diagnostic_info', {})
-  if empty(info) | return '' | endif
-  let msgs = []
-  if get(info, 'error', 0)
-    call add(msgs, 'E' . info['error'])
-  endif
-  if get(info, 'warning', 0)
-    call add(msgs, 'W' . info['warning'])
-  endif
-  return join(msgs, ' '). ' ' . get(g:, 'coc_status', '')
-endfunction
-
 hi statusline guibg=Black ctermfg=8 guifg=White ctermbg=15
 set statusline=%#Title#%F%#StatusLine#                                    " file name
 set statusline+=%#MatchParen#\ \ [%{&ff}]%#MatchParen#                    " file format
@@ -173,13 +194,10 @@ set statusline+=%r                                                        " read
 set statusline+=\ %#ErrorMsg#%{GitBranchInfoString()}%#ErrorMsg#%#Title#  " Git branch
 set statusline+=\ %=                                                      " align left
 set statusline+=
-set statusline+=%{StatusDiagnostic()}
+" set statusline+=%{StatusDiagnostic()}
 set statusline+=Line:%l/%L[%p%%]                                          " line X of Y [percent of file]
 set statusline+=\ Col:%c                                                  " current column
 set laststatus=2
-
-" abbreviation for Java's System.out.println
-autocmd FileType java iabbr sysout System.out.println("");<esc>2hi
 
 " Source the vimrc file after saving it
 autocmd BufWritePost $MYVIMRC source $MYVIMRC
@@ -309,11 +327,12 @@ set tags=./tags,tags,./.git/tags
 nnoremap <leader>] <C-w><C-]><C-w>T
 " for some reason on Mac ctrl-] doesn't work, so I had to remap this binding
 " nnoremap <leader>ti <C-]>
-autocmd FileType c,cpp nnoremap <leader>ti <C-]>
+" autocmd FileType c,cpp nnoremap <leader>ti <C-]>
 nnoremap <leader>tu <C-T>
 
-autocmd FileType rust silent nmap <leader>ti <Plug>(coc-definition)
-autocmd FileType rust silent nmap <leader>tu <C-o>
+nnoremap <leader>ti :YcmCompleter GoTo<CR>
+nnoremap <leader>f :YcmCompleter FixIt<CR>
+nmap <leader>tu <C-o>
 
 " insert a shebang at the top of shell files
 autocmd FileType sh nnoremap <F12> ggO#!/bin/sh<CR><ESC>
@@ -475,3 +494,17 @@ inoremap <Left> <nop>
 inoremap <Right> <nop>
 
 nnoremap <leader>b :Buffers <CR>
+
+
+" TODO: move
+let g:ycm_global_ycm_extra_conf = '~/Desktop/extra_conf.py'
+" let g:ycm_extra_conf_globlist = ['~/Dev/billeo-engine/*']
+" Disable prompting for extra conf confirmation each time
+let g:ycm_confirm_extra_conf = 0
+
+
+" non space unicode chars: https://unix.stackexchange.com/a/263941
+set conceallevel=1
+syn match NBSP '\%xa0' conceal cchar=␣
+syn match NarrowNBSP '\%u202F' conceal cchar=⸤
+
