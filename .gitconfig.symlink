@@ -21,6 +21,7 @@
     d = diff
     trash = checkout -- .
     cehckout = checkout
+    hceckout = checkout
     regexadd = "!f() { git diff -U0 \
             | grepdiff -E $1 --output-matching=hunk \
             | git apply --cached --unidiff-zero; }; f"
