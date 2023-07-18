@@ -88,7 +88,7 @@ set number
 " Commenting/Uncommenting blocks of code for different file types
 " souce: http://stackoverflow.com/questions/1676632/whats-a-quick-way-to-comment-uncomment-lines-in-vim#comment27973419_1676672
 autocmd FileType c,cpp,java,javascript,typescript,scala,rust,objc,swift let b:comment_leader = '// '
-autocmd FileType sh,ruby,python                                         let b:comment_leader = '# '
+autocmd FileType sh,ruby,python,yaml                                    let b:comment_leader = '# '
 autocmd FileType conf,fstab,cmake,make,cfg,toml                         let b:comment_leader = '# '
 autocmd FileType tex,plaintex                                           let b:comment_leader = '% '
 autocmd FileType mail                                                   let b:comment_leader = '> '
@@ -437,4 +437,15 @@ let g:ycm_confirm_extra_conf = 0
 set conceallevel=1
 syn match NBSP '\%xa0' conceal cchar=␣
 syn match NarrowNBSP '\%u202F' conceal cchar=⸤
+
+" FZF: switch to window if buffer already open somewhere!
+let g:fzf_buffers_jump = 1
+
+" auto-replace annoying non-breaking spaces that sometimes get inserted
+" silently instead of real spaces (:set list doesn't show them!)
+" source: https://vi.stackexchange.com/a/12011
+augroup RemoveSpaces
+  autocmd!
+  autocmd BufWritePre * silent! :%s/\%u00A0/ /g
+augroup end
 
