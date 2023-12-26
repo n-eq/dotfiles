@@ -87,13 +87,13 @@ set number
 
 " Commenting/Uncommenting blocks of code for different file types
 " souce: http://stackoverflow.com/questions/1676632/whats-a-quick-way-to-comment-uncomment-lines-in-vim#comment27973419_1676672
-autocmd FileType c,cpp,java,javascript,typescript,scala,rust,objc,swift let b:comment_leader = '// '
-autocmd FileType sh,ruby,python,yaml                                    let b:comment_leader = '# '
-autocmd FileType conf,fstab,cmake,make,cfg,toml                         let b:comment_leader = '# '
-autocmd FileType tex,plaintex                                           let b:comment_leader = '% '
-autocmd FileType mail                                                   let b:comment_leader = '> '
-autocmd FileType vim                                                    let b:comment_leader = '" '
-autocmd FileType sql,vhdl                                               let b:comment_leader = '-- '
+autocmd FileType c,cpp,java,javascript,typescript,scala,rust,kotlin,objc,swift let b:comment_leader = '// '
+autocmd FileType sh,ruby,python,yaml                                           let b:comment_leader = '# '
+autocmd FileType conf,fstab,cmake,make,cfg,toml                                let b:comment_leader = '# '
+autocmd FileType tex,plaintex                                                  let b:comment_leader = '% '
+autocmd FileType mail                                                          let b:comment_leader = '> '
+autocmd FileType vim                                                           let b:comment_leader = '" '
+autocmd FileType sql,vhdl                                                      let b:comment_leader = '-- '
 noremap <silent> <leader>cc :<C-B>silent <C-E>s/^/<C-R>=escape(b:comment_leader,'\/')<CR>/<CR>:nohlsearch<CR>
 noremap <silent> <leader>cu :<C-B>silent <C-E>s/^\V<C-R>=escape(b:comment_leader,'\/')<CR>//e<CR>:nohlsearch<CR>
 
