@@ -449,3 +449,14 @@ augroup RemoveSpaces
   autocmd BufWritePre * silent! :%s/\%u00A0/ /g
 augroup end
 
+
+" call clang-format on save for C/C++ files if a .clang-format file is present
+" credits: https://vi.stackexchange.com/a/22985
+function ClangFormatBuffer()
+  if &modified && !empty(findfile('.clang-format', expand('%:p:h') . ';'))
+    let cursor_pos = getpos('.')
+    :%!clang-format
+    call setpos('.', cursor_pos)
+  endif
+endfunction
+autocmd BufWritePre *.h,*.hpp,*.c,*.cpp :call ClangFormatBuffer()
