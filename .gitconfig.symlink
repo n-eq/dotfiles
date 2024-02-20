@@ -20,7 +20,10 @@
     master = checkout master
     d = diff
     trash = checkout -- .
+    psuh = push
     cehckout = checkout
+    c = checkout
+    a = add
     hceckout = checkout
     regexadd = "!f() { git diff -U0 \
             | grepdiff -E $1 --output-matching=hunk \
@@ -31,3 +34,6 @@
 
 [merge]
 	tool = bc3
+[rerere]
+	enabled = true
+	autoUpdate = true
