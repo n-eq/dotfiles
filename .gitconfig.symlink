@@ -1,11 +1,14 @@
 [user]
 	name = Nabil Elqatib
-	email = nabil.elqatib@doctolib.com
+	email = nabilelqatib@gmail.com
+[includeIf "gitdir:~/Dev"]
+    path = "~/Dev/.gitconfig"
 [editor]
 	editor = vim
 [diff]
 	renames = true
 	tool = bc3
+	submodule = log
 [color]
 	ui = auto
 [push]
@@ -14,7 +17,6 @@
     unadd = reset HEAD
     amend = commit --amend
     s = status --short --branch --ignore-submodules=untracked
-    d = diff
 	pull = pull --ff-only
 	last = log -1 HEAD
     master = checkout master
@@ -29,7 +31,6 @@
             | grepdiff -E $1 --output-matching=hunk \
             | git apply --cached --unidiff-zero; }; f"
 [core]
-	hooksPath = /home/marrakchino/.dotfiles/_git/hooks
 	autocrlf = input
 
 [merge]
@@ -37,3 +38,11 @@
 [rerere]
 	enabled = true
 	autoUpdate = true
+
+[url "git@github.com:"]
+    insteadOf = "https://github.com/"
+
+[status]
+	submoduleSummary = true
+[submodule]
+	recurse = true
