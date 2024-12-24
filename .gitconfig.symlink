@@ -1,7 +1,6 @@
 [user]
 	name = Nabil Elqatib
 	email = nabilelqatib@gmail.com
-	email = nabilelqatib@gmail.com
 [includeIf "gitdir:~/Dev"]
     path = "~/Dev/.gitconfig"
 [editor]

@@ -68,11 +68,6 @@ export PATH="$HOME/gems/bin:$PATH"
 . "$HOME/.cargo/env"
 
 export LD_LIBRARY_PATH=/usr/local/lib
-PATH="$PATH:/usr/local/fritzing/"
-PATH="$PATH:/opt/android-studio/bin"
-PATH="$PATH:/opt/arduino"
-PATH="$PATH:/opt/nrfjprog"
-PATH="$PATH:/opt/xtensa-esp32-elf/bin"
 
 # ESP related stuff
 # source ~/Dev/esp-idf/export.sh

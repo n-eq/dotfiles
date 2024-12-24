@@ -91,7 +91,7 @@ set title
 " searching starts as soon as you start typing the first letter of the word
 set incsearch
 
-colorscheme codedark
+colorscheme onedark
 
 syntax enable
 
