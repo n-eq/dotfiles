@@ -1,11 +1,16 @@
 [user]
 	name = Nabil Elqatib
 	email = nabilelqatib@gmail.com
+	email = nabilelqatib@gmail.com
+[includeIf "gitdir:~/Dev"]
+    path = "~/Dev/.gitconfig"
 [editor]
 	editor = vim
 [diff]
 	renames = true
     colorMoved = default
+	tool = bc3
+	submodule = log
 [color]
 	ui = auto
 [push]
@@ -14,11 +19,19 @@
     unadd = reset HEAD
     amend = commit --amend
     s = status --short --branch --ignore-submodules=untracked
-    d = diff
 	pull = pull --ff-only
 	last = log -1 HEAD
     master = checkout master
     d = diff
+    trash = checkout -- .
+    psuh = push
+    cehckout = checkout
+    c = checkout
+    a = add
+    hceckout = checkout
+    regexadd = "!f() { git diff -U0 \
+            | grepdiff -E $1 --output-matching=hunk \
+            | git apply --cached --unidiff-zero; }; f"
 [core]
 	hooksPath = /home/neq/.dotfiles/_git/hooks
 	autocrlf = input
@@ -37,3 +50,15 @@
 #     navigate = true    # use n and N to move between diff sections
 [http]
 	version = HTTP/1.1
+	tool = bc3
+[rerere]
+	enabled = true
+	autoUpdate = true
+
+[url "git@github.com:"]
+    insteadOf = "https://github.com/"
+
+[status]
+	submoduleSummary = true
+[submodule]
+	recurse = true

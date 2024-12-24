@@ -1,5 +1,7 @@
-# .bashrc
+#!/bin/bash
 
+# alias vim to its python3 enabled version (required for ycm plugin)
+alias vim=/opt/homebrew/bin/vim
 export VISUAL=vim
 export EDITOR=vim
 
@@ -12,7 +14,9 @@ export EDITOR=vim
 . ~/.bash_functions
 . ~/.bash_prompt
 
-. ~/.git-completion.bash
+# Source bash completion files
+[[ -f /etc/bash_completion.d/git-completion.bash ]] && . /etc/bash_completion.d/git-completion.bash
+[[ -f ~/.git-completion.bash ]] && . ~/.git-completion.bash
 
 export HISTIGNORE=ignoreboth:erasedups
 HISTCONTROL=ignoreboth
@@ -45,13 +49,16 @@ fi
 # colored GCC warnings and errors
 export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
+export C=clang
+export CXX=clang++
+export RUST_BACKTRACE=full
+
 # makefile completion:
 complete -W "\`grep -oE '^[a-zA-Z0-9_.-]+:([^=]|$)' Makefile | sed 's/[^a-zA-Z0-9_.-]*$//'\`" make
 
-# `arm-none-eabi-*` binaries
-PATH="$PATH:/usr/local/arm-2012.09/bin/"
+export PATH="/usr/local/bin:$PATH"
 
-PATH="$PATH:/opt/cmake-3.24.0-linux-x86_64/bin"
+source "$HOME/.cargo/env"
 
 export JAVA_HOME="/usr/lib/jvm/java-1.11.0-openjdk-amd64/"
 # Install Ruby Gems to ~/gems
@@ -61,6 +68,11 @@ export PATH="$HOME/gems/bin:$PATH"
 . "$HOME/.cargo/env"
 
 export LD_LIBRARY_PATH=/usr/local/lib
+PATH="$PATH:/usr/local/fritzing/"
+PATH="$PATH:/opt/android-studio/bin"
+PATH="$PATH:/opt/arduino"
+PATH="$PATH:/opt/nrfjprog"
+PATH="$PATH:/opt/xtensa-esp32-elf/bin"
 
 # ESP related stuff
 # source ~/Dev/esp-idf/export.sh
@@ -75,3 +87,4 @@ export PICO_SDK_PATH="~/Dev/pico-sdk"
 export FREERTOS_KERNEL_PATH="~/Dev/FreeRTOS-Kernel"
 
 export PATH="~/Downloads/node-v22.12.0-linux-x64/bin:$PATH"
+export JAVA_HOME="/usr/lib/jvm/java-8-openjdk-amd64/jre/"
