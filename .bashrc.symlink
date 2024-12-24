@@ -6,15 +6,13 @@ export VISUAL=vim
 export EDITOR=vim
 
 # don't be distubed by Ctrl-S and Ctrl-Q in terminals (useful for Vi)
-stty -ixon
+# https://stackoverflow.com/a/25391867
+[[ $- == *i* ]] && stty -ixon
 
 # Source global definitions
-[[ -f /etc/bashrc ]] && . /etc/bashrc
-[[ -f ~/.bash_aliases.sh ]] && . ~/.bash_aliases.sh || [[ -f ~/.bash_aliases ]] && . ~/.bash_aliases
-[[ -f /etc/.bash_completion ]] && . /etc/.bash_completion
-[[ -f ~/.bash_functions ]] && . ~/.bash_functions
-[[ -f ~/.bash_profile ]] && . ~/.bash_profile
-[[ -f ~/.bash_prompt ]] && . ~/.bash_prompt
+. ~/.bash_aliases
+. ~/.bash_functions
+. ~/.bash_prompt
 
 # Source bash completion files
 [[ -f /etc/bash_completion.d/git-completion.bash ]] && . /etc/bash_completion.d/git-completion.bash
@@ -29,8 +27,8 @@ shopt -s histappend
 shopt -s checkwinsize
 
 # for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
-HISTSIZE=1000
-HISTFILESIZE=2000
+HISTSIZE=10000
+HISTFILESIZE=20000
 
 # set a fancy prompt (non-color, unless we know we "want" color)
 case "$TERM" in
@@ -62,34 +60,26 @@ export PATH="/usr/local/bin:$PATH"
 
 source "$HOME/.cargo/env"
 
-export DYLD_FRAMEWORK_PATH="$HOME/Library/Application\ Support/.doctolib-billing/fsv/lib"
-export LLVM_HOME="$(brew --prefix llvm)"
-export LLVM_PATH="$LLVM_HOME/bin"
-export LLVM_CONFIG_PATH="$LLVM_PATH/llvm-config"
-export LIBCLANG_PATH="$LLVM_HOME/lib"
-export PATH="$LLVM_PATH:$LIBCLANG_PATH:$PATH"
-export PATH="/opt/homebrew/bin:$PATH"
-export PATH="/opt/homebrew/opt/openssl@1.1/bin:$PATH"
+export JAVA_HOME="/usr/lib/jvm/java-1.11.0-openjdk-amd64/"
+# Install Ruby Gems to ~/gems
+export GEM_HOME="$HOME/gems"
+export PATH="$HOME/gems/bin:$PATH"
 
-export JAVA_HOME="$(/usr/libexec/java_home)"
-export ANDROID_HOME="/Users/neq/Library/Android/sdk"
-export PATH="$PATH:$ANDROID_HOME/platform-tools"
-export PATH="$PATH:$ANDROID_HOME/tools/bin"
-export PATH="$PATH:$ANDROID_HOME/cmdline-tools/latest/bin"
-export NDK_HOME="$ANDROID_HOME/ndk/22.1.7171670"
-export PATH="$PATH:$NDK_HOME/toolchains/llvm/prebuilt/darwin-x86_64/bin:$NDK_HOME/arm/bin"
+. "$HOME/.cargo/env"
 
-# Doctolib: rbenv configuration
-if command -v rbenv > /dev/null 2>&1; then
-  eval "$(rbenv init -)";
-fi
+export LD_LIBRARY_PATH=/usr/local/lib
 
-# Doctolib: nvm configuration
+# ESP related stuff
+# source ~/Dev/esp-idf/export.sh
+
+export PATH="$PATH:/home/neq/.local/bin/"
+
 export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && . "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
-# Doctolib: ruby+openssl configuration
-export RUBY_CONFIGURE_OPTS="--with-openssl-dir=$(brew --prefix openssl@1.1)"
+export PICO_SDK_PATH="~/Dev/pico-sdk"
+export FREERTOS_KERNEL_PATH="~/Dev/FreeRTOS-Kernel"
 
-export PATH="/opt/homebrew/opt/libpq/bin:$PATH"
+export PATH="~/Downloads/node-v22.12.0-linux-x64/bin:$PATH"
+export JAVA_HOME="/usr/lib/jvm/java-8-openjdk-amd64/jre/"

@@ -1,18 +1,7 @@
 alias vi='vim'
-# host-specific aliases
-if [[ "$(hostname)" == *"sonu"* ]]; then
-    alias flash='target_name=$(mbed target 2>/dev/null| sed "s/\[mbed\] //g"); wd=${PWD##*/}; ./dist/program.py BUILD/${target_name}/GCC_ARM/${wd}.elf'
-    alias mosq='mosquitto_sub -h localhost'
-    alias quran='cd ~/Musique/yasin; while true; do mplayer $(printf "%03d.mp3" $(((RANDOM % 114) + 1))); done'
-    # enable color filter by default and reprompt if port error
-    alias miniterm='miniterm.py -f colorize --ask' 
-    alias grip='grip --browser'
-    alias cos='cd ~/dev/mbed-os'
-    alias cds='cd ~/stage-2A'
-    alias sminiterm='sleep 15; miniterm'
-elif [[ "$(hostname)" == *"mouka"* ]]; then
+if [[ "$(hostname)" == *"mouka"* ]]; then
     alias quran='while true; do mplayer $(printf "%03d.mp3" $(((RANDOM % 114) + 1))); done'
-    alias miniterm='python /usr/local/miniterm.py -f colorize --ask' 
+    # alias miniterm='python /usr/local/miniterm.py -f colorize --ask' 
     alias flash='eACommander.sh --flash'
     alias cdp='cd ~/Perso/twikoukab'
     alias cdd='cd ~/Dev'

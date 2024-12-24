@@ -10,6 +10,41 @@ call vundle#begin()
 
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
+
+" The following are examples of different formats supported.
+" Keep Plugin commands between vundle#begin/end.
+" plugin on GitHub repo
+Plugin 'tpope/vim-fugitive'
+" Install L9 and avoid a Naming conflict if you've already installed a
+" different version somewhere else.
+" Plugin 'ascenator/L9', {'name': 'newL9'}
+Plugin 'ycm-core/YouCompleteMe'
+let g:ycm_autoclose_preview_window_after_insertion=1
+Plugin 'preservim/nerdtree'
+
+Plugin 'github/copilot.vim'
+
+Plugin 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plugin 'junegunn/fzf.vim'
+Plugin 'tomasiser/vim-code-dark'
+Plugin 'rust-lang/rust.vim'
+
+" format Rust file automatically when saving the buffer
+let g:rustfmt_autosave = 1
+
+" All of your Plugins must be added before the following line
+call vundle#end()            " required
+filetype plugin indent on    " required
+"
+
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+" alternatively, pass a path where Vundle should install plugins
+"call vundle#begin('~/some/path/here')
+
+" let Vundle manage Vundle, required
+Plugin 'VundleVim/Vundle.vim'
 Plugin 'preservim/nerdtree'
 Plugin 'preservim/tagbar'
 Plugin 'ycm-core/YouCompleteMe'
@@ -56,16 +91,9 @@ set title
 " searching starts as soon as you start typing the first letter of the word
 set incsearch
 
-if match(system("ls ~/.vim/colors"), "onedark") != -1
-  colorscheme onedark
-" if match(system("ls ~/.vim/colors"), "codedark") != -1
-"   colorscheme codedark
-else
-  colorscheme default
-endif
+colorscheme onedark
 
 syntax enable
-" Lustre syntax highlight
 
 " Indentation configuration
 " set ts=2 sw=2 noexpandtab
@@ -195,21 +223,6 @@ autocmd FileType tex inoremap << \og
 autocmd FileType tex inoremap >> \fg{}
 autocmd FileType tex inoremap <silent> <F9> \verb??<ESC>hi
 
-" mapping to fast-make and redraw (useful in TeX projects), 
-" credits to https://stackoverflow.com/a/11590512
-autocmd FileType tex nmap <leader>m :silent make > /dev/null\|redraw!\|cc <CR>
-" same in insert mode, mapped to XXX??
-" autocmd FileType tex imap <F5> <ESC> :silent make > /dev/null\|redraw!\|cc <CR>
-
-" Custom colorscheme for LaTeX files
-if match(system("ls ~/.vim/colors"), "lucario") != -1
-  autocmd BufEnter *.tex colorscheme lucario
-  autocmd BufEnter *.tex syntax enable
-  autocmd BufEnter *.tex set number
-else
-  autocmd BufEnter *.tex colorscheme desert
-endif
-
 " Return to the same line when you re-open a file, credits to Steve Losh (to Amit, in fact)
 augroup line_return
 	au!
@@ -246,7 +259,7 @@ fun! ShowFuncName()
 	echohl None
 	call search("\\%" . lnum . "l" . "\\%" . col . "c")
 endfun
-autocmd FileType c,cpp nnoremap <leader>f :call ShowFuncName() <CR>
+" autocmd FileType c,cpp nnoremap <leader>f :call ShowFuncName() <CR>
 
 " map <F7> to disable search highlighting
 nnoremap <F7> :noh<CR>
@@ -269,6 +282,8 @@ nmap <leader>tu <C-o>
 autocmd FileType sh nnoremap <F12> ggO#!/bin/sh<CR><ESC>
 
 " map '-' in normal mode to explore current dir
+nnoremap - :NERDTreeFind<CR>
+nnoremap ,, :NERDTreeClose<CR>
 " Remapped to toggle NERDTree
 " nnoremap - :Explore<CR>
 
@@ -301,17 +316,22 @@ set title titlestring=
 
 set backspace=eol,indent,start
 
-" rusty tags config
-" autocmd BufRead *.rs :setlocal tags=./rusty-tags.vi;/
-" autocmd BufWritePost *.rs :silent! exec "!rusty-tags vi --quiet --start-dir=" . expand('%:p:h') . "&" | redraw!
+" youcompleteme
+set encoding=utf-8
 
+" Map <leader>rg to "search" word under cursor, see
+nmap <leader>rg :Rg <C-R><C-W><CR>
+" Map <leader>ff to list files
+nmap <leader>ff :Files <CR>
+
+nnoremap <leader>ti :YcmCompleter GoToDefinitionElseDeclaration<CR>
+nnoremap <leader>f  :YcmCompleter FixIt<CR>
+nnoremap <leader>rn :YcmCompleter RefactorRename<space> 
 
 " rust.vim plugin: apply rustmt upon file save
 let g:rustfmt_autosave = 1
 
 " NERDTree bindings
-nmap - :NERDTreeFind<CR>
-" nmap - :NERDTreeToggle<CR>
 " close automatically when open a file for editing
 " let NERDTreeQuitOnOpen=1
 " Start NERDTree when Vim is started without file arguments.
@@ -428,7 +448,7 @@ nnoremap <leader>b :Buffers <CR>
 
 
 " Load this custom config file
-let g:ycm_global_ycm_extra_conf = '~/Perso/dotfiles/.ycm_extra_conf.py'
+let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'
 " Disable prompting for extra conf confirmation each time
 let g:ycm_confirm_extra_conf = 0
 
@@ -459,4 +479,4 @@ function ClangFormatBuffer()
     call setpos('.', cursor_pos)
   endif
 endfunction
-autocmd BufWritePre *.h,*.hpp,*.c,*.cpp :call ClangFormatBuffer()
+" autocmd BufWritePre *.h,*.hpp,*.c,*.cpp :call ClangFormatBuffer()
