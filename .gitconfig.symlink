@@ -1,11 +1,11 @@
 [user]
 	name = Nabil Elqatib
-	email = nabil.elqatib@doctolib.com
+	email = nabilelqatib@gmail.com
 [editor]
 	editor = vim
 [diff]
 	renames = true
-	tool = bc3
+    colorMoved = default
 [color]
 	ui = auto
 [push]
@@ -20,8 +20,20 @@
     master = checkout master
     d = diff
 [core]
-	hooksPath = /home/marrakchino/.dotfiles/_git/hooks
+	hooksPath = /home/neq/.dotfiles/_git/hooks
 	autocrlf = input
+    # pager = delta
 
 [merge]
-	tool = bc3
+    conflictstyle = diff3
+
+# [core]
+#     pager = delta
+# 
+# [interactive]
+#     diffFilter = delta --color-only
+# 
+# [delta]
+#     navigate = true    # use n and N to move between diff sections
+[http]
+	version = HTTP/1.1

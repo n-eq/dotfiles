@@ -4,25 +4,15 @@ export VISUAL=vim
 export EDITOR=vim
 
 # don't be distubed by Ctrl-S and Ctrl-Q in terminals (useful for Vi)
-stty -ixon
+# https://stackoverflow.com/a/25391867
+[[ $- == *i* ]] && stty -ixon
 
 # Source global definitions
-[[ -f /etc/bashrc ]] && . /etc/bashrc
-[[ -f ~/.bash_aliases.sh ]] && . ~/.bash_aliases.sh || [[ -f ~/.bash_aliases ]] && . ~/.bash_aliases
-[[ -f /etc/.bash_completion ]] && . /etc/.bash_completion
-[[ -f ~/.bash_functions ]] && . ~/.bash_functions
-[[ -f ~/.bash_profile ]] && . ~/.bash_profile
-[[ -f ~/.bash_prompt ]] && . ~/.bash_prompt
+. ~/.bash_aliases
+. ~/.bash_functions
+. ~/.bash_prompt
 
-# Source bash completion files
-if [[ -f /etc/bash_completion.d/git-completion.bash ]]; then
-    . /etc/bash_completion.d/git-completion.bash
-elif [[ -f ~/.git-completion.bash ]]; then
 . ~/.git-completion.bash
-else
-    wget https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash -O ~/.git-completion.bash && . ~/.git-completion.bash
-fi
-
 
 export HISTIGNORE=ignoreboth:erasedups
 HISTCONTROL=ignoreboth
@@ -33,8 +23,8 @@ shopt -s histappend
 shopt -s checkwinsize
 
 # for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
-HISTSIZE=1000
-HISTFILESIZE=2000
+HISTSIZE=10000
+HISTFILESIZE=20000
 
 # set a fancy prompt (non-color, unless we know we "want" color)
 case "$TERM" in
@@ -60,27 +50,28 @@ complete -W "\`grep -oE '^[a-zA-Z0-9_.-]+:([^=]|$)' Makefile | sed 's/[^a-zA-Z0-
 
 # `arm-none-eabi-*` binaries
 PATH="$PATH:/usr/local/arm-2012.09/bin/"
-# EnergyAware tools
-PATH="$PATH:/usr/local/energymicro/"
-# saleae
-PATH="$PATH:/usr/local/saleae/"
-# PC-lint
-PATH="$PATH:/usr/local/pc-lint"
-PATH="$PATH:/usr/local/pc-lint/config"
 
-# eagle
-PATH="$PATH:/usr/local/eagle-9.1.3"
+PATH="$PATH:/opt/cmake-3.24.0-linux-x86_64/bin"
 
-# Simplicity Studio
-PATH="$PATH:/usr/local/SimplicityStudio_v4/"
+export JAVA_HOME="/usr/lib/jvm/java-1.11.0-openjdk-amd64/"
+# Install Ruby Gems to ~/gems
+export GEM_HOME="$HOME/gems"
+export PATH="$HOME/gems/bin:$PATH"
 
-# Go
-PATH="$PATH:/usr/local/go/bin"
+. "$HOME/.cargo/env"
 
-PATH="$PATH:/usr/local/fritzing/"
-PATH="$PATH:/opt/android-studio/bin"
-PATH="$PATH:/opt/arduino"
-PATH="$PATH:/opt/nrfjprog"
-PATH="$PATH:/opt/xtensa-esp32-elf/bin"
+export LD_LIBRARY_PATH=/usr/local/lib
 
-export JAVA_HOME="/usr/lib/jvm/java-8-openjdk-amd64/jre/"
+# ESP related stuff
+# source ~/Dev/esp-idf/export.sh
+
+export PATH="$PATH:/home/neq/.local/bin/"
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+export PICO_SDK_PATH="~/Dev/pico-sdk"
+export FREERTOS_KERNEL_PATH="~/Dev/FreeRTOS-Kernel"
+
+export PATH="~/Downloads/node-v22.12.0-linux-x64/bin:$PATH"
