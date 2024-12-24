@@ -64,7 +64,6 @@ Plugin 'prabirshrestha/async.vim'
 call vundle#end()            " required
 filetype plugin indent on    " required
 
->>>>>>> origin/master
 " highlight search by default 
 set hls
 
@@ -262,27 +261,6 @@ fun! ShowFuncName()
 endfun
 " autocmd FileType c,cpp nnoremap <leader>f :call ShowFuncName() <CR>
 
-||||||| 31b8a9f
-autocmd FileType c,cpp nnoremap <leader>f :call ShowFuncName() <CR>
-
-" insert Doxygen function documentation stub
-function! DoxyStub()
-    let l:current_line = line(".")
-    call append(l:current_line, "/*!")
-    let l:current_line += 1
-    call append(l:current_line, " *")
-    let l:current_line += 1
-    call append(l:current_line, " * TODO")
-    let l:current_line += 1
-    call append(l:current_line, " */")
-endfunction
-autocmd Filetype c,cpp nnoremap <leader>dx :call DoxyStub()<CR>
-autocmd Filetype c,cpp command! -nargs=0 DoxygenFunctionStub :call DoxyStub()
-
-=======
-autocmd FileType c,cpp nnoremap <leader>f :call ShowFuncName() <CR>
-
->>>>>>> origin/master
 " map <F7> to disable search highlighting
 nnoremap <F7> :noh<CR>
 inoremap <F7> <ESC>:noh<CR>i
