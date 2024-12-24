@@ -19,7 +19,18 @@ Plugin 'tpope/vim-fugitive'
 " different version somewhere else.
 " Plugin 'ascenator/L9', {'name': 'newL9'}
 Plugin 'ycm-core/YouCompleteMe'
+let g:ycm_autoclose_preview_window_after_insertion=1
 Plugin 'preservim/nerdtree'
+
+Plugin 'github/copilot.vim'
+
+Plugin 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plugin 'junegunn/fzf.vim'
+Plugin 'tomasiser/vim-code-dark'
+Plugin 'rust-lang/rust.vim'
+
+" format Rust file automatically when saving the buffer
+let g:rustfmt_autosave = 1
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -66,17 +77,9 @@ set incsearch
 
 " if match(system("ls ~/.vim/colors"), "onedark") != -1
 "   colorscheme onedark
-if match(system("ls ~/.vim/colors"), "codedark") != -1
-  colorscheme codedark
-else
-  colorscheme default
-endif
+colorscheme codedark
 
 syntax enable
-" Lustre syntax highlight
-augroup filetypedetect
-   au BufWinEnter,BufRead,BufNewFile *.lus,*.ec set filetype=lus
-augroup END
 
 " Indentation configuration
 " set ts=2 sw=2 noexpandtab
@@ -179,7 +182,7 @@ function! MarkMargin (on)
 endfunction
 augroup MarkMargin
 	autocmd!
-	autocmd  BufEnter  *       :call MarkMargin(1)
+	" autocmd  BufEnter  *       :call MarkMargin(1)
 	autocmd  BufEnter  *.vp*   :call MarkMargin(0)
 augroup END
 
@@ -208,21 +211,6 @@ autocmd FileType tex inoremap <C-b> \textbf{}<esc>i
 autocmd FileType tex inoremap << \og
 autocmd FileType tex inoremap >> \fg{}
 autocmd FileType tex inoremap <silent> <F9> \verb??<ESC>hi
-
-" mapping to fast-make and redraw (useful in TeX projects), 
-" credits to https://stackoverflow.com/a/11590512
-autocmd FileType tex nmap <leader>m :silent make > /dev/null\|redraw!\|cc <CR>
-" same in insert mode, mapped to XXX??
-" autocmd FileType tex imap <F5> <ESC> :silent make > /dev/null\|redraw!\|cc <CR>
-
-" Custom colorscheme for LaTeX files
-if match(system("ls ~/.vim/colors"), "lucario") != -1
-  autocmd BufEnter *.tex colorscheme lucario
-  autocmd BufEnter *.tex syntax enable
-  autocmd BufEnter *.tex set number
-else
-  autocmd BufEnter *.tex colorscheme desert
-endif
 
 " Return to the same line when you re-open a file, credits to Steve Losh (to Amit, in fact)
 augroup line_return
@@ -260,21 +248,7 @@ fun! ShowFuncName()
 	echohl None
 	call search("\\%" . lnum . "l" . "\\%" . col . "c")
 endfun
-autocmd FileType c,cpp nnoremap <leader>f :call ShowFuncName() <CR>
-
-" insert Doxygen function documentation stub
-function! DoxyStub()
-    let l:current_line = line(".")
-    call append(l:current_line, "/*!")
-    let l:current_line += 1
-    call append(l:current_line, " *")
-    let l:current_line += 1
-    call append(l:current_line, " * TODO")
-    let l:current_line += 1
-    call append(l:current_line, " */")
-endfunction
-autocmd Filetype c,cpp nnoremap <leader>dx :call DoxyStub()<CR>
-autocmd Filetype c,cpp command! -nargs=0 DoxygenFunctionStub :call DoxyStub()
+" autocmd FileType c,cpp nnoremap <leader>f :call ShowFuncName() <CR>
 
 " map <F7> to disable search highlighting
 nnoremap <F7> :noh<CR>
@@ -289,8 +263,8 @@ nnoremap <leader>] <C-w><C-]><C-w>T
 autocmd FileType sh nnoremap <F12> ggO#!/bin/sh<CR><ESC>
 
 " map '-' in normal mode to explore current dir
-" TODO: FIXME
-nnoremap - :Explore<CR>
+nnoremap - :NERDTreeFind<CR>
+nnoremap ,, :NERDTreeClose<CR>
 
 command! -nargs=+ Grep execute 'silent grep! --exclude-dir=.git -RIni <args> *' | copen
 
@@ -320,3 +294,16 @@ nnoremap <F5> :buffers<CR>:buffer<space>
 set title titlestring=
 
 set backspace=eol,indent,start
+
+" youcompleteme
+set encoding=utf-8
+
+" Map <leader>rg to "search" word under cursor, see
+nmap <leader>rg :Rg <C-R><C-W><CR>
+" Map <leader>ff to list files
+nmap <leader>ff :Files <CR>
+
+let g:ycm_global_ycm_extra_conf = '<path to this file>'
+nnoremap <leader>ti :YcmCompleter GoToDefinitionElseDeclaration<CR>
+nnoremap <leader>f  :YcmCompleter FixIt<CR>
+nnoremap <leader>rn :YcmCompleter RefactorRename<space> 
