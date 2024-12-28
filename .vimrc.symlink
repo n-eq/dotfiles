@@ -9,6 +9,7 @@ Plugin 'VundleVim/Vundle.vim'
 Plugin 'tpope/vim-fugitive'
 Plugin 'ycm-core/YouCompleteMe'
 Plugin 'preservim/nerdtree'
+Plugin 'preservim/nerdcommenter'
 Plugin 'github/copilot.vim'
 Plugin 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plugin 'junegunn/fzf.vim'
@@ -74,20 +75,21 @@ set si " Smartindent
 " display line numbers
 set number
 
+" superseded by NERDCommenter
 " Commenting/Uncommenting blocks of code for different file types
 " souce: http://stackoverflow.com/questions/1676632/whats-a-quick-way-to-comment-uncomment-lines-in-vim#comment27973419_1676672
-autocmd FileType c,cpp,java,javascript,typescript,scala,rust,kotlin,objc,swift let b:comment_leader = '// '
-autocmd FileType sh,ruby,python,yaml                                           let b:comment_leader = '# '
-autocmd FileType conf,fstab,cmake,make,cfg,toml                                let b:comment_leader = '# '
-autocmd FileType tex,plaintex                                                  let b:comment_leader = '% '
-autocmd FileType mail                                                          let b:comment_leader = '> '
-autocmd FileType vim                                                           let b:comment_leader = '" '
-autocmd FileType sql,vhdl                                                      let b:comment_leader = '-- '
-noremap <silent> <leader>cc :<C-B>silent <C-E>s/^/<C-R>=escape(b:comment_leader,'\/')<CR>/<CR>:nohlsearch<CR>
-noremap <silent> <leader>cu :<C-B>silent <C-E>s/^\V<C-R>=escape(b:comment_leader,'\/')<CR>//e<CR>:nohlsearch<CR>
+" autocmd FileType c,cpp,java,javascript,typescript,scala,rust,kotlin,objc,swift let b:comment_leader = '// '
+" autocmd FileType sh,ruby,python,yaml                                           let b:comment_leader = '# '
+" autocmd FileType conf,fstab,cmake,make,cfg,toml                                let b:comment_leader = '# '
+" autocmd FileType tex,plaintex                                                  let b:comment_leader = '% '
+" autocmd FileType mail                                                          let b:comment_leader = '> '
+" autocmd FileType vim                                                           let b:comment_leader = '" '
+" autocmd FileType sql,vhdl                                                      let b:comment_leader = '-- '
+" noremap <silent> <leader>cc :<C-B>silent <C-E>s/^/<C-R>=escape(b:comment_leader,'\/')<CR>/<CR>:nohlsearch<CR>
+" noremap <silent> <leader>cu :<C-B>silent <C-E>s/^\V<C-R>=escape(b:comment_leader,'\/')<CR>//e<CR>:nohlsearch<CR>
 
-" Map <F6> to swap a comment and the following uncommented line, and vice versa
-map <expr> <F6> (getline('.') =~ b:comment_leader . "*")? ',cuj,cck' : ',ccj,cuk'
+" " Map <F6> to swap a comment and the following uncommented line, and vice versa
+" map <expr> <F6> (getline('.') =~ b:comment_leader . "*")? ',cuj,cck' : ',ccj,cuk'
 
 " Save a file as root (,W)
 noremap <leader>W :w !sudo tee % > /dev/null<CR>
@@ -287,7 +289,7 @@ nmap <leader>ff :Files <CR>
 
 nnoremap <leader>ti :YcmCompleter GoToDefinitionElseDeclaration<CR>
 nnoremap <leader>f  :YcmCompleter FixIt<CR>
-nnoremap <leader>rn :YcmCompleter RefactorRename<space> 
+nnoremap <leader>rn :YcmCompleter RefactorRename<space>
 
 " rust.vim plugin: apply rustmt upon file save
 let g:rustfmt_autosave = 1
@@ -440,4 +442,19 @@ function ClangFormatBuffer()
     call setpos('.', cursor_pos)
   endif
 endfunction
-" autocmd BufWritePre *.h,*.hpp,*.c,*.cpp :call ClangFormatBuffer()
+autocmd BufWritePre *.h,*.hpp,*.c,*.cpp :call ClangFormatBuffer()
+
+" NERDCommenter settings
+let g:NERDCreateDefaultMappings = 1
+" Add spaces after comment delimiters by default
+let g:NERDSpaceDelims = 1
+" Align line-wise comment delimiters flush left instead of following code indentation
+let g:NERDDefaultAlign = 'left'
+" Allow commenting and inverting empty lines (useful when commenting a region)
+let g:NERDCommentEmptyLines = 1
+" Enable trimming of trailing whitespace when uncommenting
+let g:NERDTrimTrailingWhitespace = 1
+" Enable NERDCommenterToggle to check all selected lines is commented or not
+let g:NERDToggleCheckAllLines = 1
+
+let g:copilot_no_startup_warnings = v:true
