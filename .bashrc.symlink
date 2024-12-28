@@ -82,4 +82,3 @@ export PICO_SDK_PATH="~/Dev/pico-sdk"
 export FREERTOS_KERNEL_PATH="~/Dev/FreeRTOS-Kernel"
 
 export PATH="~/Downloads/node-v22.12.0-linux-x64/bin:$PATH"
-export JAVA_HOME="/usr/lib/jvm/java-8-openjdk-amd64/jre/"
