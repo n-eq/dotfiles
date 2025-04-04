@@ -4,20 +4,21 @@ filetype indent on
 
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-Plugin 'VundleVim/Vundle.vim'
-Plugin 'tpope/vim-fugitive'
-Plugin 'ycm-core/YouCompleteMe'
-Plugin 'preservim/nerdtree'
-Plugin 'preservim/nerdcommenter'
-Plugin 'github/copilot.vim'
-Plugin 'junegunn/fzf', { 'do': { -> fzf#install() } }
-Plugin 'junegunn/fzf.vim'
-Plugin 'tomasiser/vim-code-dark'
-Plugin 'rust-lang/rust.vim'
 
-" All of your Plugins must be added before the following line
-call vundle#end()            " required
+call plug#begin('~/.vim/plugged')
+Plug 'VundleVim/Vundle.vim'
+Plug 'tpope/vim-fugitive'
+Plug 'ycm-core/YouCompleteMe'
+Plug 'preservim/nerdtree'
+Plug 'preservim/nerdcommenter'
+Plug 'github/copilot.vim'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
+Plug 'tomasiser/vim-code-dark'
+Plug 'rust-lang/rust.vim'
+Plug 'keith/parsec.vim'
+call plug#end()
+
 filetype plugin indent on    " required
 "
 
@@ -26,20 +27,20 @@ let g:rustfmt_autosave = 1
 
 filetype plugin indent on    " required
 
-" highlight search by default 
+" highlight search by default
 set hls
 
-" Ignore these extensions when file-completing 
+" Ignore these extensions when file-completing
 set wildignore=*.o,*.obj,*.tar.gz,*.tgz,*.zip,*.pdf,*.sl,*.so,*.r,*.git,*.png,*.jpg,*.svg,*.doc,*.gif,*.class,*.exe,*.sw?,*.py?,*.orig,*.aux,*.toc,*.out
 
 " enable file detection
-filetype on 
+filetype on
 
-syntax on 
+syntax on
 
 " matching (, [, { /* ... etc
-set showmatch 
-set mat=1 " how many tens of second to blink 
+set showmatch
+set mat=1 " how many tens of second to blink
 
 " Write the contents of the file, if it has been modified, on each
 " :next, :rewind, :last, :first, :previous, :stop, :suspend, :!, :make .. etc
@@ -52,8 +53,6 @@ set title
 
 " searching starts as soon as you start typing the first letter of the word
 set incsearch
-
-colorscheme onedark
 
 syntax enable
 
@@ -114,7 +113,7 @@ set statusline+=%y                                                        " file
 set statusline+=%h                                                        " help file flag
 set statusline+=%m                                                        " modified flag
 set statusline+=%r                                                        " read only flag
-set statusline+=\ %#ErrorMsg#%{GitBranchInfoString()}%#ErrorMsg#%#Title#  " Git branch
+" set statusline+=\ %#ErrorMsg#%{GitBranchInfoString()}%#ErrorMsg#%#Title#  " Git branch
 set statusline+=\ %=                                                      " align left
 set statusline+=
 set statusline+=Line:%l/%L[%p%%]                                          " line X of Y [percent of file]
@@ -138,10 +137,10 @@ let g:ctags_statusline=1
 " ====[ Show when lines extend past column 80]=================================>-<=====================
 highlight ColorColumn ctermfg=208 ctermbg=Black
 function! MarkMargin (on)
-	" Black list: Don't put the 80 column marker for these filetypes, 
+	" Black list: Don't put the 80 column marker for these filetypes,
 	" no more used, manually toggled when needed ;)
 	" if &ft =~ 'tex\|markdown\|vim'
-	" 	return 
+	" 	return
 	" endif
 	if exists('b:MarkMargin')
 		try
@@ -198,7 +197,7 @@ augroup END
 " map ,sc to 'source code quote' the current word/expression
 " Known pitfalls: words containing dots
 autocmd FileType markdown nnoremap <leader>sc ciw``<Esc>P
-autocmd FileType gitcommit nnoremap <leader>sc ciw``<Esc>P 
+autocmd FileType gitcommit nnoremap <leader>sc ciw``<Esc>P
 autocmd FileType markdown xnoremap <leader>sc c``<Esc>P
 " force *.md files as markdown
 autocmd BufNewFile,BufReadPost,BufRead *.md,*.markdown set filetype=markdown
@@ -270,7 +269,7 @@ function! s:insert_gates()
   execute "normal! i#ifndef " . gatename
   execute "normal! o#define " . gatename . " "
   execute "normal! Go#endif"
-  execute "normal! ggjo" 
+  execute "normal! ggjo"
 endfunction
 autocmd BufNewFile *.{h,hpp} call <SID>insert_gates()
 
@@ -307,7 +306,7 @@ autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists('s:std_in
 autocmd BufEnter * if bufname('#') =~ 'NERD_tree_\d\+' && bufname('%') !~ 'NERD_tree_\d\+' && winnr('$') > 1 |
     \ let buf=bufnr() | buffer# | execute "normal! \<C-W>w" | execute 'buffer'.buf | endif
 " Open the existing NERDTree on each new tab (commented, maybe we need to
-" ensure this is only applied on 'real' tabs) 
+" ensure this is only applied on 'real' tabs)
 " autocmd BufWinEnter * silent NERDTreeMirror
 
 " sync NERDTree base directory with the current open buffer, see https://superuser.com/a/195191
@@ -458,3 +457,10 @@ let g:NERDTrimTrailingWhitespace = 1
 let g:NERDToggleCheckAllLines = 1
 
 let g:copilot_no_startup_warnings = v:true
+
+function! BuildYCM(info)
+  if a:info.status == 'installed' || a:info.force
+    !./install.sh
+  endif
+endfunction
+Plug 'Valloric/YouCompleteMe', { 'do': function('BuildYCM') }
