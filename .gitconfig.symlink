@@ -1,29 +1,30 @@
 [user]
-	name = Nabil Elqatib
-	email = nabilelqatib@gmail.com
-[includeIf "gitdir:~/Dev"]
-    path = "~/Dev/.gitconfig"
+    name = Nabil Elqatib
+    email = nabilelqatib@gmail.com
 [editor]
-	editor = vim
+    editor = vim
 [diff]
-	renames = true
+    renames = true
     colorMoved = default
-	tool = bc3
-	submodule = log
+    tool = bc3
+    submodule = log
 [color]
-	ui = auto
+    ui = auto
 [push]
-	default = current
+    default = current
+[pull]
+    rebase = true
 [alias]
     unadd = reset HEAD
     amend = commit --amend
     s = status --short --branch --ignore-submodules=untracked
-	pull = pull --ff-only
-	last = log -1 HEAD
+    pull = pull --ff-only
+    last = log -1 HEAD
     master = checkout master
     d = diff
     trash = checkout -- .
     psuh = push
+    puhs = push
     cehckout = checkout
     c = checkout
     a = add
@@ -32,32 +33,33 @@
             | grepdiff -E $1 --output-matching=hunk \
             | git apply --cached --unidiff-zero; }; f"
 [core]
-	hooksPath = /home/neq/.dotfiles/_git/hooks
-	autocrlf = input
+    autocrlf = input
     # pager = delta
 
 [merge]
     conflictstyle = diff3
 
-# [core]
-#     pager = delta
-# 
-# [interactive]
-#     diffFilter = delta --color-only
-# 
-# [delta]
-#     navigate = true    # use n and N to move between diff sections
 [http]
-	version = HTTP/1.1
-	tool = bc3
+    version = HTTP/1.1
+    tool = bc3
 [rerere]
-	enabled = true
-	autoUpdate = true
+    enabled = true
+    autoUpdate = true
 
 [url "git@github.com:"]
     insteadOf = "https://github.com/"
 
+[url "git@gitlab.com:"]
+    insteadOf = "https://gitlab.com/"
+
 [status]
-	submoduleSummary = true
+    submoduleSummary = true
+
 [submodule]
-	recurse = true
+    recurse = false
+
+[gpg]
+    format = ssh
+
+[commit]
+    gpgsign = true
