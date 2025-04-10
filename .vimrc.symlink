@@ -456,3 +456,5 @@ let g:NERDTrimTrailingWhitespace = 1
 let g:NERDToggleCheckAllLines = 1
 
 let g:copilot_no_startup_warnings = v:true
+
+set shortmess-=S
