@@ -1,6 +1,7 @@
 [user]
     name = Nabil Elqatib
     email = nabilelqatib@gmail.com
+    signingkey = /home/neq/.ssh/id_ed25519.pub
 [editor]
     editor = vim
 [diff]

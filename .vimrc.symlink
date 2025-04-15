@@ -6,20 +6,21 @@ filetype indent on
 set rtp+=~/.vim/bundle/Vundle.vim
 
 call plug#begin('~/.vim/plugged')
-Plug 'tpope/vim-fugitive'
-Plug 'ycm-core/YouCompleteMe'
-Plug 'preservim/nerdtree'
-Plug 'preservim/nerdcommenter'
 Plug 'github/copilot.vim'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-Plug 'junegunn/fzf.vim'
-Plug 'tomasiser/vim-code-dark'
-Plug 'rust-lang/rust.vim'
 Plug 'keith/parsec.vim'
+Plug 'liuchengxu/space-vim-dark'
+Plug 'preservim/nerdtree'
+Plug 'preservim/nerdcommenter'
+Plug 'rust-lang/rust.vim'
+Plug 'tomasiser/vim-code-dark'
+Plug 'tpope/vim-fugitive'
+Plug 'ycm-core/YouCompleteMe'
 call plug#end()
 
+colo space-vim-dark
+
 filetype plugin indent on    " required
-"
 
 " format Rust file automatically when saving the buffer
 let g:rustfmt_autosave = 1
