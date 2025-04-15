@@ -85,7 +85,7 @@ set number
 " autocmd FileType sql,vhdl                                                      let b:comment_leader = '-- '
 " noremap <silent> <leader>cc :<C-B>silent <C-E>s/^/<C-R>=escape(b:comment_leader,'\/')<CR>/<CR>:nohlsearch<CR>
 " noremap <silent> <leader>cu :<C-B>silent <C-E>s/^\V<C-R>=escape(b:comment_leader,'\/')<CR>//e<CR>:nohlsearch<CR>
-
+" 
 " " Map <F6> to swap a comment and the following uncommented line, and vice versa
 " map <expr> <F6> (getline('.') =~ b:comment_leader . "*")? ',cuj,cck' : ',ccj,cuk'
 
@@ -450,9 +450,11 @@ let g:NERDSpaceDelims = 1
 let g:NERDDefaultAlign = 'left'
 " Allow commenting and inverting empty lines (useful when commenting a region)
 let g:NERDCommentEmptyLines = 1
+" Set a language to use its alternate delimiters by default
+let g:NERDAltDelims_c = 1
 " Enable trimming of trailing whitespace when uncommenting
 let g:NERDTrimTrailingWhitespace = 1
-" Enable NERDCommenterToggle to check all selected lines is commented or not
+" Enable NERDCommenterToggle to check all selected lines is commented or not 
 let g:NERDToggleCheckAllLines = 1
 
 let g:copilot_no_startup_warnings = v:true

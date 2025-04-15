@@ -63,3 +63,7 @@
 
 [commit]
     gpgsign = true
+	recurse = true
+
+[help]
+	autocorrect = prompt

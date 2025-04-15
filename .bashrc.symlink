@@ -50,7 +50,7 @@ export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quo
 
 export C=clang
 export CXX=clang++
-export RUST_BACKTRACE=full
+# export RUST_BACKTRACE=full
 
 # makefile completion:
 complete -W "\`grep -oE '^[a-zA-Z0-9_.-]+:([^=]|$)' Makefile | sed 's/[^a-zA-Z0-9_.-]*$//'\`" make
@@ -81,3 +81,14 @@ export PICO_SDK_PATH="~/Dev/pico-sdk"
 export FREERTOS_KERNEL_PATH="~/Dev/FreeRTOS-Kernel"
 
 export PATH="~/Downloads/node-v22.12.0-linux-x64/bin:$PATH"
+
+export PATH="~/Downloads/android-studio-2024.2.1.12-linux/bin/:$PATH"
+unset DEBUGINFOD_URLS
+
+export PATH="$PATH:."
+
+export PATH="${HOME}/.local/bin:$PATH"
+
+export PATH="${ASDF_DATA_DIR:-$HOME/.asdf}/shims:$PATH"
+
+export PATH="$PATH:/home/neq/.local/bin"

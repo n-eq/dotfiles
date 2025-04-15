@@ -17,18 +17,16 @@ prototypes(){
     ctags -x --c-kinds=fp "${@}"
 }
 
-# hexa to decimal
 h2d() {
     for number in "$@"; do 
         echo "ibase=16; $number"|bc;
     done
 }
 
-testpi() {
-    pi="3.14159265358979323846264338327950288419716939937510582097494459230";
-    if [[ "$#" -eq 1 ]]; then
-        cmp -bl <(echo -n "${pi}") <(echo -n "${1}");
-    else
-        echo "`echo "$pi"|wc -c` : $pi";
-    fi
+# hexa to decimal
+d2h() {
+    for number in "$@"; do 
+        echo "obase=16; ibase=10; $number"|bc;
+    done
 }
+

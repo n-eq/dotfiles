@@ -87,3 +87,7 @@ define color_underline
 end
 
 
+# don't prompt for quit
+define hook-quit
+    set confirm off
+end
