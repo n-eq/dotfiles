@@ -6,7 +6,6 @@ filetype indent on
 set rtp+=~/.vim/bundle/Vundle.vim
 
 call plug#begin('~/.vim/plugged')
-Plug 'github/copilot.vim'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'keith/parsec.vim'
 Plug 'liuchengxu/space-vim-dark'
@@ -16,6 +15,7 @@ Plug 'rust-lang/rust.vim'
 Plug 'tomasiser/vim-code-dark'
 Plug 'tpope/vim-fugitive'
 Plug 'ycm-core/YouCompleteMe'
+Plug 'github/copilot.vim'
 call plug#end()
 
 colo space-vim-dark
