@@ -16,6 +16,8 @@ Plug 'tomasiser/vim-code-dark'
 Plug 'tpope/vim-fugitive'
 Plug 'ycm-core/YouCompleteMe'
 Plug 'github/copilot.vim'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'jremmen/vim-ripgrep'
 call plug#end()
 
 colo space-vim-dark
