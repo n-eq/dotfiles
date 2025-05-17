@@ -244,7 +244,7 @@ nmap <leader>tu <C-o>
 autocmd FileType sh nnoremap <F12> ggO#!/bin/sh<CR><ESC>
 
 " map '-' in normal mode to explore current dir
-nnoremap - :NERDTreeFind<CR>
+nnoremap - :NERDTreeFind<CR>:NERDTreeRefreshRoot<CR>
 nnoremap ,, :NERDTreeClose<CR>
 " Remapped to toggle NERDTree
 " nnoremap - :Explore<CR>
