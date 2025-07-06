@@ -1,0 +1,1 @@
+/home/neq/.zshrc
